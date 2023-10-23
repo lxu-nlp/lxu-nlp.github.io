@@ -28,16 +28,16 @@ Regarding proof 1 and 2, it is outside the scope of my study, but you can refer 
 
 How does Baker's technique give an approximation ratio of $(1-\varepsilon)$?
 
-Simply said, in last step we compute the MIS on $G' = G - V_m$, and get the approximated MIS $I$. Let $I^*$ be the optimal MIS. We can show that the size of $V_m$ has an upper bound: $\vert V_m\vert  \leq \varepsilon \vert  I^* \vert $. Then we have $\vert I\vert  \geq \vert I^* - V_m\vert  \geq (1-\varepsilon) \vert I^*\vert $.
+Simply said, in last step we compute the MIS on $G' = G - V_m$, and get the approximated MIS $I$. Let $I^\ast$ be the optimal MIS. We can show that the size of $V_m$ has an upper bound: $\vert V_m \vert  \leq \varepsilon \vert  I^\ast \vert $. Then we have $\vert I\vert  \geq \vert I^\ast - V_m \vert  \geq (1-\varepsilon) \vert I^\ast \vert $.
 
-The key part is to show $\vert V_m\vert  \leq \varepsilon \vert I^*\vert $:
+The key part is to show $\vert V_m\vert  \leq \varepsilon \vert I^\ast\vert $:
 
-1. Planar graph is 4-colorable, so the largest color class (which is an independent set) must have size $\geq \vert V\vert /4$. Therefore, the optimal MIS $\vert I^*\vert  \geq \vert V\vert 4$.
+1. Planar graph is 4-colorable, so the largest color class (which is an independent set) must have size $\geq \vert V\vert /4$. Therefore, the optimal MIS $\vert I^\ast\vert  \geq \vert V\vert 4$.
 2. Since we pick the $V_m$ that has the smallet size, $V_m$ must have size $\leq \vert V\vert /k$.
-3. Therefore, $\vert V_m\vert  \leq \vert V\vert /k \leq \varepsilon n/4 \leq\varepsilon \vert I^*\vert $.
+3. Therefore, $\vert V_m\vert  \leq \vert V\vert /k \leq \varepsilon n/4 \leq\varepsilon \vert I^\ast\vert $.
 
 ## Analysis on Time Complexity
 
-Step 1-5 takes linear time $O(\vert V\vert )$, because planar graph has edge size $O(\vert V\vert )$.
+Step 1-5 takes linear time $O(\vert V\vert )$, because planar graph has edge size $O(\vert V \vert)$.
 
 In step 6, the DP algorithm takes $O(\vert V\vert 2^k) = O(\vert V\vert 2^{1/\varepsilon})$. If we consider $k$ or $\varepsilon$ as just a hyperparameter we choose, then it is also linear time.
