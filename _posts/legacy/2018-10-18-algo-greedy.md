@@ -17,7 +17,7 @@ A finite Matroid is a pair $(E, I)$, where $E$ is a ground set (all elements), $
 
 1. $\emptyset \in I$, meaning empty set is independent.
 2. Every subset of an independent set is independent.
-3. If $A, B \in I$, and $|A| > |B|$, there exists $x \in A \backslash B$, such that $B \cup \{x\} \in I$. (Augmentation Property)
+3. If $A, B \in I$, and $\vert A\vert  > \vert B\vert $, there exists $x \in A \backslash B$, such that $B \cup \{x\} \in I$. (Augmentation Property)
 
 ## Greedy Algorithm and Matroid
 
@@ -43,7 +43,7 @@ We show the sufficient condition by induction: after each iteration, $S_i$ must 
 1. $i$ is not added into $S_i$, then we can take $B_i = B_{i-1}$. Because if $i$ is not added into $S_i$, it means $S_{i-1} + i \notin I$. By the property 2 of Matroid, $B_{i-1} + i \notin I$, so $B_i$ must not contain $i$.
 2. $i$ is added into $S_i$:
    * If $i \in B_{i-1}$, then we can just take $B_i = B_{i-1}$.
-   * If$i \notin B_{i-1}$: by the property 3 of Matroid, we can add elements into $S_i$ till it has the same size as $B_{i-1}$. Denote the new set as $S'$. Since $|S'| = |B_{i-1}|$, and $i \in S'$ but $\notin B_{i-1}$, we have $S' = B_{i-1} + i - k$, where $k$ is an element that is larger than $i$. Because we arrange the element by weight-decreasing order, $w(i) > w(k)$. Therefore, $S'$ now has more weight than $B_{i-1}$. We take $B_i = S'$, and $S_i \subset B_i = S'$ which satisfies the induction.
+   * If$i \notin B_{i-1}$: by the property 3 of Matroid, we can add elements into $S_i$ till it has the same size as $B_{i-1}$. Denote the new set as $S'$. Since $\vert S'\vert  = \vert B_{i-1}\vert $, and $i \in S'$ but $\notin B_{i-1}$, we have $S' = B_{i-1} + i - k$, where $k$ is an element that is larger than $i$. Because we arrange the element by weight-decreasing order, $w(i) > w(k)$. Therefore, $S'$ now has more weight than $B_{i-1}$. We take $B_i = S'$, and $S_i \subset B_i = S'$ which satisfies the induction.
 
 Therefore, if a problem is a Matroid, greedy algorithm can always give the optimal solution.
 

@@ -105,7 +105,7 @@ Here we introduce two more undecidable languages: $E_{LBA}$ and $ALL_{CFG}$.
 
 $$E_{LBA} = \{ <M> | \; M \text{ is a LBA and } L(M) = \emptyset \}$$
 
-$$ALL_{CFG} = \{ <G> | \; G \text{ is a CFG and } L(G) = \Sigma^* \}$$
+$$ALL_{CFG} = \{ <G> | \; G \text{ is a CFG and } L(G) = \Sigma^\ast \}$$
 
 The technique is similar: we reduce them to $A_{TM}$ which is not decidable. However, the key difference from the previous undecidable languages is that, $E_{LBA}$ or $ALL_{CFG}$ doesn't involve the TM $M$ in $A_{TM}$, but their own entities: LBA or CFG. We need a bridge to connect between their own entities and the TM $M$, and this bridge is the computation history of $M$.
 

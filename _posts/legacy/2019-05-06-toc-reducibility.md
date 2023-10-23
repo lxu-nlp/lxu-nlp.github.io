@@ -13,13 +13,13 @@ This article is part of my review notes of “Theory of Computation” course. I
 
 Let's get to the definition on the textbook.
 
-A function $f: \Sigma^*\longrightarrow \Sigma^*$ is a computable function if some Turing machine $M$, on every input, halts with just $f(w)$ on its tape.
+A function $f: \Sigma^\ast\longrightarrow \Sigma^\ast$ is a computable function if some Turing machine $M$, on every input, halts with just $f(w)$ on its tape.
 
 The computable function always halts on any input. The concept of it is similar to the general program on the computer.
 
 ## Mapping Reducibility
 
-Definition: language $A$ is **mapping reducible** to language $B$, written $A \leq_m B$, if there is a computable function $f: \Sigma^*\longrightarrow \Sigma^*$, where for every $w$,
+Definition: language $A$ is **mapping reducible** to language $B$, written $A \leq_m B$, if there is a computable function $f: \Sigma^\ast\longrightarrow \Sigma^\ast$, where for every $w$,
 $$w \in A \iff f(w) \in B$$
 The function $f$ is called the reduction from $A$ to $B$.
 

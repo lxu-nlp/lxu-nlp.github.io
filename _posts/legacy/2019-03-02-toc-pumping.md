@@ -35,32 +35,32 @@ Here we will not prove the whole theorem, instead we prove two lemmas that are e
 
 First look at some definitions used in the theorem.
 
-Given state $p \in Q$ and input string $x \in \Sigma^*$, let $\delta^∗(p,x)$ denote the state that we reach, if we start in state $p$ and read string $x$. Suppose we have two states $p, q \in Q$. A **distinguishing string** (for $p$ and $q$) is some $z \in \Sigma^*$ such that exactly one of the two states $\delta^* (p, z)$ and $δ^*(q, z)$ is in $F$. If there is no such $z$, then we say the states $p$ and $q$ are **M-equivalent**, and we denote this relation by $p \; R_M \; q$; if there is such $z$, then we say $p$ and $q$ are **distinguishable**.
+Given state $p \in Q$ and input string $x \in \Sigma^\ast$, let $\delta^∗(p,x)$ denote the state that we reach, if we start in state $p$ and read string $x$. Suppose we have two states $p, q \in Q$. A **distinguishing string** (for $p$ and $q$) is some $z \in \Sigma^\ast$ such that exactly one of the two states $\delta^\ast (p, z)$ and $δ^\ast(q, z)$ is in $F$. If there is no such $z$, then we say the states $p$ and $q$ are **M-equivalent**, and we denote this relation by $p \; R_M \; q$; if there is such $z$, then we say $p$ and $q$ are **distinguishable**.
 
-Similarly, if there is some string $z \in \Sigma^*$ such that exactly one of the two strings $xz$ and $yz$ is in $L$, we say $x$ and $y$ are distinguishable while $z$ being the distinguishing string; if there is not such $z$, then we say that strings $x$ and $y$ “L-equivalent”, and we denote this relation by $x \; R_L \; y$.
+Similarly, if there is some string $z \in \Sigma^\ast$ such that exactly one of the two strings $xz$ and $yz$ is in $L$, we say $x$ and $y$ are distinguishable while $z$ being the distinguishing string; if there is not such $z$, then we say that strings $x$ and $y$ “L-equivalent”, and we denote this relation by $x \; R_L \; y$.
 
-For convenience, denote $q_M (x) = \delta^* (q_0, x)$, meaning $q_M (x)$ is the state $M$ reaches if it starts in its initial state $q_0$, and reads the input string $x$.
+For convenience, denote $q_M (x) = \delta^\ast (q_0, x)$, meaning $q_M (x)$ is the state $M$ reaches if it starts in its initial state $q_0$, and reads the input string $x$.
 
-**Lemma A**: suppose $M$ is a DFA, $L = L(M)$, and $x$ and $y$ are strings in $\Sigma^*$. Argue that if $q_M (x) \,R_M\, q_M (y)$, then $x \,R_L\, y$.
+**Lemma A**: suppose $M$ is a DFA, $L = L(M)$, and $x$ and $y$ are strings in $\Sigma^\ast$. Argue that if $q_M (x) \,R_M\, q_M (y)$, then $x \,R_L\, y$.
 
 Contrapositive: if strings $x$ and $y$ are distinguishable, then $q_M (x)$ and $q_M (y)$ are distinguishable. Proof as following:
 
 $x$ and $y$ are distinguishable
 $\implies$ there exists a string $z$ such that exactly one of $xz$ and $yz$ is in $L$
 $\implies$ exactly one of $q_M (xz)$ and $q_M (yz)$ is in $F$ (because $xz, yz \in L$)
-$\implies$ exactly one of $\delta^*(q_M (x), z)$ and $\delta^*(q_M (y), z)$ is in $F$
+$\implies$ exactly one of $\delta^\ast(q_M (x), z)$ and $\delta^\ast(q_M (y), z)$ is in $F$
 $\implies$ $q_M (x)$ and $q_M (y)$ are distinguishable
 
 Contrapositive is true; therefore, if $q_M (x) \,R_M\, q_M (y)$, then $x \,R_L\, y$.
 
-**Lemma B**: suppose $L$, $S \subseteq \Sigma^*$. Suppose that for every pair of distinct strings $x$ and $y$ in $S$, there is a distinguishing $z$ (in other words, $x$ and $y$ are not $L$-equivalent). Argue that any DFA for $L$ has at least $|S|$ states.
+**Lemma B**: suppose $L$, $S \subseteq \Sigma^\ast$. Suppose that for every pair of distinct strings $x$ and $y$ in $S$, there is a distinguishing $z$ (in other words, $x$ and $y$ are not $L$-equivalent). Argue that any DFA for $L$ has at least $|S|$ states.
 
-First, for any distinguishable state $p$ and $q$ of DFA, $p \neq q$. Prove by contrapositive: if $p = q$, then for any string $z$, $\delta^* (p, z) = \delta^* (q, z)$, then $p$ and $q$ are either both in $F$ or both not in $F$, therefore $p$ and $q$ are not distinguishable.
+First, for any distinguishable state $p$ and $q$ of DFA, $p \neq q$. Prove by contrapositive: if $p = q$, then for any string $z$, $\delta^\ast (p, z) = \delta^\ast (q, z)$, then $p$ and $q$ are either both in $F$ or both not in $F$, therefore $p$ and $q$ are not distinguishable.
 
 for every pair of distinct strings $x$ and $y$ in $S$, $x$ and $y$ are distinguishable
-$\implies$ for every pair of distinct strings $x$ and $y$ in $S$, $\delta^* (q_0, x)$ and $\delta^* (q_0, y)$ are distinguishable (by lemma a)
-$\implies$ for every pair of distinct strings $x$ and $y$ in $S$, $\delta^* (q_0, x) \neq \delta^* (q_0, y)$ (by above proof)
-$\implies$ each string $x_i$ in $S$ has its own distinct state $\delta^* (q_0, x_i)$ in $L$
+$\implies$ for every pair of distinct strings $x$ and $y$ in $S$, $\delta^\ast (q_0, x)$ and $\delta^\ast (q_0, y)$ are distinguishable (by lemma a)
+$\implies$ for every pair of distinct strings $x$ and $y$ in $S$, $\delta^\ast (q_0, x) \neq \delta^\ast (q_0, y)$ (by above proof)
+$\implies$ each string $x_i$ in $S$ has its own distinct state $\delta^\ast (q_0, x_i)$ in $L$
 $\implies$ there are at least $|S|$ states in $L$
 
 ## Example to Prove Irregular Language

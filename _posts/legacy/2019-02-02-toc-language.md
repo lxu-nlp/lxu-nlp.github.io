@@ -82,7 +82,7 @@ Concatenation: $A_1 \circ A_2$; corresponding FAs: $N_1$ and $N_2$.
 
 ![dfa](/assets/img/legacy/reg-proof2.png)
 
-Star: $A^*$
+Star: $A^\ast$
 
 ![dfa](/assets/img/legacy/reg-proof3.png)
 
