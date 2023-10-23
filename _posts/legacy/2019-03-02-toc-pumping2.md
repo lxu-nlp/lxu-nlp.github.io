@@ -20,7 +20,7 @@ Similar to the pumping lemma for regular language, here we also have a pumping l
 ![pumping-lemma](/assets/img/legacy/pl2.png)
 ![pumping-lemma](/assets/img/legacy/pl3.png)
 
-Notice that we set the pumping length $p = b^{|V|+1}$.
+Notice that we set the pumping length $p = b^{\vert V\vert +1}$.
 
 Based on the pumping lemma, we have the following two theorems:
 * context-free language $\to$ $p$ exists
@@ -51,18 +51,18 @@ Consider the language $L = \{a^i b^j c^k d^l: i=0 \text{ or } j=k=l\}$. Prove th
 Let's first see if we can use the pumping lemma; if the pumping length $p$ doesn't exist, then we can claim $L$ is not context-free. However, such $p$ does exist as shown below.
 
 1. C can choose any integer $p \geq 1$.
-2. N chooses a string $s \in L$ such that $|s| \geq p$.
-3. C chooses strings $u, v, x, y, z$ such that $s = uvxyz$. Let $u = x = y = \epsilon$, $v$ be the first letter of $s$, $z$ be the remaining string. Therefore, $|vxy| = 1 \leq p$, $|vy| = 1 > 0$.
+2. N chooses a string $s \in L$ such that $\vert s\vert  \geq p$.
+3. C chooses strings $u, v, x, y, z$ such that $s = uvxyz$. Let $u = x = y = \epsilon$, $v$ be the first letter of $s$, $z$ be the remaining string. Therefore, $\vert vxy\vert  = 1 \leq p$, $\vert vy\vert  = 1 > 0$.
 4. Whatever integer $m$ that N chooses, $u v^i x y^i z$ is always $\in L$. Therefore, C always wins. Proof:
-   * If $v = a$, s has the following form: $\{ a^i b^j c^j d^j | i > 0 \}$. Therefore, the pumping string $s' = u v^i x y^i z$ has the following form: $\{ a^{m+i-1} b^j c^j d^j | i > 0, m \geq 0 \}$ which is equivalent to $\{ a^i b^j c^j d^j | i \geq 0\}$. According to $L$, $s' \in L$.
-   * If $v = b$, s has the following form: $\{ b^j c^k d^l | j > 0 \}$. Therefore, the pumping string $s' = u v^i x y^i z$ has the following form: $\{ b^{m+j-1} c^k d^l | j > 0, m \geq 0 \}$ which is equivalent to $\{ b^j c^k d^l | j \geq 0 \}$. According to $L$, $s' \in L$.
-   * If $v = c$, s has the following form: $\{ c^k d^l | k > 0 \}$. Therefore, the pumping string $s' = u v^i x y^i z$ has the following form: $\{ c^{m+k-1} d^l | k > 0, m \geq 0 \}$ which is equivalent to $\{ c^k d^l | k \geq 0 \}$. According to $L$, $s' \in L$.
-   * If $v = d$, s has the following form: $\{ d^l | l > 0 \}$. Therefore, the pumping string $s' = u v^i x y^i z$ has the following form: $\{ d^{m+l-1} | l > 0, m \geq 0 \}$ which is equivalent to $\{ d^l | l \geq 0 \}$. According to $L$, $s' \in L$.
+   * If $v = a$, s has the following form: $\{ a^i b^j c^j d^j \vert  i > 0 \}$. Therefore, the pumping string $s' = u v^i x y^i z$ has the following form: $\{ a^{m+i-1} b^j c^j d^j \vert  i > 0, m \geq 0 \}$ which is equivalent to $\{ a^i b^j c^j d^j \vert  i \geq 0\}$. According to $L$, $s' \in L$.
+   * If $v = b$, s has the following form: $\{ b^j c^k d^l \vert  j > 0 \}$. Therefore, the pumping string $s' = u v^i x y^i z$ has the following form: $\{ b^{m+j-1} c^k d^l \vert  j > 0, m \geq 0 \}$ which is equivalent to $\{ b^j c^k d^l \vert  j \geq 0 \}$. According to $L$, $s' \in L$.
+   * If $v = c$, s has the following form: $\{ c^k d^l \vert  k > 0 \}$. Therefore, the pumping string $s' = u v^i x y^i z$ has the following form: $\{ c^{m+k-1} d^l \vert  k > 0, m \geq 0 \}$ which is equivalent to $\{ c^k d^l \vert  k \geq 0 \}$. According to $L$, $s' \in L$.
+   * If $v = d$, s has the following form: $\{ d^l \vert  l > 0 \}$. Therefore, the pumping string $s' = u v^i x y^i z$ has the following form: $\{ d^{m+l-1} \vert  l > 0, m \geq 0 \}$ which is equivalent to $\{ d^l \vert  l \geq 0 \}$. According to $L$, $s' \in L$.
 
 Since $p$ exists, we have to try the Ogden's lemma. We also use a game version here:
 
 1. C chooses an integer $p \geq 0$.
-2. N chooses a string $s \in L$ such that $|s| \geq p$, and mark any $q$ positions in $s$ where $q \geq p$.
+2. N chooses a string $s \in L$ such that $\vert s\vert  \geq p$, and mark any $q$ positions in $s$ where $q \geq p$.
 3. C chooses strings $u, v, x, y, z$ where $s = uvxyz$, such that:
    * $vy$ has at least one marked position.
    * $vxy$ has at most $p$ marked positions.
@@ -71,7 +71,7 @@ Since $p$ exists, we have to try the Ogden's lemma. We also use a game version h
 Now we can see such $p$ doesn't exist.
 
 1. C chooses an integer $p \geq 0$.
-2. N chooses the string $s \in L$: $a b^p c^p d^p$. $|s| = 3p+1 > p$. Mark the last $p$ positions in $s$, so that the first letter $a$ is always not marked.
+2. N chooses the string $s \in L$: $a b^p c^p d^p$. $\vert s\vert  = 3p+1 > p$. Mark the last $p$ positions in $s$, so that the first letter $a$ is always not marked.
 3. C chooses strings $u, v, x, y, z$ where $s = uvxyz$, such that:
    * $vy$ has at least one marked position.
    * $vxy$ has at most $p$ marked positions.

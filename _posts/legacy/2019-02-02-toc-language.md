@@ -31,7 +31,7 @@ Here, the transition function $\delta$ always gives output of one certain state.
 
 Simply said, starting from the initial state $q_0$, given the sequence of symbols, follow the state transition; if the finally reached state is one of the final states, then this string is accepted by $M$.
 
-A language $L$ is called a regular language if every string $w \in L$ is accepted by some finite automaton $M$: $L = \{ w | M \text{ accepts w} \}$.
+A language $L$ is called a regular language if every string $w \in L$ is accepted by some finite automaton $M$: $L = \{ w \vert M \text{ accepts w} \}$.
 
 ## Regular Operations
 

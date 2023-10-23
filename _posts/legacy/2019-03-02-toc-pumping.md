@@ -53,7 +53,7 @@ $\implies$ $q_M (x)$ and $q_M (y)$ are distinguishable
 
 Contrapositive is true; therefore, if $q_M (x) \,R_M\, q_M (y)$, then $x \,R_L\, y$.
 
-**Lemma B**: suppose $L$, $S \subseteq \Sigma^\ast$. Suppose that for every pair of distinct strings $x$ and $y$ in $S$, there is a distinguishing $z$ (in other words, $x$ and $y$ are not $L$-equivalent). Argue that any DFA for $L$ has at least $|S|$ states.
+**Lemma B**: suppose $L$, $S \subseteq \Sigma^\ast$. Suppose that for every pair of distinct strings $x$ and $y$ in $S$, there is a distinguishing $z$ (in other words, $x$ and $y$ are not $L$-equivalent). Argue that any DFA for $L$ has at least $\vert S \vert$ states.
 
 First, for any distinguishable state $p$ and $q$ of DFA, $p \neq q$. Prove by contrapositive: if $p = q$, then for any string $z$, $\delta^\ast (p, z) = \delta^\ast (q, z)$, then $p$ and $q$ are either both in $F$ or both not in $F$, therefore $p$ and $q$ are not distinguishable.
 
@@ -71,21 +71,21 @@ We will use a game version of the pumping lemma, which is equivalent to the pump
 
 ![pumping-lemma](/assets/img/legacy/pump3.png)
 
-Consider the language $F = \{ a^i b^j c^k | i, j, k \geq 0 \text{ and if } i = 1 \text{ then } j = k \}$. Prove $F$ is irregular.
+Consider the language $F = \{ a^i b^j c^k \vert i, j, k \geq 0 \text{ and if } i = 1 \text{ then } j = k \}$. Prove $F$ is irregular.
 
 Let's first look at if we can prove by using the pumping lemma; if the pumping length $p$ doesn't exist, then $F$ will not be regular. However, such $p$ actually exists, as shown below:
 
 1. R can choose any integer $p \geq 2$.
-2. N chooses a string $s \in F$ such that $|s| \geq p$.
-3. R chooses $x, y, z$ such that $s = xyz$. Let $x = \epsilon$; $y$ be $aa$ if $s$ has the form $\{ aa b^m c^n \}$, otherwise be the first letter of $s$; $z$ be the remaining string. Therefore, $|xy| \leq 2 \leq p$; $|y| \geq 1 > 0$.
+2. N chooses a string $s \in F$ such that $\vert s \vert \geq p$.
+3. R chooses $x, y, z$ such that $s = xyz$. Let $x = \epsilon$; $y$ be $aa$ if $s$ has the form $\{ aa b^m c^n \}$, otherwise be the first letter of $s$; $z$ be the remaining string. Therefore, $\vert xy \vert \leq 2 \leq p$; $\vert y\vert  \geq 1 > 0$.
 4. For whatever $i$ that N chooses, $x y^i z$ will always $\in F$; therefore, R can always win. Proof:
-   * If $y = aa$, $s$ has the following form: $\{ aa b^m c^n \}$. Therefore, the pumping string $s' = x y^i z$ has the following forms: $\{ a^{2i} b^m c^n | i \geq 0 \}$. According to $F$, because the length of $a$ is not $1$, $s' \in F$.
-   * If $y = a$, $s$ can be one of the following forms: $\{ a b^m c^m \}$ or $\{ a^k b^m c^n | k > 2 \}$. Therefore, the pumping string $s' = x y^i z$ has one of the following forms: $\{ a^i b^m c^m | i \geq 0 \}$, or $\{ a^{k+i-1} b^m c^n | i \geq 0, k > 2 \} $ which is equivalent to $\{ a^k b^m c^n | k \geq 2 \}$. According to $F$, for either case, $s' \in F$.
-   * If $y = b$, $s$ has the following form: $\{ b^m c^n | m > 1 \}$. Therefore, the pumping string $s' = x y^i z$ has the form: $\{ b^{m+i-1} c^n | i \geq 0, m > 1 \}$. According to $F$, $s' \in F$.
-   * If $y = c$, $s$ has the following form: $\{ c^n | n > 1 \}$. Therefore, the pumping string $s' = x y^i z$ has the form: $\{ c^{n+i-1} | i \geq 0, n > 1 \}$. According to $F$, $s' \in F$.
+   * If $y = aa$, $s$ has the following form: $\{ aa b^m c^n \}$. Therefore, the pumping string $s' = x y^i z$ has the following forms: $\{ a^{2i} b^m c^n \vert  i \geq 0 \}$. According to $F$, because the length of $a$ is not $1$, $s' \in F$.
+   * If $y = a$, $s$ can be one of the following forms: $\{ a b^m c^m \}$ or $\{ a^k b^m c^n \vert  k > 2 \}$. Therefore, the pumping string $s' = x y^i z$ has one of the following forms: $\{ a^i b^m c^m \vert  i \geq 0 \}$, or $\{ a^{k+i-1} b^m c^n \vert  i \geq 0, k > 2 \} $ which is equivalent to $\{ a^k b^m c^n \vert  k \geq 2 \}$. According to $F$, for either case, $s' \in F$.
+   * If $y = b$, $s$ has the following form: $\{ b^m c^n \vert  m > 1 \}$. Therefore, the pumping string $s' = x y^i z$ has the form: $\{ b^{m+i-1} c^n \vert  i \geq 0, m > 1 \}$. According to $F$, $s' \in F$.
+   * If $y = c$, $s$ has the following form: $\{ c^n \vert  n > 1 \}$. Therefore, the pumping string $s' = x y^i z$ has the form: $\{ c^{n+i-1} \vert  i \geq 0, n > 1 \}$. According to $F$, $s' \in F$.
 
 Notice that even though $p$ exists, it doesn't mean $F$ is regular language. Since the pumping lemma doesn't work in this case, let's use the above lemma B to prove the irregularity. The key is to construct $S$.
 
-1. Let $S =\{ a b^i | i \geq 0 \}$. For every pair of strings $x, y \in S$, there exists a string $z$ that distinguishes $x, y$.
+1. Let $S =\{ a b^i \vert  i \geq 0 \}$. For every pair of strings $x, y \in S$, there exists a string $z$ that distinguishes $x, y$.
    * Proof: for any pair of distinct strings $x = ab^i, y = ab^j$ ($i \neq j$), let $z = c^k$ where $k = \max (i, j).$ If $k = i$, then $xz \in F$ and $yz \notin F$; if $k = j$, then $xz \notin F$ and $yz \in F$. Therefore, for any pairs of distinct strings $x, y$, there exists a distinguishing string $z$ such that exactly one of $x, y$ is in $F$.
-2. $|S| = \infty$ because the choice of $i$ in $S$ is infinite. According to the lemma, any DFA for $F$ has at least $|S|$ states, which means any DFA for $F$ needs to have infinite states, therefore no such DFA for $F$ exsits; therefore, $F$ is not regular.
+2. $\vert S\vert  = \infty$ because the choice of $i$ in $S$ is infinite. According to the lemma, any DFA for $F$ has at least $\vert S\vert $ states, which means any DFA for $F$ needs to have infinite states, therefore no such DFA for $F$ exsits; therefore, $F$ is not regular.
