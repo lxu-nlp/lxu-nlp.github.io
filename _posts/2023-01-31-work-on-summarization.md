@@ -20,7 +20,7 @@ AMI: 137 virtual product design meetings.\
 <https://research.utwente.nl/en/publications/the-ami-meeting-corpus>
 
 **The ICSI Meeting Corpus**. Janin et al. ICASSP'03\
-ICSI: 59 research meetings of a speech group.
+ICSI: 59 research meetings of a speech group.\
 <https://ieeexplore.ieee.org/document/1198793>
 
 **QMSum: A New Benchmark for Query-based Multi-domain Meeting Summarization**. Zhong et al. NAACL'21\
