@@ -38,7 +38,7 @@ Ogden's lemma is a generalized form of the above pumping lemma, and can be used 
 
 When every position is marked, it is equivalent to the original pumping lemma.
 
-##### Example to Prove Non-Context-Free Language
+### Example to Prove Non-Context-Free Language
 
 Here we go through an example when the pumping lemma fails and how to use the Ogden's lemma to prove non-context-free language.
 

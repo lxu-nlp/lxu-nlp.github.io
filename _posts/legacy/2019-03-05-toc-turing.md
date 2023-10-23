@@ -34,7 +34,7 @@ Because there can be infinite loop, when the machine is running on some input, i
 
 A language is called **decidable** if some decider recognizes it.
 
-##### Variants of Turing Machine
+### Variants of Turing Machine
 
 There are different variants of Turing machine: multitape Turing machine, nondeterministic Turing machine... But what is important is that they can all simulate each other, therefore they are equivalent and all agree on recognizable and decidable. Besides, the conversion between them has polynomial complexity; except that nondeterminism requires exponential complexity.
 
@@ -60,7 +60,7 @@ Here we determine whether two DFAs accepts the same language.
 
 Similarly, we can also define $A_{NFA}$, $A_{REX}$, $A_{TM}$, $E_{CFG}$, $EQ_{CFG}$, etc.
 
-##### Regular Language:
+### Regular Language:
 
 * $A_{DFA}$: decidable. (just run DFA and take the output)
 * $A_{NFA}$: decidable. (NFA is equivalent to DFA)
@@ -68,14 +68,14 @@ Similarly, we can also define $A_{NFA}$, $A_{REX}$, $A_{TM}$, $E_{CFG}$, $EQ_{CF
 * $E_{DFA}$: decidable. (graph traversal; check if any final states are reachable)
 * $EQ_{DFA}$: decidable. (construct symmetric difference and convert to $E_{DFA}$)
 
-##### Context-Free Language:
+### Context-Free Language:
 
 * $A_{CFG}$: decidable. (convert to CNF and parse; "CYK" algorithm can do $O(n^3)$)
 * $A_{PDA}$: decidable. (PDA is equivalent to CFG)
 * $E_{CFG}$: decidable. (traverse on the grammar from terminals to start variables; check if any start variables are reachable)
 * $EQ_{CFG}$: NOT decidable. (proof is shown in later chapter)
 
-##### Recognizable Language:
+### Recognizable Language:
 
 $A_{TM}$: NOT decidable. (proof see my next post)
 
@@ -91,7 +91,7 @@ Theorem: a language is decidable **iff** it is both recognizable and co-recogniz
 
 **recognizable and co-recognizable $\to$ decidable**: let $M_1$ be the recognizer for $A$, $M_2$ be the recognizer for $\bar{A}$, let $M$ be the decider for $A$. On any input string $w$, let $M_1$ and $M_2$ run in parallel. Since $w$ either $\in A$ or $\in \bar{A}$, one of $M_1$ and $M_2$ will eventually halt and accept. If $M_1$ accepts, then $M$ accepts; if $M_2$ accepts, then $M$ rejects. Therefore, $M$ will always halt so it is a decider.
 
-##### Corollary
+### Corollary
 
 $\overline{A}_{TM}$ is not recognizable.
 

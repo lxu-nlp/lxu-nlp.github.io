@@ -18,11 +18,11 @@ Just like Spring and Guice, HK2 is a Dependency Injection (DI) framework that co
 
 Introduction: <https://javaee.github.io/hk2/>
 
-#### How to use HK2 in Dropwizard?
+### How to use HK2 in Dropwizard?
 
 We need to define an AbstractBinder, within which defines how HK2 should inject classes, and register it to the Jersey application.
 
-#### HK2 Dropwizard Integration Bundle
+### HK2 Dropwizard Integration Bundle
 
 Sometimes working with HK2 is a little bit painful in certain use cases, and I will give a following example in this article. To ease the pain, we can add a HK2-Dropwizard Integration bundle.
 
@@ -34,7 +34,7 @@ Swagger is a powerful tool for API specifications. A popular use case is to auto
 
 Official Website: <https://swagger.io/>
 
-#### Swagger Dropwizard Integration Bundle
+### Swagger Dropwizard Integration Bundle
 
 More than one open-source bundles available. A popular one:
 

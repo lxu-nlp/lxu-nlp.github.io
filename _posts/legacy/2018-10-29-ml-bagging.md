@@ -23,7 +23,7 @@ The general procedure of Bagging can be simply expressed as the following:
    * For regression problem, average predictions.
    * For classification problem, average probabilities (preferred) or take majority vote.
 
-##### Why Does Bagging Work?
+### Why Does Bagging Work?
 
 Bagging can reduce variance by using multiple predictors on bootstrap samples, which is good enough; but it also increases the bias. How do we know Bagging would work well? Here is my own understanding and hopefully it can give an intuition.
 
@@ -63,7 +63,7 @@ In summary, Random Forest is just a bagged classifier using trees, and at each s
 
 OOB samples are those samples that are not included in the bootstrap samples. OOB samples are unique to Bagging, or any bootstrap-aggregated methods.
 
-##### OOB Error
+### OOB Error
 
 One important usage of OOB samples is OOB Error, which serves as validation error, without the need to set aside a validation set. Here is how to get OOB Error in Random Forest:
 
@@ -73,7 +73,7 @@ Simply said, OOB samples are essentially the validation set; they are generated 
 
 An important observation is that, OOB Error can be computed along the way we train the Random Forest.
 
-##### Feature Importance
+### Feature Importance
 
 Another usage of OOB samples is to compute the feature importance. From the textbook ESL:
 
@@ -81,7 +81,7 @@ Another usage of OOB samples is to compute the feature importance. From the text
 
 Simply said, for OOB samples of each tree, we do a permutation for each feature, and the final feature importance is the averaged decrement of accuracy after permutation.
 
-##### A Simple RF Implementation with OOB Error and Feature Importance
+### A Simple RF Implementation with OOB Error and Feature Importance
 
 Here is a simple Random Forest implementation (for binary classification with label $0, 1$) that I wrote for my homework. Besides normal training and predicting methods, it computes the OOB Error and feature importance along with the training process.
 

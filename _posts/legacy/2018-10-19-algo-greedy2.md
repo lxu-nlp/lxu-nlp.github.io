@@ -34,7 +34,7 @@ Here is the greedy algorithm:
 5. \- \- $S \leftarrow S + e_i$
 6. return $S$
 
-##### Analysis
+### Analysis
 
 It is easy to see the greedy algorithm runs in linear time, if edges are sorted. Next we want to know why it would give us an approximation ratio of 2, that is, $2 *$ \vert Maximal Matching\vert  $\geq$ \vert Maximum Matching\vert . Let's denote the maximal set as $S$, and maximum set as $S^\ast$. Here is the proof:
 
@@ -53,7 +53,7 @@ Let $k^\ast$ be the number of optimal sets, $k$ be the number of sets selected b
 
 The greedy algorithm is very intuitive: in each iteration, select the set that has the maximum uncovered elements; keep iterating until we cover all elements.
 
-##### Analysis
+### Analysis
 
 1. In each iteration, the selected set $S_{ij}$ covers at least $1/k^\ast$ of remaining uncovered elements. This is because at least one of the unknown optimal set covers $1/k^\ast$ of remaining uncovered elements; since the selected $S_{ij}$ covers the maximum uncovered elements, $S_{ij}$ performs at least as well as that unknown optimal set.
 2. Denote $m$ as the number of uncovered elements. From above step, we have $m \leq n(1-k^\ast)^t$ for iteration t. Since $m \leq n(1-k^\ast)^{k^\ast \ln n} < ne^{-(k^\ast/k^\ast) \ln n} = 1$, after iterating $k^\ast \ln n$ times, there must be 0 uncovered element.

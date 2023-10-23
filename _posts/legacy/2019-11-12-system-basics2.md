@@ -84,7 +84,7 @@ System call is the main API to interact with the system. In Unix, we have a C li
 
 The header file of "libc" is in `/usr/include`.
 
-##### Error Handling
+### Error Handling
 
 * When a system call encounters error, it always return $-1$.
 * There is a global variable called "errno". When a system call returns error, `errno` will be set to a certain value to indicate the type of error.

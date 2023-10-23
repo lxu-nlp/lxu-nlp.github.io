@@ -41,7 +41,7 @@ Examples:
 
 ![dfa](/assets/img/legacy/reg-ops-example.png)
 
-##### Closure under Regular Operations
+### Closure under Regular Operations
 
 Regular languages are closed under the above three operations, which means the output language from the above operations are still regular.
 
@@ -53,7 +53,7 @@ To prove this, we need to introduce Nondeterministic Finite Automaton (NFA).
 
 Some notations: $\Sigma_{\varepsilon} = \Sigma \cup \{ \varepsilon \}$; $P(Q)$ is the collection of all subsets of $Q$.
 
-##### The difference between NFA and DFA:
+### The difference between NFA and DFA:
 
 * Given a certain input symbol, DFA always maps to one state, but NFA can maps to multiple states, or,  a set of states (hence nondeterministic).
 * NFA can have state transition based on $\varepsilon$, which means state transition can happen without any input. 

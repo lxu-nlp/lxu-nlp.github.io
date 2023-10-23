@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Theory of Computing (10): The Cook-Levin Theorem, More NP-Complete Languages"
-date: 2019-05-08
+date: 2019-05-09
 categories: [Theory of Computing]
 tags: [np]
 math: true
@@ -11,7 +11,7 @@ This article is part of my review notes of “Theory of Computation” course. I
 
 ## The Cook-Levin Theorem
 
-##### Satisfiability Problem
+### Satisfiability Problem
 
 A boolean formula $\phi$ is an expression involving Boolean variables and operations (and $\land$, or $\lor$, not $\overline{x}$). It is satisfiable if some assignment of 0s and 1s to the variables makes the formula evaluate to 1. For example: $\phi = (x_1 \lor x_2) \land (x_1 \lor \overline{x_2})$.
 
@@ -31,7 +31,7 @@ Since $A \in NP$, the NTM $N$ decides $w$ in polynomial steps $O(n^k)$. We obtai
 
 ![sat](/assets/img/legacy/sat.png)
 
-For any cell [$i, j$] at row $i$ and column $j$, the possible symbols are: the configuration separator $\#$, blank symbol, tape symbol, and state symbol. Denote the set of possible symbols as $C$. For each cell [$i, j$] and each symbol $s \in C$, we create a boolean variable $x_{i,j,s}$ for $\phi$. If $x_{i,j,s} = 1$, then the cell [$i, j$] has symbol $s$. Therefore, there are $|C|(n^k)^2$ boolean variables in total.
+For any cell [$i, j$] at row $i$ and column $j$, the possible symbols are: the configuration separator $\#$, blank symbol, tape symbol, and state symbol. Denote the set of possible symbols as $C$. For each cell [$i, j$] and each symbol $s \in C$, we create a boolean variable $x_{i,j,s}$ for $\phi$. If $x_{i,j,s} = 1$, then the cell [$i, j$] has symbol $s$. Therefore, there are $\vert C\vert(n^k)^2$ boolean variables in total.
 
 For an accepting computation history, four requirements need to be fulfilled:
 1. $\phi_{cell}$: each cell takes one and only one symbol out of all possible symbols $C$.
@@ -47,7 +47,7 @@ Explanation: everything inside $[...]$ guarantees there is exactly one symbol fo
 
 $$\phi_{start} = x_{1,1,\#} \land x_{1,2,q_0} \land x_{1,3,w_1} \land ... \land x_{1,n^k, \#}$$
 
-Explanation: the first configuration needs to be the start configuration, which is $\# q_0 w \#$. We just need the symbols on the first row to be the exact start configuration. Note that there could be many blank symbols in the end before the last $\#$.
+Explanation: the first configuration needs to be the start configuration, which is #$ q_0 w \#$. We just need the symbols on the first row to be the exact start configuration. Note that there could be many blank symbols in the end before the last #.
 
 $$\phi_{accept} =\bigvee_{1 \leq i,j \leq n^k} x_{i,j,q_{accept}}$$
 
