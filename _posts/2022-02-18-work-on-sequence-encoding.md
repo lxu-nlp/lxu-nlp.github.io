@@ -9,7 +9,7 @@ math: true
 
 This article is being updated.
 
-Transformers-based pre-LLM architecture. LLM and multilingual models are addressed in separate posts.
+Transformers-based **pre-LLM** architectures. LLMs and multilingual models are addressed in separate posts.
 
 
 ## Benchmark
@@ -226,6 +226,9 @@ Distill KG given few-shot: paraphrase (by GPT3) relation prompts + search entiti
 **Memory-Based Model Editing at Scale**. Mitchell et al. ICML'22\
 Pseudo-editing: not touching parameters; simply store update examples, and train a binary classifier to check if input is related to any examples.\
 <http://arxiv.org/abs/2206.06520>
+
+**Editing models with task arithmetic**. Ilharco et al. ICLR'23\
+<https://openreview.net/forum?id=6t0Kwf8-jrj>
 
 ## For Analysis
 

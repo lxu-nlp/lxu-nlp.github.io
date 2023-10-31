@@ -74,6 +74,9 @@ Chinchilla: 70B parameters, 1.4T tokens (based on the optimal prediction)\
 Similar to PaLM/Chinchilla: train with more data on smaller models.\
 <http://arxiv.org/abs/2302.13971>
 
+**Mixture-of-Experts Meets Instruction Tuning: A Winning Combination for Large Language Models**. Shen et al. 2023\
+<https://arxiv.org/abs/2305.14705>
+
 ## LLM: Instruction Alignment
 
 **Self-Instruct: Aligning Language Model with Self Generated Instructions**. Wang et al. ACL'23\
@@ -147,7 +150,7 @@ Prompt-tuning: similar to prefix-tuning, only optimizing a continuous prompt pre
 Instead of inserting layers (adapters) as parts of parameters, learn a separate low-rank parameter delta.\
 <http://arxiv.org/abs/2106.09685>
 
-## LLM: Positional Encoding
+## LLM: Long Context
 
 **RoFormer: Enhanced Transformer with Rotary Position Embedding**. Su et al. 2021\
 RoPE formulation: as a kernel, when q/k can be encoded by each position separately, and their multiplication represents the relative difference.\ 
@@ -165,6 +168,17 @@ Adaptation for long context:\
 (2) SFT with constructed long context examples: build completion from LLM based on short chunk, but use full context for SFT.\
 For long example SFT, also enable loss on the long context itself, not only completion.\
 <http://arxiv.org/abs/2309.16039>
+
+**LONGLORA: EFFICIENT FINE-TUNING OF LONG CONTEXT LARGE LANGUAGE MODELS**. Chen et al. 2023\
+<https://arxiv.org/pdf/2309.12307>
+
+**Augmenting Language Models with Long-Term Memory**. Wang et al. 2023\
+<https://arxiv.org/pdf/2306.07174>
+
+## Modeling Long Context with LLMs
+
+**WALKING DOWN THE MEMORY MAZE: BEYOND CONTEXT LIMIT THROUGH INTERACTIVE READING**. Chen et al. 2023\
+<https://arxiv.org/pdf/2310.05029>
 
 ## LLM Reasoning
 
