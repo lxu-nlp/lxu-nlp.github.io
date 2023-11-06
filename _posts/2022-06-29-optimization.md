@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Optimization"
+title: "Optimization Basics"
 date: 2023-06-29
 categories: [Basics]
 tags: [optimization]

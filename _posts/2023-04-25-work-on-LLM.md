@@ -155,21 +155,26 @@ Instead of inserting layers (adapters) as parts of parameters, learn a separate 
 **RoFormer: Enhanced Transformer with Rotary Position Embedding**. Su et al. 2021\
 RoPE formulation: as a kernel, when q/k can be encoded by each position separately, and their multiplication represents the relative difference.\ 
 Regard hidden as d/2 partitions where each partition is 2-dim, then rotate each partition by \theta based on position.\
+Essential kernel: Re(p1 - p2) = f(q, p1) * f(q, p2)\
 <http://arxiv.org/abs/2104.09864>
 
 **EXTENDING CONTEXT WINDOW OF LARGE LANGUAGE MODELS VIA POSITION INTERPOLATION**. Chen et al. 2023\
-Rotary Interpolation: rescale position indices in RoPE (does not have to be integer) with bound proof.\
+Position Interpolation (PI): linearly reduce rotation angle in RoPE (does not have to be integer) proportional to length; with bound proof.\
 Observation: RoPE attention score delays as length increases, could exploding when relative position > max length.\
 <https://arxiv.org/abs/2305.10601>
 
 **Effective Long-Context Scaling of Foundation Models**. Xiong et al. 2023\
-Adaptation for long context:\
-(1) continuous pretraining with longer max len limit; change rotation angle to reduce RoPE delay for long distance.\
+(1) continuous pretraining with longer max len limit; reduce rotation angle similar to PI, but fixed.\
 (2) SFT with constructed long context examples: build completion from LLM based on short chunk, but use full context for SFT.\
 For long example SFT, also enable loss on the long context itself, not only completion.\
 <http://arxiv.org/abs/2309.16039>
 
+**YaRN: Efficient Context Window Extension of Large Language Models**. Peng et al. 2023\
+<https://arxiv.org/abs/2309.00071>
+
 **LONGLORA: EFFICIENT FINE-TUNING OF LONG CONTEXT LARGE LANGUAGE MODELS**. Chen et al. 2023\
+Same local window size for each attention head. But, half heads on original local regions, while the other half on shifted local regions with overlapping, to enable communication between locals.\
+Thus, although receiving local k/v at each attention layer, global attention can still be achieved by stacked attention layers.\
 <https://arxiv.org/pdf/2309.12307>
 
 **Augmenting Language Models with Long-Term Memory**. Wang et al. 2023\
