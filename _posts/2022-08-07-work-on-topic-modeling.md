@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Neural Topic Modeling"
+title: "Works on Neural Topic Modeling"
 date: 2022-08-07
 categories: [NLP]
 tags: [nlp, topic modeling]

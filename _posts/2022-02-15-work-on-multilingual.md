@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Multilingual Tasks"
+title: "Works on Multilingual Tasks"
 date: 2022-02-15
 categories: [NLP]
 tags: [nlp, multilingual]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Sequence Modeling"
+title: "Works on Sequence Modeling"
 date: 2022-02-18
 categories: [NLP]
 tags: [nlp, language model]

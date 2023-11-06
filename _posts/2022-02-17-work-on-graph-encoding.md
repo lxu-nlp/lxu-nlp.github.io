@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Graph Encoding (NLP Venues)"
+title: "Works on Graph Encoding (NLP Venues)"
 date: 2022-02-17
 categories: [NLP]
 tags: [nlp, graph]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Sequence Generation"
+title: "Works on Sequence Generation"
 date: 2022-03-28
 categories: [NLP]
 tags: [nlp, generation]

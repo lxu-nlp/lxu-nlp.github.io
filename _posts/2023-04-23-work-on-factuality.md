@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Summarization Evaluation and Factuality"
+title: "Works on Summarization Evaluation and Factuality"
 date: 2023-04-23
 categories: [NLP]
 tags: [nlp, factuality]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on GNN"
+title: "Works on GNN"
 date: 2022-10-24
 categories: [NLP]
 tags: [nlp, gnn]

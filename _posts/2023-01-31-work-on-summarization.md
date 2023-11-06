@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Summarization"
+title: "Works on Summarization"
 date: 2023-01-31
 categories: [NLP]
 tags: [nlp, summarization]

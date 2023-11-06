@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Pair Alignment"
+title: "Works on Pair Alignment"
 date: 2023-08-30
 categories: [NLP]
 tags: [nlp, alignment]

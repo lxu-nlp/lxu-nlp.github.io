@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Coreference Resolution"
+title: "Works on Coreference Resolution"
 date: 2022-02-22
 categories: [NLP]
 tags: [nlp, coreference]

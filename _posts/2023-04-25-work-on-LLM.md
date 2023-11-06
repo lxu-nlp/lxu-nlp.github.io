@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Large Language Models"
+title: "Works on Large Language Models"
 date: 2023-04-25
 categories: [NLP]
 tags: [nlp, llm, language model]

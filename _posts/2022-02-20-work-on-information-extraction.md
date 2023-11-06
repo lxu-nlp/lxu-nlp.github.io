@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Document Information Extraction"
+title: "Works on Document Information Extraction"
 date: 2022-02-20
 categories: [NLP]
 tags: [nlp, information extraction]

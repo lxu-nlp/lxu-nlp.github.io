@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Discourse"
+title: "Works on Discourse"
 date: 2023-04-03
 categories: [NLP]
 tags: [nlp, discourse]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Heterogeneous Graph"
+title: "Works on Heterogeneous Graph"
 date: 2022-02-21
 categories: [NLP]
 tags: [nlp, graph, heterogeneous]

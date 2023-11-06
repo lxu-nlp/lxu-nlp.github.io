@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Few-Shot, Meta Learning and Semi-Supervised Learning"
+title: "Works on Few-Shot, Meta Learning and Semi-Supervised Learning"
 date: 2022-02-19
 categories: [NLP]
 tags: [nlp, few-shot, semi-supervised]

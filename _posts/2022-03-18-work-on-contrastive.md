@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Contrastive Learning"
+title: "Works on Contrastive Learning"
 date: 2022-03-18
 categories: [NLP]
 tags: [nlp, contrastive]

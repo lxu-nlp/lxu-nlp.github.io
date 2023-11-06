@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Work on Sentence-Level Parsing"
+title: "Works on Sentence-Level Parsing"
 date: 2022-02-28
 categories: [NLP]
 tags: [nlp, parsing]
