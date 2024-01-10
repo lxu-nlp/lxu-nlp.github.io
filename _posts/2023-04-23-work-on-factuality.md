@@ -17,7 +17,7 @@ For EACH dimension, evaluation can be:
 
 Also include some hallucination work.
 
-## General Evaluation
+## General Summ Evaluation
 
 **What Have We Achieved on Text Summarization?** Huang et al. EMNLP'20\
 <https://aclanthology.org/2020.emnlp-main.33/>
@@ -33,7 +33,7 @@ To have one evaluator for all dimensions, use boolean QA-based format as the com
 Train the evaluator: convert existing evaluation dimensions to QAs; also train with other auxiliary tasks.\ 
 <https://aclanthology.org/2022.emnlp-main.131>
 
-## Dimension: Factuality
+## Factuality Consistency
 
 Need: dataset with annotations of fine-grained error type taxonomy.
 
@@ -98,13 +98,23 @@ Factuality analysis: BART has ~50% speaker factual errors by probing test on tok
 Enforce token/turn contrastive by speakers (but trivial impact).\
 <https://aclanthology.org/2022.coling-1.569>
 
+**Less is More for Long Document Summary Evaluation by LLMs**. Wu et al. 2023\
+For long doc: extract, then LLM-NLI.\
+<https://arxiv.org/pdf/2309.07382>
+
+### Training
+
 **CONFIT: Toward Faithful Dialogue Summarization with Linguistically-Informed Contrastive Fine-tuning**. Tang et al. NAACL'22\
 Objective: design rule-based negative samples of different factual error types, and perform contrastive learning as additional supervision.\  
 <https://aclanthology.org/2022.naacl-main.415/>
 
-**Less is More for Long Document Summary Evaluation by LLMs**. Wu et al. 2023\
-For long doc: extract, then verify (by LLM directly).\
-<https://arxiv.org/pdf/2309.07382>
+**How Far are We from Robust Long Abstractive Summarization?**. Koh et al. EMNLP'22\
+ArXiv and GovReport dataset.\
+<https://aclanthology.org/2022.emnlp-main.172>
+
+**LONGEVAL: Guidelines for Human Evaluation of Faithfulness in Long-form Summarization**. Krishna et al. EACL'23\
+SQuALITY and PubMed dataset. Analysis on how to annotate long doc summaries.\
+<https://aclanthology.org/2023.eacl-main.121>
 
 ## Dimension: Coherence
 

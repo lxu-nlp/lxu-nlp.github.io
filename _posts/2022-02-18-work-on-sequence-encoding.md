@@ -263,6 +263,10 @@ Investigate the impact of context variation on token representation (through cos
 (3) In earlier layers, context variation makes representations more dissimilar; in last layers, information about the input token is recovered for LM prediction.\
 <https://aclanthology.org/2021.tacl-1.50>
 
+**Ditto: A Simple and Efficient Approach to Improve Sentence Embeddings**. Chen et al. EMNLP'23\
+Weighted token hidden state by pooling attention scores of different layers.\
+<https://aclanthology.org/2023.emnlp-main.359>
+
 ## Recent Survey
 
 **Pre-Trained Models: Past, Present and Future**. Han et al. arXiv'21\

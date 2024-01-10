@@ -109,9 +109,17 @@ Adjust decoding NLL to down-weight certain tokens.\
 Hierarchical: paragraph/chapter/book-level summarization.\
 <https://aclanthology.org/2022.findings-emnlp.488>
 
+**SQuALITY: Building a Long-Document Summarization Dataset the Hard Way**. Wang et al. 2022\
+Query-based long doc summarization.\
+<https://aclanthology.org/2022.emnlp-main.75>
+
 **HIBRIDS: Attention with Hierarchical Biases for Structure-aware Long Document Summarization**. Cao et al. ACL'22\
 Hierarchical summary based on saliency, with training set.\
 <https://aclanthology.org/2022.acl-long.58>
+
+**Efficient Attentions for Long Document Summarization**. Huang et al. NAACL'21\
+GovReport long doc dataset.\
+<https://aclanthology.org/2021.naacl-main.112>
 
 ## Approach: General
 

@@ -52,3 +52,7 @@ Directional relation graph construction: 1) pairwise scores: NLI; distributional
 
 **Structure-Discourse Hierarchical Graph for Conditional Question Answering on Long Documents**. Du et al. ACL Findings'23\
 <https://aclanthology.org/2023.findings-acl.391>
+
+**Exploring Discourse Structure in Document-level Machine Translation**. Hu and Wan. EMNLP'23\
+Attention on RST tree.\
+<https://aclanthology.org/2023.emnlp-main.857>
