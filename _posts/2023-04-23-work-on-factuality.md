@@ -33,7 +33,7 @@ To have one evaluator for all dimensions, use boolean QA-based format as the com
 Train the evaluator: convert existing evaluation dimensions to QAs; also train with other auxiliary tasks.\ 
 <https://aclanthology.org/2022.emnlp-main.131>
 
-## Factuality Consistency
+## Factuality Consistency: non-LLM
 
 Need: dataset with annotations of fine-grained error type taxonomy.
 
@@ -98,9 +98,31 @@ Factuality analysis: BART has ~50% speaker factual errors by probing test on tok
 Enforce token/turn contrastive by speakers (but trivial impact).\
 <https://aclanthology.org/2022.coling-1.569>
 
+## Factuality Consistency: LLM
+
 **Less is More for Long Document Summary Evaluation by LLMs**. Wu et al. 2023\
 For long doc: extract, then LLM-NLI.\
 <https://arxiv.org/pdf/2309.07382>
+
+**ChatGPT as a Factual Inconsistency Evaluator for Text Summarization**. Luo et al. 2023\
+Zero-shot scoring or rating.\
+<https://arxiv.org/pdf/2303.15621>
+
+**TrueTeacher: Learning Factual Consistency Evaluation with Large Language Models**. Gekhman et al. EMNLP'23\
+Few-shot or zero-shot classification for synthetic data generation.\
+<https://aclanthology.org/2023.emnlp-main.127>
+
+**Evaluating Factual Consistency of Summaries with Large Language Models**. Chen et al. 2023\
+Zero-shot prompting; also sentence-by-sentence.\
+<https://arxiv.org/pdf/2305.14069>
+
+**ALIGNSCORE: Evaluating Factual Consistency with A Unified Alignment Function**. Zha et al. ACL'23\
+Unify and train alignment tasks with pair input.\
+<https://aclanthology.org/2023.acl-long.634>
+
+**Text Alignment Is An Efficient Unified Model for Massive NLP Tasks**. Zha et al. NIPS'23\
+Same as AlignScore.\
+<https://arxiv.org/pdf/2307.02729>
 
 ### Training
 

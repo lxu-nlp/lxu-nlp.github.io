@@ -318,6 +318,13 @@ Evaluation ChatGPT on aspect-based summarizaiton of different domains, especiall
 Observation: ChatGPT zero-shot prompting is comparable to finetuned methods.\
 <http://arxiv.org/abs/2302.08081>
 
-**Cross-Lingual Summarization via ChatGPT**. Wang et al. 2023\
-(1) static prompts; (2) interaction prompts to control summary granularity.\
-<http://arxiv.org/abs/2302.14229>
+## Evaluation
+
+**Large Language Models are Not Yet Human-Level Evaluators for Abstractive Summarization**. Shen et al. EMNLP Findings'23\
+Zero-shot scoring: not consistent nor reliable (fine-grained dimensions/criteria could be better?).\
+<https://aclanthology.org/2023.findings-emnlp.278>
+
+**G-EVAL: NLG Evaluation using GPT-4 with Better Human Alignment**. Liu et al. EMNLP'23\
+Prompt GPT to generate steps, then use steps to prompt.\
+<https://aclanthology.org/2023.emnlp-main.153>
+
