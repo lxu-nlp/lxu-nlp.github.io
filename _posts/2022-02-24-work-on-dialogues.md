@@ -9,8 +9,6 @@ math: true
 
 This article is being updated.
 
-Also see post on dialogue summarization.
-
 ## Encoder-based Dialogue LM
 
 **Pretraining Methods for Dialog Context Representation Learning**. Mehri et al. ACL'19\
@@ -74,6 +72,12 @@ Dataset: DialogueNLI that provides utterances paired with one triple\
 
 **Stylistic Response Generation by Controlling Personality Traits and Intent**. Saha et al. nlp4convai'22\
 <https://aclanthology.org/2022.nlp4convai-1.16>
+
+## Target-Oriented
+
+**Target-oriented Proactive Dialogue Systems with Personalization: Problem Formulation and Dataset Curation**. Wang et al. EMNLP'23\
+Dataset curated automatically.\
+<https://aclanthology.org/2023.emnlp-main.72/>
 
 ## Dialogue Downstream Tasks (Non-Generation)
 

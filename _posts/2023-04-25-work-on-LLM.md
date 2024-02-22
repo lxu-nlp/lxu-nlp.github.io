@@ -150,7 +150,7 @@ Prompt-tuning: similar to prefix-tuning, only optimizing a continuous prompt pre
 Instead of inserting layers (adapters) as parts of parameters, learn a separate low-rank parameter delta.\
 <http://arxiv.org/abs/2106.09685>
 
-## LLM: Long Context
+## Long Context: Position
 
 **RoFormer: Enhanced Transformer with Rotary Position Embedding**. Su et al. 2021\
 RoPE formulation: as a kernel, when q/k can be encoded by each position separately, and their multiplication represents the relative difference.\ 
@@ -177,13 +177,26 @@ Same local window size for each attention head. But, half heads on original loca
 Thus, although receiving local k/v at each attention layer, global attention can still be achieved by stacked attention layers.\
 <https://arxiv.org/pdf/2309.12307>
 
+## Long Context: Recurrent or Memory
+
 **Augmenting Language Models with Long-Term Memory**. Wang et al. 2023\
 <https://arxiv.org/pdf/2306.07174>
 
-## Modeling Long Context with LLMs
+## Long Context: Retrieval
+
+**Retrieval meets Long Context Large Language Models**. Xu et al. ICLR'24\
+Retrieval vs. long context.\
+<https://arxiv.org/abs/2310.03025>
+
+## Long Context: Others
 
 **WALKING DOWN THE MEMORY MAZE: BEYOND CONTEXT LIMIT THROUGH INTERACTIVE READING**. Chen et al. 2023\
+LongMem.\
 <https://arxiv.org/pdf/2310.05029>
+
+**Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
+Next prediction: current text segment + past vectors.\
+<https://aclanthology.org/2023.emnlp-main.232/>
 
 ## LLM Reasoning
 
@@ -239,6 +252,10 @@ Leverage Code-Interpreter to verify results real-time and self-revise.\
 (1) Use LLM to generate prompt candidates based on input-output (2) use LLM likelihood to score candidates (3) use LLM to generate more variants for top candidates.\
 <https://openreview.net/pdf?id=92gvk82DE->
 
+**Prompting with Pseudo-Code Instructions**. Mishra et al. EMNLP'23\
+Function-style with doc-string comments as instructions, supporting few-shot.\
+<https://aclanthology.org/2023.emnlp-main.939>
+
 ## Hallucination
 
 Also see post about Factuality.
@@ -283,6 +300,9 @@ Positional bias for multi-choice questions. Solution: swap order and take averag
 **Do Large Language Models Know What They Don’t Know?**. Yin et al. 2023\
 Dataset: answerable and unanswerable questions.\
 <http://arxiv.org/abs/2305.18153>
+
+**Lost in the Middle: How Language Models Use Long Contexts**. Liu et al. TACL'23\
+<https://arxiv.org/abs/2307.03172>
 
 ## External Memory
 

@@ -64,6 +64,11 @@ As NLI works on sentence-level, split context and summary and have pairwise grid
 SUMMAC: a benchmark consisting of 6 previous consistency datasets.\
 <https://aclanthology.org/2022.tacl-1.10/>
 
+**Fast and Accurate Factual Inconsistency Detection Over Long Documents**. Lattimer et al. EMNLP'23\
+Similar to SUMMAC.\
+ScreenEval dataset on SummScreen.\
+<https://aclanthology.org/2023.emnlp-main.105>
+
 **Annotating and Modeling Fine-grained Factuality in Summarization**. Goyal and Durrett. NAACL'21\
 Study on automatic factuality evaluator by training on synthetic data.\
 Comparing two approaches: (1) entity-perturbed data; (2) generation beam. Both synthetic data can localize errors on dependency arc.\
@@ -88,6 +93,10 @@ Fine-grained error types: taxonomy.\
 Evaluation of previous factuality approaches: error localization; QA-based; entailment-based.\
 Findings: (1) factuality evaluators have poorer performance on SOTA (Transformer-based); (2) no systems can capture all error types.\
 <http://arxiv.org/abs/2205.12854>
+
+**TRUE: Re-evaluating Factual Consistency Evaluation**. Honovich et al. 2023\
+Benchmark.\
+<https://aclanthology.org/2022.dialdoc-1.19>
 
 **MQAG: Multiple-choice Question Answering and Generation for Assessing Information Consistency in Summarization**. Manakul et al. AACL'23\
 QA-based: instead of span, use multi-choice questions (QG, QA models trained on RACE, a multi-choice QA dataset).\

@@ -9,6 +9,18 @@ math: true
 
 Sentence-level parsing or NER.
 
+## General Structured Inference
+
+Also see Information Extraction for generation-based approaches.
+
+**Autoregressive Structured Prediction with Language Models**. Liu et al. EMNLP'22 Finding\
+Sequence generation.\
+<https://aclanthology.org/2022.findings-emnlp.70>
+
+**Linear-Time Modeling of Linguistic Structure: An Order-Theoretic Perspective**. Liu et al. EMNLP'23\
+Linear regression.\
+<https://aclanthology.org/2023.emnlp-main.52>
+
 ## Span Selection
 
 **A Structured Span Selector**. Liu et al. NAACL'22\

@@ -114,6 +114,10 @@ Recurrent-based.\
 Encode variable length input (auto-regressive): use a fixed-length Transformers segment and apply recurrence on the input; utilize relative position in self-attention to address cross-segment distance.\
 <https://www.aclweb.org/anthology/P19-1285>
 
+**Recurrent Memory Transformer**. Bulatov et al. NIPS'22\
+Past hidden + current text -> current hidden.\
+<https://openreview.net/forum?id=Uynr3iPhksa>
+
 **XLNet: Generalized Autoregressive Pretraining for Language Understanding**. Yang et al. NeurIPS'19\
 Recurrent-based.\
 Enhanced model upon Transformer-XL: use Permutation Language Modeling in auto-regressive LM but with permuted sequence to encode bidirectionally. Also some adaptations in the implementation to cope with permutation.\

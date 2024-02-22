@@ -460,3 +460,10 @@ Directions: (1) more utilization of distant/self-supervision (2) more domains (3
 
 **Automatic Error Analysis for Document-level Information Extraction**. Das et al. ACL'22\
 <https://aclanthology.org/2022.acl-long.274/>
+
+# LLM
+---
+
+**Grammar-Constrained Decoding for Structured NLP Tasks without Finetuning**. Geng et al. EMNLP'23\
+Unify decoding constraints of multiple structured output tasks, by formal language (grammar) description.\
+<https://aclanthology.org/2023.emnlp-main.674>

@@ -29,6 +29,10 @@ Push sentence-similarity on augmented/modified sentences with BERT.\
 (2) supervised contrastive on label space.\
 <https://aclanthology.org/2021.emnlp-main.144>
 
+**Length is a Curse and a Blessing for Document-level Semantics**. Xiao et al. EMNLP'23\
+Self-regularization on elongated sequence.\
+<https://aclanthology.org/2023.emnlp-main.86>
+
 ## Supervised Contrastive on Label Space
 
 Same supervised labels as positive pairs; for smoother representation towards decision boundary.
