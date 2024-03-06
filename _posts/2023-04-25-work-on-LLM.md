@@ -177,7 +177,7 @@ Same local window size for each attention head. But, half heads on original loca
 Thus, although receiving local k/v at each attention layer, global attention can still be achieved by stacked attention layers.\
 <https://arxiv.org/pdf/2309.12307>
 
-## Long Context: Recurrent or Memory
+## Long Context: Recurrent or Cache
 
 **Augmenting Language Models with Long-Term Memory**. Wang et al. 2023\
 <https://arxiv.org/pdf/2306.07174>
@@ -189,10 +189,6 @@ Retrieval vs. long context.\
 <https://arxiv.org/abs/2310.03025>
 
 ## Long Context: Others
-
-**WALKING DOWN THE MEMORY MAZE: BEYOND CONTEXT LIMIT THROUGH INTERACTIVE READING**. Chen et al. 2023\
-LongMem.\
-<https://arxiv.org/pdf/2310.05029>
 
 **Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
 Next prediction: current text segment + past vectors.\

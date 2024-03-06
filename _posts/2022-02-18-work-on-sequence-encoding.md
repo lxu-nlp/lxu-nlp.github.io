@@ -227,12 +227,32 @@ Distill KG given few-shot: paraphrase (by GPT3) relation prompts + search entiti
 
 ## LM Editing/Update
 
-**Memory-Based Model Editing at Scale**. Mitchell et al. ICML'22\
-Pseudo-editing: not touching parameters; simply store update examples, and train a binary classifier to check if input is related to any examples.\
-<http://arxiv.org/abs/2206.06520>
+Goal: 1) efficacy of editing; 2) efficacy of generalization; 3) no forgetting.
+
+#### Edit parameters
+
+**Editing Factual Knowledge in Language Models**. De Cao et al. EMNLP'21\
+<https://aclanthology.org/2021.emnlp-main.522/>
+
+**Fast Model Editing at Scale**. Mitchell et al. ICLR'22\
+<https://arxiv.org/abs/2110.11309>
+
+**Locating and Editing Factual Associations in GPT**. Meng et al. NIPS'22\
+Argue that linear operations, e.g. MLP, can operate as a kv storage.\
+A new kv pair can be inserted in MLP by solving a constrained least-squares problem.\
+<https://arxiv.org/abs/2202.05262>
+
+**Mass-Editing Memory in a Transformer**. Meng et al. ICLR'23\
+<https://arxiv.org/abs/2210.07229>
 
 **Editing models with task arithmetic**. Ilharco et al. ICLR'23\
 <https://openreview.net/forum?id=6t0Kwf8-jrj>
+
+#### Cache-based
+
+**Memory-Based Model Editing at Scale**. Mitchell et al. ICML'22\
+Pseudo-editing: not touching parameters; simply store update examples, and train a binary classifier to check if input is related to any examples.\
+<http://arxiv.org/abs/2206.06520>
 
 ## For Analysis
 

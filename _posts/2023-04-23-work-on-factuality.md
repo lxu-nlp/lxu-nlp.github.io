@@ -107,6 +107,14 @@ Factuality analysis: BART has ~50% speaker factual errors by probing test on tok
 Enforce token/turn contrastive by speakers (but trivial impact).\
 <https://aclanthology.org/2022.coling-1.569>
 
+**ALIGNSCORE: Evaluating Factual Consistency with A Unified Alignment Function**. Zha et al. ACL'23\
+Unify and train alignment tasks with pair input.\
+<https://aclanthology.org/2023.acl-long.634>
+
+**Text Alignment Is An Efficient Unified Model for Massive NLP Tasks**. Zha et al. NIPS'23\
+Same as AlignScore.\
+<https://arxiv.org/pdf/2307.02729>
+
 ## Factuality Consistency: LLM
 
 **Less is More for Long Document Summary Evaluation by LLMs**. Wu et al. 2023\
@@ -124,14 +132,6 @@ Few-shot or zero-shot classification for synthetic data generation.\
 **Evaluating Factual Consistency of Summaries with Large Language Models**. Chen et al. 2023\
 Zero-shot prompting; also sentence-by-sentence.\
 <https://arxiv.org/pdf/2305.14069>
-
-**ALIGNSCORE: Evaluating Factual Consistency with A Unified Alignment Function**. Zha et al. ACL'23\
-Unify and train alignment tasks with pair input.\
-<https://aclanthology.org/2023.acl-long.634>
-
-**Text Alignment Is An Efficient Unified Model for Massive NLP Tasks**. Zha et al. NIPS'23\
-Same as AlignScore.\
-<https://arxiv.org/pdf/2307.02729>
 
 ### Training
 

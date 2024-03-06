@@ -20,7 +20,6 @@ Generate implicit (and simplified) propositions inferred by LLM through few-shot
 LLM to find relevant sections (header + summary) -> LLM to pick relevant paragraphs -> QA.\
 <https://aclanthology.org/2023.findings-emnlp.972>
 
-
 ## Question Generation
 
 **Semantic Graphs for Generating Deep Questions**. Pan et al. ACL'20\
@@ -53,3 +52,17 @@ Applications: passage retrieval, etc.\
 QG -> QA -> rewrite upon QA pairs (online manner).\
 Evaluation on LLM prompting.\
 <https://aclanthology.org/2023.emnlp-main.193>
+
+## (Interactive) Reading Agent
+
+**Walking Down the Memory Maze: Beyond Context Limit through Interactive Reading**. Chen et al. 2023\
+Summary tree: zero-shot LLM to figure out the path from root.\
+<https://arxiv.org/abs/2310.05029>
+
+**A Human-Inspired Reading Agent with Gist Memory of Very Long Contexts**. Lee et al. 2024\
+Segment summaries (linear): zero-shot LLM to select which segments to read and when to stop.\
+<http://arxiv.org/abs/2402.09727>
+
+**LongAgent: Scaling Language Models to 128k Context through Multi-Agent Collaboration**. Zhao et al. 2024\
+One leader for decision making and several members for discussion.\
+<http://arxiv.org/abs/2402.11550>
