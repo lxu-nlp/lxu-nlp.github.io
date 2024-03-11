@@ -229,7 +229,7 @@ Distill KG given few-shot: paraphrase (by GPT3) relation prompts + search entiti
 
 Goal: 1) efficacy of editing; 2) efficacy of generalization; 3) no forgetting.
 
-#### Edit parameters
+Gradient-based:
 
 **Editing Factual Knowledge in Language Models**. De Cao et al. EMNLP'21\
 <https://aclanthology.org/2021.emnlp-main.522/>
@@ -237,8 +237,16 @@ Goal: 1) efficacy of editing; 2) efficacy of generalization; 3) no forgetting.
 **Fast Model Editing at Scale**. Mitchell et al. ICLR'22\
 <https://arxiv.org/abs/2110.11309>
 
-**Locating and Editing Factual Associations in GPT**. Meng et al. NIPS'22\
+Locate-then-edit:
+
+**Transformer feed-forward layers are key-value memories**. Geva et al. EMNLP'21\
 Argue that linear operations, e.g. MLP, can operate as a kv storage.\
+<https://aclanthology.org/2021.emnlp-main.446/>
+
+**Transformer feed-forward layers build predictions by promoting concepts in the vocabulary space**. Geva et al. EMNLP'22\
+<https://aclanthology.org/2022.emnlp-main.3/>
+
+**Locating and Editing Factual Associations in GPT**. Meng et al. NIPS'22\
 A new kv pair can be inserted in MLP by solving a constrained least-squares problem.\
 <https://arxiv.org/abs/2202.05262>
 
@@ -248,7 +256,7 @@ A new kv pair can be inserted in MLP by solving a constrained least-squares prob
 **Editing models with task arithmetic**. Ilharco et al. ICLR'23\
 <https://openreview.net/forum?id=6t0Kwf8-jrj>
 
-#### Cache-based
+Cache-based:
 
 **Memory-Based Model Editing at Scale**. Mitchell et al. ICML'22\
 Pseudo-editing: not touching parameters; simply store update examples, and train a binary classifier to check if input is related to any examples.\
@@ -290,6 +298,14 @@ Investigate the impact of context variation on token representation (through cos
 **Ditto: A Simple and Efficient Approach to Improve Sentence Embeddings**. Chen et al. EMNLP'23\
 Weighted token hidden state by pooling attention scores of different layers.\
 <https://aclanthology.org/2023.emnlp-main.359>
+
+**The Inductive Bias of In-Context Learning: Rethinking Pretraining Example Design**. Levine et al. ICLR'22\
+In pretraining, directly seen > separately seen (requires generalization).\
+<http://arxiv.org/abs/2110.04541>
+
+**Pre-Training to Learn in Context**. Gu et al. ACL'23\
+Pack sentences of similar tasks for pretraining.\
+<https://aclanthology.org/2023.acl-long.267>
 
 ## Recent Survey
 

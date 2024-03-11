@@ -20,6 +20,19 @@ Generate implicit (and simplified) propositions inferred by LLM through few-shot
 LLM to find relevant sections (header + summary) -> LLM to pick relevant paragraphs -> QA.\
 <https://aclanthology.org/2023.findings-emnlp.972>
 
+## Benchmark
+
+For long context.
+
+**LONGBENCH: A BILINGUAL, MULTITASK BENCHMARK FOR LONG CONTEXT UNDERSTANDING**. Bai et al. 2023\
+<https://arxiv.org/abs/2403.03514>
+
+**XLBench: A Benchmark for Extremely Long Context Understanding with Long-range Dependencies**. Ni et al. 2024\
+<https://arxiv.org/abs/2308.14508>
+
+**CLongEval: A Chinese Benchmark for Evaluating Long-Context Large Language Models**. Qiu et al. 2024\
+<https://arxiv.org/abs/2403.03514>
+
 ## Question Generation
 
 **Semantic Graphs for Generating Deep Questions**. Pan et al. ACL'20\

@@ -15,7 +15,7 @@ gating (4) use FFNN on [old; new].
 Multiple iterations/propagation: higher-order/multi-hops. However, if complete-graph, then no need to do higher-order.
 
 ## Add More Nodes (of Different Types) as Heterogeneous
-
+w
 **Connecting the Dots: Document-level Neural Relation Extraction with Edge-oriented Graphs**. Christopoulou et al. EMNLP'19\
 Add and connect **latent** nodes of different types: entities, sentences; then perform graph propagation. Added latent nodes only serve for information flow (better original node updating), and won't be used for final classification directly.\
 <https://aclanthology.org/D19-1498/>

@@ -80,7 +80,7 @@ Inference: nearest-neighbor on entire $S$ (similar to Siamese).\
 
 ---
 
-# Other Weak-Supervision
+# Other Weak/Semi-Supervision
 
 ## Self-Learning (Pseudo Label)
 
