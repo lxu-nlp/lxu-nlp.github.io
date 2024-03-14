@@ -9,6 +9,11 @@ math: true
 
 ## Evaluation and Analysis
 
+**Causal Reasoning and Large Language Models: Opening a New Frontier for Causality**. Kıcıman et al. 2023\
+LLM is at least as good as previous models at 1) causal discovery on existing benchmarks; 2) actual causality.\
+(LLM is a good domain expert; though, those tasks may not reflect true causal inference capability; see works below)\
+<http://arxiv.org/abs/2305.00050>
+
 **CLADDER: Assessing Causal Reasoning in Language Models**. Jin et al. NIPS'23\
 Assess formal causal reasoning, by verbalized symbolic inference, minimizing effects from memorization, common senses, etc.\
 Dataset: (causal graph, query type) -> solution by Causal Inference Engine -> verbalization (symbolic -> natural langauge story)\
@@ -33,7 +38,16 @@ Dataset: unique causal DAGs -> determine d-separation set -> determine correlati
 Observations: even after finetuning, the LLM prediction is not robust.\
 <http://arxiv.org/abs/2306.05836>
 
+**Bridging Causal Discovery and Large Language Models: A Comprehensive Survey of Integrative Approaches and Future Directions**. Wan et al. 2024\
+<https://arxiv.org/abs/2402.11068>
+
 ## Causal Discovery
 
-**Causal Structure Learning Supervised by Large Language Model**. Ban et al. 2024\
+**Causal Structure Learning Supervised by Large Language Model**. Ban et al. 2023\
 <https://arxiv.org/abs/2402.11068>
+
+**Causal Inference Using LLM-Guided Discovery**. Vashishtha et al. 2024\
+Related work.\
+<http://arxiv.org/abs/2310.15117>
+
+## Causal Inference

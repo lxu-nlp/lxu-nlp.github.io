@@ -177,6 +177,9 @@ Same local window size for each attention head. But, half heads on original loca
 Thus, although receiving local k/v at each attention layer, global attention can still be achieved by stacked attention layers.\
 <https://arxiv.org/pdf/2309.12307>
 
+**Beyond the Limits: A Survey of Techniques to Extend the Context Length in Large Language Models**. Wang et al. 2024\
+<https://arxiv.org/abs/2402.02244>
+
 ## Long Context: Recurrent or Cache
 
 **Augmenting Language Models with Long-Term Memory**. Wang et al. 2023\
@@ -193,6 +196,10 @@ Retrieval vs. long context.\
 **Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
 Next prediction: current text segment + past vectors.\
 <https://aclanthology.org/2023.emnlp-main.232/>
+
+**Dynamic Context Pruning for Efficient and Interpretable Autoregressive Transformers**. Anagnostidis et al. NIPS'23\
+Drop previous tokens.\
+<http://arxiv.org/abs/2305.15805>
 
 ## LLM Reasoning
 
@@ -314,6 +321,19 @@ Retrieval-based memory: retrieve user feedback of correct intent on similar ques
 (3) How to search: greedy search; selecting top tokens that achieve largest negative gradient at each suffix position INDEPENDENTLY (as if Gibbs sampling); then sample from these candidate tokens and select the sequence with lowest target loss (as if Monte-Carlo).\
 (4) Repeat this search process on multiple prompts incrementally, to find the final universal suffix that works for all prompts\
 <http://arxiv.org/abs/2307.15043>
+
+## Representation (Embeddings, etc.)
+
+**Scaling Sentence Embeddings with Large Language Models**. Jiang et al. 2023\
+Use template for CLM (using the last hidden state):
+This sentence: \[text\] means in one word:\
+<http://arxiv.org/abs/2307.16645>
+
+**Meaning Representations from Trajectories in Autoregressive Models**. Liu et al. ICLR'24\
+Core idea: Wittgenstein’s use theory of meaning (meaning is use).\
+Meaning representation: the likelihood of the continuation in language space.\
+Similarity: sampling continuation equal times from both two inputs as the approximated continuation space.\
+<https://arxiv.org/abs/2310.18348>
 
 ---
 

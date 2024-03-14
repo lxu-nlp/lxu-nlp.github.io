@@ -191,6 +191,9 @@ Benefits: embedding augmentation helps low-resource and generalization.\
 Sparsity: only 2.7% activated neurons in MLPs of NLP/vision Transformers; likely related to training dynamics, as this is true for any datasets.\
 <http://arxiv.org/abs/2210.06313>
 
+**ZipLM: Inference-Aware Structured Pruning of Language Models**. Kurtić et al. NIPS'23\
+<https://arxiv.org/abs/2302.04089>
+
 ## For Incorporating Knowledge
 
 **ERNIE: Enhanced Language Representation with Informative Entities**. Zhang et al. ACL'19\
