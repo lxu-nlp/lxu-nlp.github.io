@@ -60,18 +60,7 @@ Open-world discourse relations by questions.\
 QuD automatic evaluation.\
 <https://aclanthology.org/2023.emnlp-main.325>
 
-## Other Discourse Relations: Entailment, ...
-
-**Global Learning of Focused Entailment Graphs**. Berant et al. ACL'10\
-Entailment graph construction.\
-<https://aclanthology.org/P10-1124>
-
-**Efficient Tree-based Approximation for Entailment Graph Learning**. Berant et al. ACL'12\
-<https://aclanthology.org/P12-1013/>
-
-**From Key Points to Key Point Hierarchy: Structured and Expressive Opinion Summarization**. Cattan et al. ACL'23\
-Directional relation graph construction: 1) pairwise scores: NLI; distributional context similarity; 2) edge building by score threshold.\
-<https://aclanthology.org/2023.acl-long.52>
+## Other Discourse Relations
 
 **How Do We Answer Complex Questions: Discourse Structure of Long-form Answers**. Xu et al. ACL'22\
 Human-defined FIXED sentence roles in the long answers (tagging on each sentence). Half of the sentences are not direct answers.\

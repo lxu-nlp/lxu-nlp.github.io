@@ -18,7 +18,7 @@ Sequence generation.\
 <https://aclanthology.org/2022.findings-emnlp.70>
 
 **Linear-Time Modeling of Linguistic Structure: An Order-Theoretic Perspective**. Liu et al. EMNLP'23\
-Linear regression.\
+Predict order by linear regression -> structure.\
 <https://aclanthology.org/2023.emnlp-main.52>
 
 ## Span Selection

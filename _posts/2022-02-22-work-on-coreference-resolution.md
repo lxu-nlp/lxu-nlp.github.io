@@ -25,6 +25,19 @@ integration.\
 Use heuristics and distant supervision to obtain coreferent pairs for pretraining.\
 <https://aclanthology.org/2023.acl-long.383/>
 
+**LingMess: Linguistically Informed Multi Expert Scorers for Coreference Resolution**. Otmazgin et al. EACL'23\
+<https://aclanthology.org/2023.eacl-main.202>
+
+## Sequence Generation
+
+See two sequence works in Sentence Parsing from Liu et al.
+
+**Seq2seq is All You Need for Coreference Resolution**. Zhang et al. EMNLP'23\
+<https://aclanthology.org/2023.emnlp-main.704>
+
+**Coreference Resolution through a seq2seq Transition-Based System**. Bohnet et al. TACL'23\
+<https://aclanthology.org/2023.tacl-1.13>
+
 ## Multilingual Coref
 
 **Neural Cross-Lingual Coreference Resolution And Its Application To Entity Linking**. Kundu et al. ACL'18\
