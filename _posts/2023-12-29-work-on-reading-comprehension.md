@@ -33,6 +33,10 @@ For long context.
 **CLongEval: A Chinese Benchmark for Evaluating Long-Context Large Language Models**. Qiu et al. 2024\
 <https://arxiv.org/abs/2403.03514>
 
+**NovelQA: A Benchmark for Long-Range Novel Question Answering**. Wang et al. 2024\
+Novels > 50k. Designed question types and templates.\
+<http://arxiv.org/abs/2403.12766>
+
 ## Question Generation
 
 **Semantic Graphs for Generating Deep Questions**. Pan et al. ACL'20\

@@ -77,6 +77,10 @@ Similar to PaLM/Chinchilla: train with more data on smaller models.\
 **Mixture-of-Experts Meets Instruction Tuning: A Winning Combination for Large Language Models**. Shen et al. 2023\
 <https://arxiv.org/abs/2305.14705>
 
+**Mixtral of Experts**. Jiang et al. 2024\
+Sparse gating: constant computation cost while scaling up parameters.\
+<http://arxiv.org/abs/2401.04088>
+
 ## LLM: Instruction Alignment
 
 **Self-Instruct: Aligning Language Model with Self Generated Instructions**. Wang et al. ACL'23\
@@ -180,30 +184,60 @@ Thus, although receiving local k/v at each attention layer, global attention can
 **Beyond the Limits: A Survey of Techniques to Extend the Context Length in Large Language Models**. Wang et al. 2024\
 <https://arxiv.org/abs/2402.02244>
 
-## Long Context: Recurrent or Cache
-
-**Augmenting Language Models with Long-Term Memory**. Wang et al. 2023\
-<https://arxiv.org/pdf/2306.07174>
-
 ## Long Context: Retrieval
 
 **Retrieval meets Long Context Large Language Models**. Xu et al. ICLR'24\
 Retrieval vs. long context.\
 <https://arxiv.org/abs/2310.03025>
 
-## Long Context: Others
+## Long Context: Recurrent or Cache
+
+**Augmenting Language Models with Long-Term Memory**. Wang et al. 2023\
+<https://arxiv.org/pdf/2306.07174>
+
+## Long Context: Compression
+
+**Learning to Compress Prompts with Gist Tokens**. Mu et al. NIPS'23\
+Compress **instructions** within LLM (**objective: specific tasks**): instruction + GIST (soft tokens) + input_context, such that:\
+(1) GIST is learned to be generalized to compress arbitrary instructions.\
+(1) GIST can be cached and reused.\
+Training: simply mask out instruction after GIST.\
+<http://arxiv.org/abs/2304.08467>
 
 **Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
+Compress **input context** (**objective: general LM**).\
 Next prediction: current text segment + past vectors.\
 <https://aclanthology.org/2023.emnlp-main.232/>
 
+**In-context Autoencoder for Context Compression in a Large Language Model**. Ge et al. ICLR'24\
+Compress **input context** (**objectives: (reconstruction + general LM as pretraining) + specific tasks**).\
+<http://arxiv.org/abs/2307.06945>
+
+## Long Context: Pruning
+
+**Compressing Context to Enhance Inference Efficiency of Large Language Models**. Li et al. EMNLP'23\
+Finding: dropping tokens with high likelihood (less informative) could obtain similar generation quality.\
+(no training; not pruning on the fly; need full forward once)\
+<https://aclanthology.org/2023.emnlp-main.391>
+
 **Dynamic Context Pruning for Efficient and Interpretable Autoregressive Transformers**. Anagnostidis et al. NIPS'23\
-Drop previous tokens.\
+Each layer drops kv cache independently.\
+(not dropping entire tokens/positions, as each layer can have different patterns.)\
+Train with sparse sigmoid on attention.\
 <http://arxiv.org/abs/2305.15805>
 
-## LLM Reasoning
+**Fewer is More: Boosting LLM Reasoning with Reinforced Context Pruning**. Huang et al. 2024\
+RL to select and prune few-shot prompts.\
+<http://arxiv.org/abs/2312.08901>
 
-Basic tricks: give identify in prompt; raise emotion in prompt.
+## Long Context: Efficient Attention
+
+Also see post on sequence encoding.
+
+**Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention**. Munkhdalai et al. 2024\
+<http://arxiv.org/abs/2404.07143>
+
+## LLM Reasoning
 
 **Chain-of-Thought Prompting Elicits Reasoning in Large Language Models**. Wei et al. NIPS'22\
 Introduce few-shot CoT in various reasoning tasks; teaching the problem solving (rough algorithm) rather than through few-shot guessing.\
