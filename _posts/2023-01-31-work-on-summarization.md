@@ -272,13 +272,37 @@ Trivial effects.\
 Inject silver coreference explicitly in encoding.\
 <https://aclanthology.org/2021.sigdial-1.53/>
 
-## Alignment
+## Extractive, Alignment and Rationales
+
+**Ranking Sentences for Extractive Summarization with Reinforcement Learning**. Narayan et al. NAACL'18\
+Extractive summ RL that optimizes ROUGE.\
+<https://aclanthology.org/N18-1158/>
 
 **Summary-Source Proposition-level Alignment: Task, Datasets and Supervised Baseline**. Ernst et al. CoNLL'21\
 Alignment between proposition-spans in summary and sentences in context.\
 New dataset: use BERT similarity, NLI entailment score, ROUGE score to filter alignment + human filtering.\
 Supervised model (as binary classification) gives better results as expected.\
 <https://aclanthology.org/2021.conll-1.25>
+
+**Detection and Mitigation of the Negative Impact of Dataset Extractivity on Abstractive Summarization**. Ge et al. ACL Findings'23\
+Identify shared tokens and corresponding sentences -> explicitly guide copy mechanism during training.\
+<https://aclanthology.org/2023.findings-acl.877>
+
+**Abstractive Summarizers are Excellent Extractive Summarizers**. Varab and Xu. ACL'23\
+Use abstractive summarizer to either 1) rank top document sentences individually (**local**), or 2) greedy sequential selection (**local**), by gen likelihood.\
+<https://aclanthology.org/2023.acl-short.29>
+
+**Text Summarization with Oracle Expectation**. Xu and Lapata. ICLR'23\
+**Global** optimization to assign soft score to each sentence, regard oracles as distribution rather than fixed.\ 
+<https://openreview.net/forum?id=HehQobsr0S>
+
+**Extractive Summarization with Text Generator**. Le and Tuan. NAACL'24\
+Align summ to doc by ROUGE-1 as a greedy sequential selection on sentences (**local**) till score convergence.\
+
+**TriSum: Learning Summarization Ability from Large Language Models with Structured Rationale**. Jiang et al. NAACL'24\
+Distill rationales from LLMs in a structured form to train small summarizer.\
+LLM generated rationales (aspects and relation triples) -> select rationales by scoring with gold summaries -> train small model.\
+<https://arxiv.org/pdf/2403.10351>
 
 ## Knowledge
 

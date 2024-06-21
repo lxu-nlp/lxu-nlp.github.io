@@ -176,11 +176,6 @@ For long example SFT, also enable loss on the long context itself, not only comp
 **YaRN: Efficient Context Window Extension of Large Language Models**. Peng et al. 2023\
 <https://arxiv.org/abs/2309.00071>
 
-**LONGLORA: EFFICIENT FINE-TUNING OF LONG CONTEXT LARGE LANGUAGE MODELS**. Chen et al. 2023\
-Same local window size for each attention head. But, half heads on original local regions, while the other half on shifted local regions with overlapping, to enable communication between locals.\
-Thus, although receiving local k/v at each attention layer, global attention can still be achieved by stacked attention layers.\
-<https://arxiv.org/pdf/2309.12307>
-
 **Beyond the Limits: A Survey of Techniques to Extend the Context Length in Large Language Models**. Wang et al. 2024\
 <https://arxiv.org/abs/2402.02244>
 
@@ -213,7 +208,7 @@ Next prediction: current text segment + past vectors.\
 Compress **input context** (**objectives: (reconstruction + general LM as pretraining) + specific tasks**).\
 <http://arxiv.org/abs/2307.06945>
 
-## Long Context: Pruning
+## Long Context: Position Pruning
 
 **Compressing Context to Enhance Inference Efficiency of Large Language Models**. Li et al. EMNLP'23\
 Finding: dropping tokens with high likelihood (less informative) could obtain similar generation quality.\
@@ -230,9 +225,36 @@ Train with sparse sigmoid on attention.\
 RL to select and prune few-shot prompts.\
 <http://arxiv.org/abs/2312.08901>
 
+## Long Context: Attention Head Pruning
+
+**Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned**. Voita et al. ACL'19\
+<https://aclanthology.org/P19-1580/>
+
+**Are Sixteen Heads Really Better than One?**. Michel et al. NIPS'19\
+<https://openreview.net/forum?id=ByxXhSBgIS>
+
+**Differentiable Subset Pruning of Transformer Heads**. Li et al. TACL'21\
+User-specified number of pruned heads.\
+<https://arxiv.org/abs/2108.04657>
+
+**Scissorhands: Exploiting the Persistence of Importance Hypothesis for LLM KV Cache Compression at Test Time**. Liu et al. NIPS'23\
+<https://openreview.net/forum?id=JZfg6wGi6g>
+
+**H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models**. Zhang et al. NIPS'23\
+<https://openreview.net/forum?id=RkRrPp7GKO>
+
+**Model Tells You What to Discard: Adaptive KV Cache Compression for LLMs**. Ge et al. ICLR'24\
+Fine-grained attention pattern + pruning.\
+<https://openreview.net/forum?id=uNrFpDPMyo>
+
 ## Long Context: Efficient Attention
 
 Also see post on sequence encoding.
+
+**LONGLORA: EFFICIENT FINE-TUNING OF LONG CONTEXT LARGE LANGUAGE MODELS**. Chen et al. 2023\
+Same local window size for each attention head. But, half heads on original local regions, while the other half on shifted local regions with overlapping, to enable communication between locals.\
+Thus, although receiving local k/v at each attention layer, global attention can still be achieved by stacked attention layers.\
+<https://arxiv.org/pdf/2309.12307>
 
 **Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention**. Munkhdalai et al. 2024\
 <http://arxiv.org/abs/2404.07143>
@@ -368,6 +390,10 @@ Core idea: Wittgenstein’s use theory of meaning (meaning is use).\
 Meaning representation: the likelihood of the continuation in language space.\
 Similarity: sampling continuation equal times from both two inputs as the approximated continuation space.\
 <https://arxiv.org/abs/2310.18348>
+
+**BeLLM: Backward Dependency Enhanced Large Language Model for Sentence Embeddings**. Li and Li. NAACL'24\
+Bidirectional on last layer + contrastive.\
+<https://arxiv.org/pdf/2311.05296>
 
 ---
 

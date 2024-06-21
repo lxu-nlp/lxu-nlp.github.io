@@ -160,7 +160,7 @@ Same as above, but add negative sampling when performing top-k search to force d
 
 <https://huggingface.co/blog/long-range-transformers>
 
-## For Distillation/Compression
+## For Distillation
 
 **Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned**. Voita et al. ACL'\
 <https://aclanthology.org/P19-1580>
@@ -177,19 +177,11 @@ Pre-training objective (only on last layer): (1) KL on attention prob distributi
 No other objectives.\
 <https://arxiv.org/abs/2002.10957>
 
-**Differentiable Subset Pruning of Transformer Heads**. Li et al. TACL'21\
-User-specified number of pruned heads.\
-<https://arxiv.org/abs/2108.04657>
-
 **Adversarial Data Augmentation for Task-Specific Knowledge Distillation of Pre-Trained Transformers**. Zhang et al. AAAI'22\
 Good related work.\
 Task-specific distillation: (1) standard KD (2) Adversarial Data Augmentation using embedding perturbation.\
 Benefits: embedding augmentation helps low-resource and generalization.\
 <https://aaai-2022.virtualchair.net/poster_aaai1872>
-
-**Large Models are Parsimonious Learners: Activation Sparsity in Trained Transformers**. Li et al. 2022\
-Sparsity: only 2.7% activated neurons in MLPs of NLP/vision Transformers; likely related to training dynamics, as this is true for any datasets.\
-<http://arxiv.org/abs/2210.06313>
 
 **ZipLM: Inference-Aware Structured Pruning of Language Models**. Kurtić et al. NIPS'23\
 <https://arxiv.org/abs/2302.04089>
@@ -305,6 +297,10 @@ Weighted token hidden state by pooling attention scores of different layers.\
 **The Inductive Bias of In-Context Learning: Rethinking Pretraining Example Design**. Levine et al. ICLR'22\
 In pretraining, directly seen > separately seen (requires generalization).\
 <http://arxiv.org/abs/2110.04541>
+
+**Large Models are Parsimonious Learners: Activation Sparsity in Trained Transformers**. Li et al. 2022\
+Sparsity: only 2.7% activated neurons in MLPs of NLP/vision Transformers; likely related to training dynamics, as this is true for any datasets.\
+<http://arxiv.org/abs/2210.06313>
 
 **Pre-Training to Learn in Context**. Gu et al. ACL'23\
 Pack sentences of similar tasks for pretraining.\
