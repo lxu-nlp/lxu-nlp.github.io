@@ -152,7 +152,7 @@ Window-based.\
 **MEMORIZING TRANSFORMERS**. Wu et al. ICLR'22\
 Attention on entire past context -> local context (current chunk sequence) + top-k (kNN search by QK dot-product) past token position stored as external KV.\
 Training: for each chunk, regard past stored KV as given (not backprop), resulting in distributional shift for long document (need training strategy).\
-<https://openreview.net/pdf?id=TrjbxzRcnf->
+<https://openreview.net/forum?id=TrjbxzRcnf->
 
 **Focused Transformer: Contrastive Training for Context Scaling**. Tworkowski et al. 2023\
 Same as above, but add negative sampling when performing top-k search to force distinguishing important positions.\

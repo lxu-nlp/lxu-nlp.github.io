@@ -274,6 +274,9 @@ Inject silver coreference explicitly in encoding.\
 
 ## Extractive, Alignment and Rationales
 
+Similarity scoring metrics: lexical; embedding sim; gen likelihood.\
+Search mechanism: 1) local: greedy sequential; top-k; 2) global: beam search; annealing; RL.
+
 **Ranking Sentences for Extractive Summarization with Reinforcement Learning**. Narayan et al. NAACL'18\
 Extractive summ RL that optimizes ROUGE.\
 <https://aclanthology.org/N18-1158/>

@@ -129,7 +129,7 @@ Tokenization:
 Transformers:
 * MLM why random 10% unchanged? Make sure the final hidden state to utilize itself as well (no train/test gap), in addition to context; nevertheless, the real objective is to obtain high-quality representation, not only the MLM classification accuracy
 * MLM why random 10% replacement (not MASK)? Make sure to always use context, even without MASK (close train/test gap when w/ mask or w/o mask)
-* Self-attention why scaled by sqrt(d)? Each raw attention element is from d*d, therefore the softmax scale will be large (variance proportional to d); need to normalize
+* Self-attention why scaled by sqrt(d)? To keep unit std <https://ai.stackexchange.com/questions/41861/why-use-a-square-root-in-the-scaled-dot-product>
 
 RL:
 * [Policy gradient](http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_4_policy_gradient.pdf)
