@@ -134,7 +134,7 @@ Goal: align with certain principles without human efforts.\
 (2) RL: use another independent LM to provide the score for two response comparison based on given principles. Score: get the log-likelihood of response ID.\
 <http://arxiv.org/abs/2212.08073>
 
-## LLM: Light Finetuning Techniques
+## LLM: PEFT
 
 Prefix tuning; Adapter; LoRA; ...
 
@@ -153,6 +153,12 @@ Prompt-tuning: similar to prefix-tuning, only optimizing a continuous prompt pre
 **LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS**. Hu et al. ICLR'22\
 Instead of inserting layers (adapters) as parts of parameters, learn a separate low-rank parameter delta.\
 <http://arxiv.org/abs/2106.09685>
+
+**DoRA: Weight-Decomposed Low-Rank Adaptation**. Liu et al. ICML'24\
+(1) Analyzing the delta change of weights after finetuning, by decomposing into magnitude and direction.\
+(2) Different delta dynamics between Lora and full full finetuning.\
+(3) Perform update by separating magnitude and direction of Lora, to be more stable and mimic full finetuning dynamic.\
+<https://openreview.net/forum?id=3d5CIRG1n2>
 
 ## Long Context: Position
 
@@ -251,6 +257,11 @@ Prune based on accumulated attention scores.\
 Attention head possesses different distribution patterns, which is also consistent across positions.\
 Thus, able to prune attention heads adaptively (per head per layer).\
 <https://openreview.net/forum?id=uNrFpDPMyo>
+
+## Long Context: Parameter Merging or KV Cache Merging
+
+**MiniCache: KV Cache Compression in Depth Dimension for Large Language Models**. Liu et al. 2024\
+<https://arxiv.org/abs/2405.14366>
 
 ## Long Context: Efficient Attention
 
