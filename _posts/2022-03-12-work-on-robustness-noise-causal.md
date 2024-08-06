@@ -91,3 +91,9 @@ Causal perspective for S2S NER: (1) pre-context confounder (2) entity order conf
 NLI: hand-crafted syntactic patterns as superficial clues that previous models are shown leveraged.\
 Data augmentation against those patterns can help performance.\
 <https://aclanthology.org/P19-1334>
+
+## Analysis: Noises
+
+**Understanding and Mitigating the Label Noise in Pre-training on Downstream Tasks**. Chen et al. ICLR'24\
+Noises help with in-domain (more robust for ID cases) but always hurt out-of-domain (less transferable).
+<https://openreview.net/forum?id=TjhUtloBZU>

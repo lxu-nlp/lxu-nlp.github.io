@@ -179,7 +179,7 @@ SOTA on multiple datasets.\
 Summarize on chunks sequentially, with chunk selection learned.\
 <https://aclanthology.org/2022.acl-long.302>
 
-**BooookScore: A systematic exploration of book-length summarization in the era of LLMs**. Chang et al. 2023\
+**BooookScore: A systematic exploration of book-length summarization in the era of LLMs**. Chang et al. ICLR'24\
 (1) how to prompt LLMs to summarize long doc: hierarchical, or online\
 (2) how to use LLMs to evaluate summary coherence, with similar human judgement\
 <http://arxiv.org/abs/2310.00785>

@@ -46,5 +46,3 @@ Entailment graph construction.\
 **From Key Points to Key Point Hierarchy: Structured and Expressive Opinion Summarization**. Cattan et al. ACL'23\
 Directional relation graph construction: 1) pairwise scores: NLI; distributional context similarity; 2) edge building by score threshold.\
 <https://aclanthology.org/2023.acl-long.52>
-
-

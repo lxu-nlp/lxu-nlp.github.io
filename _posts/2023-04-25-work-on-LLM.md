@@ -214,55 +214,6 @@ Next prediction: current text segment + past vectors.\
 Compress **input context** (**objectives: (reconstruction + general LM as pretraining) + specific tasks**).\
 <http://arxiv.org/abs/2307.06945>
 
-## Long Context: Position Pruning
-
-**Compressing Context to Enhance Inference Efficiency of Large Language Models**. Li et al. EMNLP'23\
-Finding: dropping tokens with high likelihood (less informative) could obtain similar generation quality.\
-(no training; not pruning on the fly; need full forward once)\
-<https://aclanthology.org/2023.emnlp-main.391>
-
-**Dynamic Context Pruning for Efficient and Interpretable Autoregressive Transformers**. Anagnostidis et al. NIPS'23\
-Each layer drops kv cache independently.\
-(not dropping entire tokens/positions, as each layer can have different patterns.)\
-Train with sparse sigmoid on attention.\
-<http://arxiv.org/abs/2305.15805>
-
-**Fewer is More: Boosting LLM Reasoning with Reinforced Context Pruning**. Huang et al. 2024\
-RL to select and prune few-shot prompts.\
-<http://arxiv.org/abs/2312.08901>
-
-## Long Context: Position Pruning per Head
-
-**Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned**. Voita et al. ACL'19\
-Hard-gate on attention heads, regularizing to closing gate.\
-<https://aclanthology.org/P19-1580/>
-
-**Are Sixteen Heads Really Better than One?**. Michel et al. NIPS'19\
-Define sensitivity by loss on heads and prune greedily and sequentially (after sort).\
-<https://openreview.net/forum?id=ByxXhSBgIS>
-
-**Differentiable Subset Pruning of Transformer Heads**. Li et al. TACL'21\
-User-specified number of pruned heads.\
-<https://arxiv.org/abs/2108.04657>
-
-**Scissorhands: Exploiting the Persistence of Importance Hypothesis for LLM KV Cache Compression at Test Time**. Liu et al. NIPS'23\
-Critical tokens always receive high attention; prune non-critical tokens.\
-<https://openreview.net/forum?id=JZfg6wGi6g>
-
-**H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models**. Zhang et al. NIPS'23\
-Prune based on accumulated attention scores.\
-<https://openreview.net/forum?id=RkRrPp7GKO>
-
-**Model Tells You What to Discard: Adaptive KV Cache Compression for LLMs**. Ge et al. ICLR'24\
-Attention head possesses different distribution patterns, which is also consistent across positions.\
-Thus, able to prune attention heads adaptively (per head per layer).\
-<https://openreview.net/forum?id=uNrFpDPMyo>
-
-## Long Context: Parameter Merging or KV Cache Merging
-
-**MiniCache: KV Cache Compression in Depth Dimension for Large Language Models**. Liu et al. 2024\
-<https://arxiv.org/abs/2405.14366>
-
 ## Long Context: Efficient Attention
 
 Also see post on sequence encoding.
@@ -378,6 +329,14 @@ Dataset: answerable and unanswerable questions.\
 
 **Lost in the Middle: How Language Models Use Long Contexts**. Liu et al. TACL'23\
 <https://arxiv.org/abs/2307.03172>
+
+**Case-Based or Rule-Based: How Do Transformers Do the Math?**. Hu et al. ICML'24\
+Design math dataset that controls case similarity, then train & evaluate.\
+Conclusion: LLMs rely on similar math cases.\
+<https://openreview.net/forum?id=4Vqr8SRfyX>
+
+**Scaling Exponents Across Parameterizations and Optimizers**. Everett et al. ICML'24\
+<https://openreview.net/forum?id=0ksNeD1SJT>
 
 ## External Memory
 
