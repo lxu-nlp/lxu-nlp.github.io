@@ -30,6 +30,9 @@ For long context.
 **XLBench: A Benchmark for Extremely Long Context Understanding with Long-range Dependencies**. Ni et al. 2024\
 <https://arxiv.org/abs/2308.14508>
 
+**LooGLE: Can Long-Context Language Models Understand Long Contexts?**. Li et al. 2024\
+<https://arxiv.org/abs/2311.04939>
+
 **CLongEval: A Chinese Benchmark for Evaluating Long-Context Large Language Models**. Qiu et al. 2024\
 <https://arxiv.org/abs/2403.03514>
 

@@ -266,10 +266,6 @@ Decide in-context decomposition examples for the current problem: searched from 
 In-context few-shot CoT for compositional tasks. Similar to above.\
 <http://arxiv.org/abs/2205.10625>
 
-**Reflexion: an autonomous agent with dynamic memory and self-reflection**. Shinn et al. 2023\
-Decide when to intercept and LLM self-reflect, then use reflection as part of the input (additional self-supervisions) for next trial.\
-<https://arxiv.org/abs/2303.11366v1>
-
 **SOLVING CHALLENGING MATH WORD PROBLEMS USING GPT-4 CODE INTERPRETER WITH CODE-BASED SELF-VERIFICATION**. Zhou et al. 2023\
 Leverage Code-Interpreter to verify results real-time and self-revise.\
 <http://arxiv.org/abs/2308.07921>
@@ -315,10 +311,6 @@ Decomposition: 1) formal linguistic competence (linguistic rules and statistical
 LLM to convert natural languages to program languages + use program languages as probabilistic inference for reasoning.\
 <http://arxiv.org/abs/2202.12837>
 
-**Large Language Models are not Fair Evaluators**. Wang et al. 2023\
-Positional bias for multi-choice questions. Solution: swap order and take average.\
-<https://arxiv.org/abs/2305.17926>
-
 **Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?**. Yao et al. EMNLP'22\
 (1) Important: input distribution, label space, format; (2) does not rely on the ground truth input-label mapping (little gap with random labels).\
 <http://arxiv.org/abs/2202.12837>
@@ -337,6 +329,58 @@ Conclusion: LLMs rely on similar math cases.\
 
 **Scaling Exponents Across Parameterizations and Optimizers**. Everett et al. ICML'24\
 <https://openreview.net/forum?id=0ksNeD1SJT>
+
+**Why are Sensitive Functions Hard for Transformers?**. Hahn and Rofin. ACL'24\
+<http://arxiv.org/abs/2402.09963>
+
+## Analysis: Bias
+
+**Large Language Models are not Fair Evaluators**. Wang et al. ACL'24\
+Determine when model is uncertain and human should step in.\
+Uncertain calibration mainly by swapping orders.\
+<https://aclanthology.org/2024.acl-long.511/>
+
+**Large Language Models Sensitivity to The Order of Options in Multiple-Choice Questions**. Pezeshkpour and Hruschka. NAACL Findings'23\
+Conjecture order sensitivity caused by: uncertainty + positional bias. Identify patterns that amplify/mitigate bias.\
+<https://aclanthology.org/2024.findings-naacl.130>
+
+**Large Language Models Are Not Robust Multiple Choice Selectors**. Zheng et al. ICLR'24\
+PriDe:\
+(1) bias comes from token bias, rather than position bias.\
+(2) compute prior token bias on a small set of samples (via permuting options), which is later used for debiasing directly.\
+<https://openreview.net/forum?id=shr9PXz7T0>
+
+**“My Answer is C”: First-Token Probabilities Do Not Match Text Answers in Instruction-Tuned Language Models**. Wang et al. ACL Findings'24\
+More capable model -> better instruction understanding -> better alignment (less mismatch) between single-token prob and text response.\
+<https://aclanthology.org/2024.findings-acl.441>
+
+**Look at the Text: Instruction-Tuned Language Models are More Robust Multiple Choice Selectors than You Think**. Wang et al. 2024\
+For both accuracy & selection bias & robustness by perturbation: text answer > debiased first token prob > direct first token prob.\
+<https://arxiv.org/abs/2404.08382>
+
+## Analysis: Self-Reasoning
+
+**Reflexion: language agents with verbal reinforcement learning**. Shinn et al. NIPS'23\
+<https://openreview.net/forum?id=vAElhFcKW6>
+
+**Self-Refine: Iterative Refinement with Self-Feedback**. Madaan et al. NIPS'23\
+<https://openreview.net/forum?id=S37hOerQLB>
+
+**Improving Factuality and Reasoning in Language Models through Multiagent Debate**. Du et al. ICML'24\
+<https://openreview.net/forum?id=zj7YuTE4t8>
+
+**ReConcile: Round-Table Conference Improves Reasoning via Consensus among Diverse LLMs**. Chen et al. ACL'24\
+<https://aclanthology.org/2024.acl-long.381/>
+
+**Large Language Models Cannot Self-Correct Reasoning Yet**. Huang et al. ICLR'24\
+Self-correction without external info does not work, after examining three previous techniques:\
+(1) reflexion (2) multi-agent debate (3) self-refine.\
+LLM cannot judge the correctness of reasoning. For the same budget, simple majority voting is more effective than discussions.\
+<https://openreview.net/forum?id=IkmD3fKBPQ>
+
+**Rethinking the Bounds of LLM Reasoning: Are Multi-Agent Discussions the Key?**. Wang et al. ACL'24\
+Self-discussion does not bring improvement; may help marginally when without demonstration.\
+<https://aclanthology.org/2024.acl-long.331>
 
 ## External Memory
 

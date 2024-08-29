@@ -48,6 +48,12 @@ Critical tokens always receive high attention; prune non-critical tokens.\
 Prune based on accumulated attention scores.\
 <https://openreview.net/forum?id=RkRrPp7GKO>
 
+**D2O : Dynamic Discriminative Operations for Efficient Generative Inference of Large Language Models**. Wan et al. 2024\
+<https://arxiv.org/abs/2406.13035>
+
+**Efficient Streaming Language Models with Attention Sinks**. Xiao et al. ICLR'24\
+<https://openreview.net/forum?id=NG7sS51zVF>
+
 **Model Tells You What to Discard: Adaptive KV Cache Compression for LLMs**. Ge et al. ICLR'24\
 Attention head possesses different distribution patterns, which is also consistent across positions.\
 Thus, able to prune attention heads adaptively (per head per layer).\

@@ -25,7 +25,7 @@ Core argument: LLM could occasionally give correct causal facts likely they are 
 (1) a model that simply obtains its knowledge from various Wikipedia statements will also learn untrue statements, statements that are not facts, thus explaining behavior that is correct sometimes and wrong other times.\
 (2) they are fundamentally different forms of representation in that learning from the physical measurements can be argued to be what we mean by ‘understanding’, whereas simply reading up on the textual article lacks exactly that component.\
 (3) LLM can never truly perform causal inference, if only observational data is given but no physical manipulation/intervention is performed.\
-<https://openreview.net/pdf?id=tv46tCzs83>
+<https://openreview.net/forum?id=tv46tCzs83>
 
 **Understanding Causality with Large Language Models: Feasibility and Opportunities**. Zhang et al. 2023\
 Similar to above: LLM can answer causal questions with existing causal knowledge, but not good enough for discovering new knowledge.\
@@ -36,7 +36,7 @@ Assess causal discovery from correlations/dependencies (deductive reasoning).\
 Basics: causation determines correlation but not reverse (one-to-many mapping); thus given correlation, need to reason causation.\
 Dataset: unique causal DAGs -> determine d-separation set -> determine correlation -> assign causation if all corresponding causal DAGs have this edge.\
 Observations: even after finetuning, the LLM prediction is not robust.\
-<http://arxiv.org/abs/2306.05836>
+<https://openreview.net/forum?id=vqIH0ObdqL>
 
 **Bridging Causal Discovery and Large Language Models: A Comprehensive Survey of Integrative Approaches and Future Directions**. Wan et al. 2024\
 <https://arxiv.org/abs/2402.11068>
