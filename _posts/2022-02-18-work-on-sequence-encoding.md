@@ -257,6 +257,14 @@ Cache-based:
 Pseudo-editing: not touching parameters; simply store update examples, and train a binary classifier to check if input is related to any examples.\
 <http://arxiv.org/abs/2206.06520>
 
+Evaluation:
+
+**Neighboring Perturbations of Knowledge Editing on Large Language Models**. Ma et al. ICML'24\
+<https://arxiv.org/abs/2401.17623>
+
+**Long-form evaluation of model editing**. Rosati et al. NAACL'24\
+<https://aclanthology.org/2024.naacl-long.208/>
+
 ## For Analysis
 
 **Perturbed Masking: Parameter-free Probing for Analyzing and Interpreting BERT**. Wu et al. ACL'20\
