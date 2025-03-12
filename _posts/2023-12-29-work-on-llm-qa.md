@@ -29,6 +29,9 @@ Multi-choice.\
 **LONGBENCH: A BILINGUAL, MULTITASK BENCHMARK FOR LONG CONTEXT UNDERSTANDING**. Bai et al. 2023\
 <https://arxiv.org/abs/2403.03514>
 
+**LongBench v2: Towards Deeper Understanding and Reasoning on Realistic Long-context Multitasks**. Bai et al. 2024\
+<https://arxiv.org/abs/2412.15204>
+
 **XLBench: A Benchmark for Extremely Long Context Understanding with Long-range Dependencies**. Ni et al. 2024\
 <https://arxiv.org/abs/2308.14508>
 
@@ -41,6 +44,16 @@ Multi-choice.\
 **NovelQA: A Benchmark for Long-Range Novel Question Answering**. Wang et al. 2024\
 Novels > 50k. Designed question types and templates.\
 <http://arxiv.org/abs/2403.12766>
+
+**RULER: What’s the Real Context Size of Your Long-Context Language Models?** Hsieh et al. COLM'24\
+Enhanced needle in a haystack.\
+<https://openreview.net/forum?id=kIoBbc76Sy>
+
+### RAG
+
+**LaRA: Benchmarking Retrieval-Augmented Generation and Long-Context LLMs - No Silver Bullet for LC or RAG Routing**. Li et al. 2025\
+Empirical comparison: Long Context vs. RAG.\
+<https://arxiv.org/pdf/2502.09977>
 
 ---
 
@@ -70,6 +83,12 @@ Retrieval vs. long context.\
 
 **RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval**. Sarthi et al. ICLR'24\
 <https://openreview.net/forum?id=GN921JHCRw>
+
+# Method: In-Context Retrieval
+
+**xRAG: Extreme Context Compression for Retrieval-augmented Generation with One Token**. Cheng et al. NIPS'24\
+Learn an adaptor to use single black-box embedding in the context.\
+<https://openreview.net/forum?id=6pTlXqrO0p>
 
 ---
 

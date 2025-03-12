@@ -13,19 +13,46 @@ math: true
 <http://arxiv.org/abs/2404.07143>
 
 
-## Cache Pruning: Direct Token Drop
+# Training-time Context Compression
+
+**Learning to Compress Prompts with Gist Tokens**. Mu et al. NIPS'23\
+Compress **instructions** within LLM (**objective: specific tasks**): instruction + GIST (soft tokens) + input_context, such that:\
+(1) GIST is learned to be generalized to compress arbitrary instructions.\
+(1) GIST can be cached and reused.\
+Training: simply mask out instruction after GIST.\
+<http://arxiv.org/abs/2304.08467>
+
+**Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
+Compress **input context** (**objective: general LM**).\
+Next prediction: current text segment + past vectors.\
+<https://aclanthology.org/2023.emnlp-main.232/>
+
+**In-context Autoencoder for Context Compression in a Large Language Model**. Ge et al. ICLR'24\
+Compress **input context** (**objectives: (reconstruction + general LM as pretraining) + specific tasks**).\
+<http://arxiv.org/abs/2307.06945>
+
+
+## Test-time Context Pruning: Hard Drop Non-Salient Tokens
 
 **Compressing Context to Enhance Inference Efficiency of Large Language Models**. Li et al. EMNLP'23\
 Finding: dropping tokens with high likelihood (less informative) could obtain similar generation quality.\
-(no training; not pruning on the fly; need full forward once)\
+(no training; need full forward once)\
 <https://aclanthology.org/2023.emnlp-main.391>
+
+**Not All Tokens Are What You Need for Pretraining**. Lin et al. NIPS'24\
+Use a pretrained model to get token likelihood to: 1) filter out noisy corpus; 2) enable loss only on hard tokens for more pretraining.\
+<https://openreview.net/forum?id=0NMzBwqaAJ>
+
+**LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression**. Pan et al. ACL Findings'24\
+Use GPT annotation to train a small token classifier on whether to retain.\
+<https://aclanthology.org/2024.findings-acl.57>
 
 **Fewer is More: Boosting LLM Reasoning with Reinforced Context Pruning**. Huang et al. 2024\
 RL to select and prune few-shot prompts.\
 <http://arxiv.org/abs/2312.08901>
 
 
-## Cache Pruning: Drop Positions per Head/Layer
+## Test-time Cache Pruning: Drop Cache per Head/Layer
 
 **Dynamic Context Pruning for Efficient and Interpretable Autoregressive Transformers**. Anagnostidis et al. NIPS'23\
 Each layer drops kv cache independently.\

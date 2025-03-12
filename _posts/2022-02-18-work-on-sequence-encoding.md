@@ -3,7 +3,7 @@ layout: post
 title: "Works on Sequence Modeling"
 date: 2022-02-18
 categories: [NLP]
-tags: [nlp, language model]
+tags: [nlp, language model, LLM]
 math: true
 ---
 
