@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Works on Structure Mining"
+title: "Works on Context Structure Extraction"
 date: 2024-03-10
 categories: [NLP]
-tags: [nlp]
+tags: [nlp, structure]
 math: true
 ---
 

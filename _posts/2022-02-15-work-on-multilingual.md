@@ -7,7 +7,6 @@ tags: [nlp, multilingual]
 math: true
 ---
 
-This article is being updated.
 
 ## Benchmark
 

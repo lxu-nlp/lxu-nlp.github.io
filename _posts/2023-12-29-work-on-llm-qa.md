@@ -1,28 +1,30 @@
 ---
 layout: post
-title: "Works on Reading Comprehension"
+title: "Works on LLM QA"
 date: 2023-12-29
 categories: [NLP]
-tags: [nlp]
+tags: [nlp, QA, LLM]
 math: true
 ---
 
-Reading comprehension other than the standard QA.
 
-**Natural Language Decompositions of Implicit Content Enable Better Text Representations**. Hoyle et al. EMNLP'23\
-Generate implicit (and simplified) propositions inferred by LLM through few-shot prompting.\
-<https://aclanthology.org/2023.emnlp-main.815>
+# Benchmark
 
-**Multi-level Contrastive Learning for Script-based Character Understanding**. Li et al. EMNLP'23\
-<https://aclanthology.org/2023.emnlp-main.366>
+### Long Context / Global Reasoning
 
-**Drilling Down into the Discourse Structure with LLMs for Long Document Question Answering**. Nair et al. EMNLP'23\
-LLM to find relevant sections (header + summary) -> LLM to pick relevant paragraphs -> QA.\
-<https://aclanthology.org/2023.findings-emnlp.972>
+**The NarrativeQA Reading Comprehension Challenge**. Kočiský et al. TACL'18\
+Questions on long stories that require higher-level abstraction than superficial pattern matching: majority answers do not have spans directly in text.\
+Approach: retrieval & concatenation to shorter doc -> QA.\
+<https://aclanthology.org/Q18-1023>
 
-## Benchmark
+**Fantastic Questions and Where to Find Them: FairytaleQA – An Authentic Dataset for Narrative Comprehension**. Xu et al. ACL'22\
+FairytaleQA: similar to NarrativeQA with more diverse questions.\
+<https://aclanthology.org/2022.acl-long.34>
 
-For long context.
+**QuALITY: Question Answering with Long Input Texts, Yes!**. Pang et al. NAACL'22\
+More abstractive questions: how, why, description.\
+Multi-choice.\
+<https://aclanthology.org/2022.naacl-main.391>
 
 **LONGBENCH: A BILINGUAL, MULTITASK BENCHMARK FOR LONG CONTEXT UNDERSTANDING**. Bai et al. 2023\
 <https://arxiv.org/abs/2403.03514>
@@ -40,7 +42,38 @@ For long context.
 Novels > 50k. Designed question types and templates.\
 <http://arxiv.org/abs/2403.12766>
 
-## Question Generation
+---
+
+# Method: Multi-Step or Planning (w/o Retrieval)
+
+**Generate rather than Retrieve: Large Language Models are Strong Context Generators**. Yu et al. ICLR'23\
+Use LLM to replace retrieval by relevant context generation.\
+<https://openreview.net/forum?id=fB0hRu9GZUS>
+
+**Walking Down the Memory Maze: Beyond Context Limit through Interactive Reading**. Chen et al. 2023\
+Summary tree: zero-shot LLM to figure out the path from root.\
+<https://arxiv.org/abs/2310.05029>
+
+**A Human-Inspired Reading Agent with Gist Memory of Very Long Contexts**. Lee et al. 2024\
+Segment summaries (linear): zero-shot LLM to select which segments to read and when to stop.\
+<http://arxiv.org/abs/2402.09727>
+
+**LongAgent: Scaling Language Models to 128k Context through Multi-Agent Collaboration**. Zhao et al. 2024\
+One leader for decision making and several members for discussion.\
+<http://arxiv.org/abs/2402.11550>
+
+# Method: Enriched Retrieval Index (w/ Retrieval)
+
+**Retrieval meets Long Context Large Language Models**. Xu et al. ICLR'24\
+Retrieval vs. long context.\
+<https://arxiv.org/abs/2310.03025>
+
+**RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval**. Sarthi et al. ICLR'24\
+<https://openreview.net/forum?id=GN921JHCRw>
+
+---
+
+# Task: Question Generation
 
 **Semantic Graphs for Generating Deep Questions**. Pan et al. ACL'20\
 SRL or dependency graph -> augmented node representation by GNN -> question.\ 
@@ -61,7 +94,7 @@ Downstream task: augment context for FairyTale QA.\
 context -> reasoning graph -> iterative question rewriting based on reasoning steps.\
 <https://aclanthology.org/2021.acl-long.465>
 
-## Decontextualization
+# Task: Decontextualization
 
 **Decontextualization: Making Sentences Stand-Alone**. Choi et al. TACL'21\
 Augment local context: add coref, bridging, global modifier, ...\
@@ -72,17 +105,3 @@ Applications: passage retrieval, etc.\
 QG -> QA -> rewrite upon QA pairs (online manner).\
 Evaluation on LLM prompting.\
 <https://aclanthology.org/2023.emnlp-main.193>
-
-## (Interactive) Reading Agent
-
-**Walking Down the Memory Maze: Beyond Context Limit through Interactive Reading**. Chen et al. 2023\
-Summary tree: zero-shot LLM to figure out the path from root.\
-<https://arxiv.org/abs/2310.05029>
-
-**A Human-Inspired Reading Agent with Gist Memory of Very Long Contexts**. Lee et al. 2024\
-Segment summaries (linear): zero-shot LLM to select which segments to read and when to stop.\
-<http://arxiv.org/abs/2402.09727>
-
-**LongAgent: Scaling Language Models to 128k Context through Multi-Agent Collaboration**. Zhao et al. 2024\
-One leader for decision making and several members for discussion.\
-<http://arxiv.org/abs/2402.11550>

@@ -1,15 +1,19 @@
 ---
 layout: post
-title: "Works on Efficient Decoding"
-date: 2024-08-05
+title: "Works on LLM Memory"
+date: 2025-03-12
 categories: [NLP]
-tags: [nlp]
+tags: [nlp, LLM, memory]
 math: true
 ---
 
-Plugin for efficient LLM decoding without any training.
+## Attention Design
 
-## Drop Entire Position
+**Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention**. Munkhdalai et al. 2024\
+<http://arxiv.org/abs/2404.07143>
+
+
+## Cache Pruning: Direct Token Drop
 
 **Compressing Context to Enhance Inference Efficiency of Large Language Models**. Li et al. EMNLP'23\
 Finding: dropping tokens with high likelihood (less informative) could obtain similar generation quality.\
@@ -20,7 +24,8 @@ Finding: dropping tokens with high likelihood (less informative) could obtain si
 RL to select and prune few-shot prompts.\
 <http://arxiv.org/abs/2312.08901>
 
-## Prune per Head/Layer
+
+## Cache Pruning: Drop Positions per Head/Layer
 
 **Dynamic Context Pruning for Efficient and Interpretable Autoregressive Transformers**. Anagnostidis et al. NIPS'23\
 Each layer drops kv cache independently.\
@@ -59,20 +64,28 @@ Attention head possesses different distribution patterns, which is also consiste
 Thus, able to prune attention heads adaptively (per head per layer).\
 <https://openreview.net/forum?id=uNrFpDPMyo>
 
-## Parameter Merging or KV Cache Merging
+**SnapKV: LLM Knows What You are Looking for Before Generation**. Li et al. NIPS'24\
+<https://openreview.net/forum?id=poE54GOq2l>
+
+
+## Cache Merging
 
 **MiniCache: KV Cache Compression in Depth Dimension for Large Language Models**. Liu et al. 2024\
 <https://arxiv.org/abs/2405.14366>
 
-## Speculative Decoding
 
-**Fast Inference from Transformers via Speculative Decoding**. Leviathan et al. ICML'23\
-n-times autoregression by smaller draft model + LLM verification once that recovers original distribution through rejection sampling strategies.\
-Easier positions are now handled by the smaller draft model.\
-<https://openreview.net/forum?id=C9NEblP8vS>
+## Memory Modeling
 
-**EAGLE: Speculative Sampling Requires Rethinking Feature Uncertainty**. Li et el. ICML'24\
-(1) learn a small draft model that mimics the final hidden states (features) generated from the original LLM, to be consumed directly by the LM head of original LLM\
-(2) draft model: (latest token, previous feature) -> latest feature, next token; same effect as original LLM: (latest token, past kv) -> latest kv, next token\
-(3) draft tree rather than chain; LLM verification once on the tree.\
-<https://openreview.net/forum?id=1NdN7eXyb4>
+**Augmenting Language Models with Long-Term Memory**. Wang et al. 2023\
+<https://arxiv.org/pdf/2306.07174>
+
+**RetrievalAttention: Accelerating Long-Context LLM Inference via Vector Retrieval**. Liu et al. 2025\
+KV cache as memory: retrieve most similar K upon Q (topk), but not full search; using approximate search e.g. cluster-based for sublinear retrieval.\
+Cache Retrieval vs. Pruning: retrieval is dynamic, as each latest Q obtains different set of K, due to observation that different Q has different set of similar K, as generation goes\
+Novel: Q does not directly retrieve well with cluster-based K index, as K index does not see Q distribution\
+Method: regard as few-shot problem, use existing Q distribution as anchor to find the closest K, instead of finding K directly\
+<https://arxiv.org/abs/2409.10516>
+
+**Titans: Learning to Memorize at Test Time**. Behrouz et al. 2025\
+Memory vector design: meta learning that learns to read/update memory.\
+<https://arxiv.org/pdf/2501.00663>

@@ -1,30 +1,14 @@
 ---
 layout: post
-title: "Works on Large Language Models"
+title: "Works on LLM Basics"
 date: 2023-04-25
 categories: [NLP]
-tags: [nlp, llm, language model]
+tags: [nlp, LLM]
 math: true
 ---
 
-LLM reasoning: (1) pretraining on code, as an explicit **logical form expression** and problem solving; (2) adding CoT in instruction tuning can further boost reasoning (for complex tasks, CoT is closer to corpus distribution in pretraining, rather than an abrupt answer)
-* How procedure-oriented programming is similar to solving tasks step by step, and how object-oriented programming is similar to decomposing complex tasks into simpler ones.
-* Long-term dependency might also be a nice side effect of training on code. As is pointed out by Peter Liu. “Next token prediction for language is usually very local.
 
-LLM alignment towards desired behaviors:
-1. Instruction-tuning (by task templates): enable zero-shot task understanding
-2. Instruction-tuning (by GPT generation): much more diverse tasks than templates
-3. RLHF: enable non-unique comparisons (negative sampling), rather than learning a fixed positive responses
-   * Good to explore more space with regularization by rewarding; some generative tasks (e.g. summ, dialogue) have diverse responses by nature
-
-LLM challenges:
-* Model editing; continuous knowledge updating
-* Incorporate external knowledge base
-* Structural reasoning & planning
-
-LLM interpretability: text => logical form expression (similar to code) => conclusions?
-
-## LLM: Training
+## LLM Basics
 
 **Language Models are Few-Shot Learners**. Brown et al. NIPS'20\
 GPT-3: introduce few-shot prompting paradigm.\
@@ -81,7 +65,24 @@ Similar to PaLM/Chinchilla: train with more data on smaller models.\
 Sparse gating: constant computation cost while scaling up parameters.\
 <http://arxiv.org/abs/2401.04088>
 
-## LLM: Instruction Alignment
+## Instruction Alignment
+
+**Training language models to follow instructions with human feedback**. Ouyang et al. 2022\
+InstructGPT: alignment with human intent.\
+Supervised finetuning on golds -> output on unlabeled data -> human feedback w/ trained reward model -> RL w/ reward model.\
+<http://arxiv.org/abs/2203.02155>
+
+**Improving alignment of dialogue agents via targeted human judgements**. Glaese et al. 2022\
+Sparrow: supervised finetuning + train rewards based on designed rules = RL on larger unlabeled inputs (self-play/learning)\
+Train to decide when to retrieve evidence and how good the evidence is.\
+Reward models can be used for re-ranking during inference.\
+<http://arxiv.org/abs/2209.14375>
+
+**Constitutional AI: Harmlessness from AI Feedback**. Bai et al. 2022\
+Goal: align with certain principles without human efforts.\
+(1) Supervised bootstrapping: (prompt, response) -GPT-> (prompt, revision), by giving principles and self-revise. Then finetune a model on the revision for bootstrapping.\
+(2) RL: use another independent LM to provide the score for two response comparison based on given principles. Score: get the log-likelihood of response ID.\
+<http://arxiv.org/abs/2212.08073>
 
 **Self-Instruct: Aligning Language Model with Self Generated Instructions**. Wang et al. ACL'23\
 Generated instructions from LLM (GPT3) by iterative bootstrapping: seed task instructions -> new task instructions -> input/output instructions.\
@@ -115,52 +116,7 @@ Instruction generation by semi-supervised + back-verification: (instruction, doc
 Observations: quality > quantity; more quantity only helps when quality is good.\
 <http://arxiv.org/abs/2308.06259>
 
-## LLM: Alignment with Additional Feedback
-
-**Training language models to follow instructions with human feedback**. Ouyang et al. 2022\
-InstructGPT: alignment with human intent.\
-Supervised finetuning on golds -> output on unlabeled data -> human feedback w/ trained reward model -> RL w/ reward model.\
-<http://arxiv.org/abs/2203.02155>
-
-**Improving alignment of dialogue agents via targeted human judgements**. Glaese et al. 2022\
-Sparrow: supervised finetuning + train rewards based on designed rules = RL on larger unlabeled inputs (self-play/learning)\
-Train to decide when to retrieve evidence and how good the evidence is.\
-Reward models can be used for re-ranking during inference.\
-<http://arxiv.org/abs/2209.14375>
-
-**Constitutional AI: Harmlessness from AI Feedback**. Bai et al. 2022\
-Goal: align with certain principles without human efforts.\
-(1) Supervised bootstrapping: (prompt, response) -GPT-> (prompt, revision), by giving principles and self-revise. Then finetune a model on the revision for bootstrapping.\
-(2) RL: use another independent LM to provide the score for two response comparison based on given principles. Score: get the log-likelihood of response ID.\
-<http://arxiv.org/abs/2212.08073>
-
-## LLM: PEFT
-
-Prefix tuning; Adapter; LoRA; ...
-
-**Prefix-Tuning: Optimizing Continuous Prompts for Generation**. Li and Liang. ACL'21\
-Prefix-tuning: optimize a continuous prompt prefix per task, instead of discrete task prompt.\
-Close to finetuning, and better than finetuning when data is small.\
-<https://aclanthology.org/2021.acl-long.353>
-
-**The Power of Scale for Parameter-Efficient Prompt Tuning**. Lester et al. EMNLP'21\
-Prompt-tuning: similar to prefix-tuning, only optimizing a continuous prompt prefix.\
-(1) Prompt length can be critical.\
-(2) Initializing prompt by class-label vocab performs the best.\
-(3) Prompt tuning becomes more competitive with scale (same performance as finetuning).\
-<https://aclanthology.org/2021.emnlp-main.243>
-
-**LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS**. Hu et al. ICLR'22\
-Instead of inserting layers (adapters) as parts of parameters, learn a separate low-rank parameter delta.\
-<http://arxiv.org/abs/2106.09685>
-
-**DoRA: Weight-Decomposed Low-Rank Adaptation**. Liu et al. ICML'24\
-(1) Analyzing the delta change of weights after finetuning, by decomposing into magnitude and direction.\
-(2) Different delta dynamics between Lora and full full finetuning.\
-(3) Perform update by separating magnitude and direction of Lora, to be more stable and mimic full finetuning dynamic.\
-<https://openreview.net/forum?id=3d5CIRG1n2>
-
-## Long Context: Position
+## Position Interpolation
 
 **RoFormer: Enhanced Transformer with Rotary Position Embedding**. Su et al. 2021\
 RoPE formulation: as a kernel, when q/k can be encoded by each position separately, and their multiplication represents the relative difference.\ 
@@ -185,48 +141,7 @@ For long example SFT, also enable loss on the long context itself, not only comp
 **Beyond the Limits: A Survey of Techniques to Extend the Context Length in Large Language Models**. Wang et al. 2024\
 <https://arxiv.org/abs/2402.02244>
 
-## Long Context: Retrieval
-
-**Retrieval meets Long Context Large Language Models**. Xu et al. ICLR'24\
-Retrieval vs. long context.\
-<https://arxiv.org/abs/2310.03025>
-
-## Long Context: Recurrent or Cache
-
-**Augmenting Language Models with Long-Term Memory**. Wang et al. 2023\
-<https://arxiv.org/pdf/2306.07174>
-
-## Long Context: Compression
-
-**Learning to Compress Prompts with Gist Tokens**. Mu et al. NIPS'23\
-Compress **instructions** within LLM (**objective: specific tasks**): instruction + GIST (soft tokens) + input_context, such that:\
-(1) GIST is learned to be generalized to compress arbitrary instructions.\
-(1) GIST can be cached and reused.\
-Training: simply mask out instruction after GIST.\
-<http://arxiv.org/abs/2304.08467>
-
-**Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
-Compress **input context** (**objective: general LM**).\
-Next prediction: current text segment + past vectors.\
-<https://aclanthology.org/2023.emnlp-main.232/>
-
-**In-context Autoencoder for Context Compression in a Large Language Model**. Ge et al. ICLR'24\
-Compress **input context** (**objectives: (reconstruction + general LM as pretraining) + specific tasks**).\
-<http://arxiv.org/abs/2307.06945>
-
-## Long Context: Efficient Attention
-
-Also see post on sequence encoding.
-
-**LONGLORA: EFFICIENT FINE-TUNING OF LONG CONTEXT LARGE LANGUAGE MODELS**. Chen et al. 2023\
-Same local window size for each attention head. But, half heads on original local regions, while the other half on shifted local regions with overlapping, to enable communication between locals.\
-Thus, although receiving local k/v at each attention layer, global attention can still be achieved by stacked attention layers.\
-<https://arxiv.org/pdf/2309.12307>
-
-**Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention**. Munkhdalai et al. 2024\
-<http://arxiv.org/abs/2404.07143>
-
-## LLM Reasoning
+## Reasoning
 
 **Chain-of-Thought Prompting Elicits Reasoning in Large Language Models**. Wei et al. NIPS'22\
 Introduce few-shot CoT in various reasoning tasks; teaching the problem solving (rough algorithm) rather than through few-shot guessing.\
@@ -278,24 +193,7 @@ Leverage Code-Interpreter to verify results real-time and self-revise.\
 Function-style with doc-string comments as instructions, supporting few-shot.\
 <https://aclanthology.org/2023.emnlp-main.939>
 
-## Hallucination
-
-Also see post about Factuality.
-
-**Halo: Estimation and Reduction of Hallucinations in Open-Source Weak Large Language Models**. Elaraby et al. 2023\
-Use SUMMAC directly; new dataset constructed by GPT, with approach to reduce hallucination.\
-<http://arxiv.org/abs/2308.11764>
-
-**SELF-CONTRADICTORY HALLUCINATIONS OF LLMS: EVALUATION, DETECTION AND MITIGATION**. Mündler et al. 2023\
-Induce LLM to generate two statements regarding the same context, then use another LLM to detect inconsistency.\
-<http://arxiv.org/abs/2305.15852>
-
-**CHAIN-OF-VERIFICATION REDUCES HALLUCINATION IN LARGE LANGUAGE MODELS**. Dhuliawala et al. 2023\
-QA-based verification for detecting non-factual query response.\
-<https://arxiv.org/pdf/2309.11495.pdf>
-
-**DOLA: DECODING BY CONTRASTING LAYERS IMPROVES FACTUALITY IN LARGE LANGUAGE MODELS** Chuang et al. 2023\
-<https://arxiv.org/pdf/2309.03883.pdf>
+---
 
 ## Analysis
 
@@ -382,13 +280,26 @@ LLM cannot judge the correctness of reasoning. For the same budget, simple major
 Self-discussion does not bring improvement; may help marginally when without demonstration.\
 <https://aclanthology.org/2024.acl-long.331>
 
-## External Memory
+## Analysis: Hallucination
 
-**MemPrompt: Memory-assisted Prompt Editing with User Feedback**. Madaan et al. EMNLP'22\
-Retrieval-based memory: retrieve user feedback of correct intent on similar questions, and add to few-shot prompt.\
-<https://aclanthology.org/2022.emnlp-main.183/>
+Also see post about Factuality.
 
-## Attack
+**Halo: Estimation and Reduction of Hallucinations in Open-Source Weak Large Language Models**. Elaraby et al. 2023\
+Use SUMMAC directly; new dataset constructed by GPT, with approach to reduce hallucination.\
+<http://arxiv.org/abs/2308.11764>
+
+**SELF-CONTRADICTORY HALLUCINATIONS OF LLMS: EVALUATION, DETECTION AND MITIGATION**. Mündler et al. 2023\
+Induce LLM to generate two statements regarding the same context, then use another LLM to detect inconsistency.\
+<http://arxiv.org/abs/2305.15852>
+
+**CHAIN-OF-VERIFICATION REDUCES HALLUCINATION IN LARGE LANGUAGE MODELS**. Dhuliawala et al. 2023\
+QA-based verification for detecting non-factual query response.\
+<https://arxiv.org/pdf/2309.11495.pdf>
+
+**DOLA: DECODING BY CONTRASTING LAYERS IMPROVES FACTUALITY IN LARGE LANGUAGE MODELS** Chuang et al. 2023\
+<https://arxiv.org/pdf/2309.03883.pdf>
+
+## Analysis: Attack
 
 **Universal and Transferable Adversarial Attacks on Aligned Language Models**. Zou et al. 2023\
 (1) For attacking, the desired output starts with its corresponding affirmative response, e.g. Sure, here is how to ...\
@@ -397,26 +308,9 @@ Retrieval-based memory: retrieve user feedback of correct intent on similar ques
 (4) Repeat this search process on multiple prompts incrementally, to find the final universal suffix that works for all prompts\
 <http://arxiv.org/abs/2307.15043>
 
-## Representation (Embeddings, etc.)
-
-**Scaling Sentence Embeddings with Large Language Models**. Jiang et al. 2023\
-Use template for CLM (using the last hidden state):
-This sentence: \[text\] means in one word:\
-<http://arxiv.org/abs/2307.16645>
-
-**Meaning Representations from Trajectories in Autoregressive Models**. Liu et al. ICLR'24\
-Core idea: Wittgenstein’s use theory of meaning (meaning is use).\
-Meaning representation: the likelihood of the continuation in language space.\
-Similarity: sampling continuation equal times from both two inputs as the approximated continuation space.\
-<https://arxiv.org/abs/2310.18348>
-
-**BeLLM: Backward Dependency Enhanced Large Language Model for Sentence Embeddings**. Li and Li. NAACL'24\
-Bidirectional on last layer + contrastive.\
-<https://arxiv.org/pdf/2311.05296>
-
 ---
 
-## Prompting Applications
+## Applications
 
 **Constrained Language Models Yield Few-Shot Semantic Parsers**. Shin et al. EMNLP'21\
 (1) semantic parsing as paraphrasing natural sentences into a sublanguage/canonical expression that is close to natural languages (2) sublanguage-constrained decoding. Same few-shot performance but much less data.\
@@ -439,8 +333,4 @@ Coherence: protected by the shared short description in prompting\
 **DOC: Improving Long Story Coherence With Detailed Outline Control**. Yang et al. 2022\
 Hierarchical generation.\
 <http://arxiv.org/abs/2212.10077>
-
-**GENERATE RATHER THAN RETRIEVE: LARGE LANGUAGE MODELS ARE STRONG CONTEXT GENERATORS**. Yu et al. ICLR'23\
-Use LLM to replace retrieval by generation.\
-<http://arxiv.org/abs/2209.10063>
 

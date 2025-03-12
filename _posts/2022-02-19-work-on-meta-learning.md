@@ -1,30 +1,27 @@
 ---
 layout: post
-title: "Works on Few-Shot, Meta Learning and Semi-Supervised Learning"
+title: "Works on Few Shot and Meta Learning"
 date: 2022-02-19
 categories: [NLP]
-tags: [nlp, few-shot, semi-supervised]
+tags: [nlp, few-shot, meta learning]
 math: true
 ---
-
-This article is being updated. It is an incomplete list and only contains several important work for now.
-
-# Few-shot Learning
 
 Some online resources:
 
 * [Meta-Learning: Learning to Learn Fast](https://lilianweng.github.io/lil-log/2018/11/30/meta-learning.html)
 * [few-shot learning and meta-learning](https://www.borealisai.com/en/blog/tutorial-2-few-shot-learning-and-meta-learning-i/)
 
+
+# Metric/Similarity Learning
+
 Dataset are divided into:
 
 * Support Set $S$: N classes with K examples of each, noted as N-way K-shot classification task.
 * Query Set or Prediction Set $Q$: used for training and testing
 
+Core: learn similarity/distance and use the support set as the proxy.
 
-## Metrics (Similarity)-Based
-
-Obtain similarity/distance to each support set and select the best one. Optimize by classification or contrastive given pos/neg examples.
 
 **Siamese Neural Networks for One-shot Image Recognition**. Koch et al. ICML Workshop'15\
 Siamese network:\
@@ -49,7 +46,8 @@ Prototypical network: similar to Matching network, however: (1) obtain a centroi
 Relation network: combine Siamese network and Prototypical network: (1) learn the metric $a(x_i, x_j)$ instead of using pre-defined metrics (2) use one centroid representation for each class (by sum or mean) (3) optimize the metric score $a(x_i, x_j)$ by MSE (can still be cross-entropy though).\
 <https://arxiv.org/abs/1711.06025>
 
-## Optimization-Based
+
+# Meta Learning
 
 **Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks**. Finn et al. ICML'17\
 <https://arxiv.org/abs/1703.03400>
@@ -57,7 +55,7 @@ Relation network: combine Siamese network and Prototypical network: (1) learn th
 **On First-Order Meta-Learning Algorithms**. Nichol et al. 2018\
 <https://arxiv.org/abs/1803.02999>
 
-## in NLP Venue
+### in NLP Venue
 
 **Discriminative Nearest Neighbor Few-Shot Intent Detection by Transferring Natural Language Inference**. Zhang et al. EMNLP'20\
 Similar to Siamese network. Combine coarse retrieval for faster NN.\
@@ -80,9 +78,7 @@ Inference: nearest-neighbor on entire $S$ (similar to Siamese).\
 
 ---
 
-# Other Weak/Semi-Supervision
-
-## Self-Learning (Pseudo Label)
+# Self-Learning (Pseudo Label)
 
 **Uncertainty-aware Self-training for Text Classification with Few Labels**. Mukherjee and Awadallah. NIPS'20\
 Normal SL process but (1) select by BALD (dropout entropy) (2) select with exploration (3) weight loss by uncertainty from teacher.\

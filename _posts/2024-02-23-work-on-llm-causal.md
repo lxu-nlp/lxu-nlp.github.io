@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Works on Causality"
+title: "Works on LLM Causality"
 date: 2024-02-23
 categories: [NLP]
-tags: [nlp, causal]
+tags: [nlp, causal, LLM]
 math: true
 ---
 

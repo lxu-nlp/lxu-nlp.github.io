@@ -3,7 +3,7 @@ layout: post
 title: "Works on Contrastive Learning"
 date: 2022-03-18
 categories: [NLP]
-tags: [nlp, contrastive]
+tags: [nlp, contrastive, training]
 math: true
 ---
 

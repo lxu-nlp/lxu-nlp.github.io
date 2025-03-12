@@ -3,7 +3,7 @@ layout: post
 title: "Works on Phrase & Attribute Mining"
 date: 2022-05-18
 categories: [NLP]
-tags: [nlp, phrase mining]
+tags: [nlp, mining]
 math: true
 ---
 
