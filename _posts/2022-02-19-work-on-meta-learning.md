@@ -3,7 +3,7 @@ layout: post
 title: "Works on Few Shot and Meta Learning"
 date: 2022-02-19
 categories: [NLP]
-tags: [nlp, few-shot, meta learning]
+tags: [nlp, few-shot, meta learning, ML]
 math: true
 ---
 

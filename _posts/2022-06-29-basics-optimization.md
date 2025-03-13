@@ -3,7 +3,7 @@ layout: post
 title: "Optimization Basics"
 date: 2023-06-29
 categories: [Basics]
-tags: [optimization]
+tags: [optimization, ML]
 math: true
 ---
 

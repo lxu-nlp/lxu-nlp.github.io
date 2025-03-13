@@ -3,7 +3,7 @@ layout: post
 title: "Basics Recap"
 date: 2022-09-02
 categories: [Basics]
-tags: [machine learning]
+tags: [ML]
 math: true
 ---
 

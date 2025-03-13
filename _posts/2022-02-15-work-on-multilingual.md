@@ -3,7 +3,7 @@ layout: post
 title: "Works on Multilingual Tasks"
 date: 2022-02-15
 categories: [NLP]
-tags: [nlp, multilingual]
+tags: [nlp, multilingual, language model]
 math: true
 ---
 

@@ -13,7 +13,7 @@ math: true
 <http://arxiv.org/abs/2404.07143>
 
 
-# Training-time Context Compression
+## Training-time Context Compression
 
 **Learning to Compress Prompts with Gist Tokens**. Mu et al. NIPS'23\
 Compress **instructions** within LLM (**objective: specific tasks**): instruction + GIST (soft tokens) + input_context, such that:\

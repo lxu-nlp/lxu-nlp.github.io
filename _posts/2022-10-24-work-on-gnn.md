@@ -3,7 +3,7 @@ layout: post
 title: "Works on GNN"
 date: 2022-10-24
 categories: [NLP]
-tags: [nlp, gnn, graph]
+tags: [nlp, GNN, graph]
 math: true
 ---
 
