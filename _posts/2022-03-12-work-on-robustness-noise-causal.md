@@ -38,7 +38,7 @@ Incorporate data-uncertainty: see uncertainty post.
 **Generalized Cross Entropy Loss for Training Deep Neural Networks with Noisy Labels**. Zhang et al. NIPS'18\
 Generalization of CE and MAE loss to achieve balance between learning and noise-robustness.\
 MAE: noise-robust but harder to learn; CE: effective learning but overfit to noisy samples.\
-<http://arxiv.org/abs/1805.07836>
+<https://arxiv.org/abs/1805.07836>
 
 **Symmetric Cross Entropy for Robust Learning with Noisy Labels**. Wang et al. ICCV'19\
 Adding a symmetric term to CE for better noise-resilience.\
@@ -61,7 +61,7 @@ Half selected positions are noun phrases; train with augmentation can better def
 
 **Unifying Model Explainability and Robustness for Joint Text Classification and Rationale Extraction**. Li et al. AAAI'22\
 Discrete word-replacement attack & embedding perturbation attack.\
-<http://arxiv.org/abs/2112.10424>
+<https://arxiv.org/abs/2112.10424>
 
 ## Robustness by Causality, Rationale, Logic
 

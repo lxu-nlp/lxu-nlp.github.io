@@ -167,7 +167,7 @@ TODO\
 
 **Recursively Summarizing Books with Human Feedback**. Wu et al. 2021\
 Recursive summarization (similar as below); each summarizer using RLHF.\
-<http://arxiv.org/abs/2109.10862>
+<https://arxiv.org/abs/2109.10862>
 
 **Summ$^N$: A Multi-Stage Summarization Framework for Long Input Dialogues and Documents**. Zhang et al. ACL'22\
 Recursive summarization/compression (coarse-to-fine), without information loss due to truncation or extraction.\
@@ -182,7 +182,7 @@ Summarize on chunks sequentially, with chunk selection learned.\
 **BooookScore: A systematic exploration of book-length summarization in the era of LLMs**. Chang et al. ICLR'24\
 (1) how to prompt LLMs to summarize long doc: hierarchical, or online\
 (2) how to use LLMs to evaluate summary coherence, with similar human judgement\
-<http://arxiv.org/abs/2310.00785>
+<https://arxiv.org/abs/2310.00785>
 
 ## Approach: Topic, Discourse Structure
 
@@ -332,18 +332,18 @@ Study on auto metrics for summarization, especially concerning the zero-shot sum
 (2) Reference-based metrics: poor correlation with human judgement\
 (3) Reference-free metrics (quality, factuality): poor correlation with human\
 Suggesting: all these metrics are completely ineffective at evaluating zero-shot LLM prompted summaries.
-<http://arxiv.org/abs/2209.12356>
+<https://arxiv.org/abs/2209.12356>
 
 **Benchmarking Large Language Models for News Summarization**. Zhang et al. 2023\
 (1) Poor reference quality on XSUM; low correlation with human.\
 (2) instruction tuning LLM is more crucial than model size\
 (3) LLM performs on par with writers by human study.\
-<http://arxiv.org/abs/2301.13848>
+<https://arxiv.org/abs/2301.13848>
 
 **Exploring the Limits of ChatGPT for Query or Aspect-based Text Summarization**. Yang et al. 2023\
 Evaluation ChatGPT on aspect-based summarizaiton of different domains, especially long input.\
 Observation: ChatGPT zero-shot prompting is comparable to finetuned methods.\
-<http://arxiv.org/abs/2302.08081>
+<https://arxiv.org/abs/2302.08081>
 
 ## Evaluation
 

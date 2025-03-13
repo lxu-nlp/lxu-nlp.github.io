@@ -34,7 +34,7 @@ Pretraining ViT: mask patches and recover.\
 **BEIT: BERT Pre-Training of Image Transformers**. Bao et al. ICLR'22\
 Use auto-denoising on vision pretraining: represent images as discrete tokens, and pretrain similar to MLM (labels are image tokens).\
 Discrete tokens are obtained by another VAE that reconstructs original images given tokens.\
-<http://arxiv.org/abs/2106.08254>
+<https://arxiv.org/abs/2106.08254>
 
 ## Direct Interaction (Encoder-Based)
 
@@ -61,7 +61,7 @@ Why straightforward interaction (w/o shared) + paired&unpaired training has lowe
 **Image as a Foreign Language: BEIT Pretraining for All Vision and Vision-Language Tasks**. Wang et al. 2022\
 BEIT-3: Similar to BEIT that auto-denoises image tokens, with modification: (1) multiway-Transformers for general multi-modal encoding (2) add text as well (analogy to multilingual parallel corpus) (3) better image tokenization.\
 One MLM pretraining objective.
-<http://arxiv.org/abs/2106.08254>
+<https://arxiv.org/abs/2106.08254>
 
 ## Indirect Interaction (Generation-Based)
 
@@ -78,4 +78,4 @@ Simple pretraining objective (see slides).\
 MLLM: same as LLM but accepting multimodal input (can be interleaved); output is always languages.\
 Add language-only instruction tuning, achieving zero-shot and cross-modal transfer.\
 Input representation: flattened sequence.\
-<http://arxiv.org/abs/2302.14045>
+<https://arxiv.org/abs/2302.14045>

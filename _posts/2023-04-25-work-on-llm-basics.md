@@ -22,11 +22,11 @@ Flan: NLP tasks verbalized via natural language instruction templates.\
 **Scaling Instruction-Finetuned Language Models**. Chung et al. 2022\
 Upscale 1.8k tasks to Flan (instruction tuning with either zero-shot or few-shot instructed prompts).\
 Adding chain-of-thought (CoT) task prompts in instruction tuning.\
-<http://arxiv.org/abs/2210.11416>
+<https://arxiv.org/abs/2210.11416>
 
 **MULTITASK PROMPTED TRAINING ENABLES ZERO-SHOT TASK GENERALIZATION**. Sanh et al. ICLR'22\
 P3: similar to Flan, prompts of various tasks.\
-<http://arxiv.org/abs/2110.08207>
+<https://arxiv.org/abs/2110.08207>
 
 **The Flan Collection: Designing Data and Methods for Effective Instruction Tuning**. Longpre et al. 2023\
 Specifically investigate data and methods for instruction tuning; evaluate on held-in tasks, held-out tasks, CoT tasks.\
@@ -34,63 +34,63 @@ Specifically investigate data and methods for instruction tuning; evaluate on he
 (2) adding more tasks is beneficial to held-out tasks\
 (3) input-inversion is helpful as task instruction augmentation\
 (4) certain instruction datasets are more effective\
-<http://arxiv.org/abs/2301.13688>
+<https://arxiv.org/abs/2301.13688>
 
 **PaLM: Scaling Language Modeling with Pathways**. Chowdhery et al. 2022\
 PaLM: similar to GPT3 (decoder-only), few-shot performance steeply increases as scaled.\
-<http://arxiv.org/abs/2204.02311>
+<https://arxiv.org/abs/2204.02311>
 
 **GLM-130B: AN OPEN BILINGUAL PRE-TRAINED MODEL**. ICLR'23\
 Scale GLM to 130B.\
-<http://arxiv.org/abs/2210.02414>
+<https://arxiv.org/abs/2210.02414>
 
 **Large Language Models Encode Clinical Knowledge**. Singhal et al. 2022\
 Based on Flan-PaLM + continuous few-shot prompting for medical domain.\
-<http://arxiv.org/abs/2212.13138>
+<https://arxiv.org/abs/2212.13138>
 
 **Training Compute-Optimal Large Language Models**. Hoffmann et al. 2022\
 Investigate the best parameter size and training tokens given fixed FLOPs.\
 Approach: use loss to determine the best model, by fixing/varying size, tokens, FLOPs, etc.\
 Chinchilla: 70B parameters, 1.4T tokens (based on the optimal prediction)\
-<http://arxiv.org/abs/2203.15556>
+<https://arxiv.org/abs/2203.15556>
 
 **LLaMA: Open and Efficient Foundation Language Models**. Touvron et al. 2023\
 Similar to PaLM/Chinchilla: train with more data on smaller models.\
-<http://arxiv.org/abs/2302.13971>
+<https://arxiv.org/abs/2302.13971>
 
 **Mixture-of-Experts Meets Instruction Tuning: A Winning Combination for Large Language Models**. Shen et al. 2023\
 <https://arxiv.org/abs/2305.14705>
 
 **Mixtral of Experts**. Jiang et al. 2024\
 Sparse gating: constant computation cost while scaling up parameters.\
-<http://arxiv.org/abs/2401.04088>
+<https://arxiv.org/abs/2401.04088>
 
 ## Instruction Alignment
 
 **Training language models to follow instructions with human feedback**. Ouyang et al. 2022\
 InstructGPT: alignment with human intent.\
 Supervised finetuning on golds -> output on unlabeled data -> human feedback w/ trained reward model -> RL w/ reward model.\
-<http://arxiv.org/abs/2203.02155>
+<https://arxiv.org/abs/2203.02155>
 
 **Improving alignment of dialogue agents via targeted human judgements**. Glaese et al. 2022\
 Sparrow: supervised finetuning + train rewards based on designed rules = RL on larger unlabeled inputs (self-play/learning)\
 Train to decide when to retrieve evidence and how good the evidence is.\
 Reward models can be used for re-ranking during inference.\
-<http://arxiv.org/abs/2209.14375>
+<https://arxiv.org/abs/2209.14375>
 
 **Constitutional AI: Harmlessness from AI Feedback**. Bai et al. 2022\
 Goal: align with certain principles without human efforts.\
 (1) Supervised bootstrapping: (prompt, response) -GPT-> (prompt, revision), by giving principles and self-revise. Then finetune a model on the revision for bootstrapping.\
 (2) RL: use another independent LM to provide the score for two response comparison based on given principles. Score: get the log-likelihood of response ID.\
-<http://arxiv.org/abs/2212.08073>
+<https://arxiv.org/abs/2212.08073>
 
 **Self-Instruct: Aligning Language Model with Self Generated Instructions**. Wang et al. ACL'23\
 Generated instructions from LLM (GPT3) by iterative bootstrapping: seed task instructions -> new task instructions -> input/output instructions.\
-<http://arxiv.org/abs/2212.10560>
+<https://arxiv.org/abs/2212.10560>
 
 **INSTRUCTION TUNING WITH GPT-4**. Peng et al. 2023\
 Generated instructions from LLM (GPT4), with rating from GPT4 as well for reward training.\
-<http://arxiv.org/abs/2304.03277>
+<https://arxiv.org/abs/2304.03277>
 
 **LIMA: Less Is More for Alignment**. Zhou et al. 2023\
 Hypothesis: user-intent alignment is a simple process to merely learn the format or style to expose acquired knowledge in pretraining.\
@@ -101,7 +101,7 @@ Hypothesis: user-intent alignment is a simple process to merely learn the format
 **The RefinedWeb Dataset for Falcon LLM: Outperforming Curated Corpora with Web Data, and Web Data Only**. Penedo et al. 2023\
 RefinedWeb high-quality web corpus: rather than human curation, use filtering heuristics can obtain better performance.\
 Ablations: filtering heuristics and deduplication contribute a lot; better URL filtering.\
-<http://arxiv.org/abs/2306.01116>
+<https://arxiv.org/abs/2306.01116>
 
 **Platypus: Quick, Cheap, and Powerful Refinement of LLMs**. Lee et al. 2023\
 High-quality and small (25k) instruction set on multiple specialized subjects.\
@@ -114,7 +114,7 @@ Diverse instruction-tuning tasks in general, human-value alignment, code, exams.
 **Self-Alignment with Instruction Backtranslation**. Li et al. 2023\
 Instruction generation by semi-supervised + back-verification: (instruction, doc) seed pairs -> (doc, pseudo-instruction) by backward model -> curation by forward model.\
 Observations: quality > quantity; more quantity only helps when quality is good.\
-<http://arxiv.org/abs/2308.06259>
+<https://arxiv.org/abs/2308.06259>
 
 ## Position Interpolation
 
@@ -122,7 +122,7 @@ Observations: quality > quantity; more quantity only helps when quality is good.
 RoPE formulation: as a kernel, when q/k can be encoded by each position separately, and their multiplication represents the relative difference.\ 
 Regard hidden as d/2 partitions where each partition is 2-dim, then rotate each partition by \theta based on position.\
 Essential kernel: Re(p1 - p2) = f(q, p1) * f(q, p2)\
-<http://arxiv.org/abs/2104.09864>
+<https://arxiv.org/abs/2104.09864>
 
 **EXTENDING CONTEXT WINDOW OF LARGE LANGUAGE MODELS VIA POSITION INTERPOLATION**. Chen et al. 2023\
 Position Interpolation (PI): linearly reduce rotation angle in RoPE (does not have to be integer) proportional to length; with bound proof.\
@@ -133,7 +133,7 @@ Observation: RoPE attention score delays as length increases, could exploding wh
 (1) continuous pretraining with longer max len limit; reduce rotation angle similar to PI, but fixed.\
 (2) SFT with constructed long context examples: build completion from LLM based on short chunk, but use full context for SFT.\
 For long example SFT, also enable loss on the long context itself, not only completion.\
-<http://arxiv.org/abs/2309.16039>
+<https://arxiv.org/abs/2309.16039>
 
 **YaRN: Efficient Context Window Extension of Large Language Models**. Peng et al. 2023\
 <https://arxiv.org/abs/2309.00071>
@@ -145,7 +145,7 @@ For long example SFT, also enable loss on the long context itself, not only comp
 
 **Chain-of-Thought Prompting Elicits Reasoning in Large Language Models**. Wei et al. NIPS'22\
 Introduce few-shot CoT in various reasoning tasks; teaching the problem solving (rough algorithm) rather than through few-shot guessing.\
-<http://arxiv.org/abs/2201.11903>
+<https://arxiv.org/abs/2201.11903>
 
 **Large Language Models are Zero-Shot Reasoners**. Kojima et al. NIPS'22\
 Zero-shot CoT.\
@@ -157,7 +157,7 @@ Zero-shot CoT.\
 **Limitations of Language Models in Arithmetic and Symbolic Induction**. Qian et al. 2022\
 LLM cannot perfectly generalize three simple reasoning tasks of any inputs: copying, reversing, and addition; especially when input has repeating characters.\
 Introduce prompting that encodes the exact algorithm (strict action sequence) to teach specific reasoning generalization.\
-<http://arxiv.org/abs/2208.05051>
+<https://arxiv.org/abs/2208.05051>
 
 **SELF-CONSISTENCY IMPROVES CHAIN OF THOUGHT REASONING IN LANGUAGE MODELS**. Wang et al. ICLR'23\
 Give CoT prompt, generate multiple paths and aggregate the final answers (e.g. majority vote).\
@@ -165,11 +165,11 @@ Give CoT prompt, generate multiple paths and aggregate the final answers (e.g. m
 
 **A Multitask, Multilingual, Multimodal Evaluation of ChatGPT on Reasoning, Hallucination, and Interactivity**. Bang et al. 2023\
 A systematic evaluation ChatGPT on various types of tasks, including reasoning, multimodality, factuality/hallucination.\
-<http://arxiv.org/abs/2302.04023>
+<https://arxiv.org/abs/2302.04023>
 
 **Decomposed Prompting: A Modular Approach for Solving Complex Tasks**. Khot et a. 2022\
 In-context few-shot CoT to generate reasoning steps (algorithms), where each step is handled by a specific LLM/program for this sub-problem.\
-<http://arxiv.org/abs/2210.02406>
+<https://arxiv.org/abs/2210.02406>
 
 **Successive Prompting for Decomposing Complex Questions**. Dua et al. EMNLP'22\
 Task decomposition: generate intermediate states as QA pairs sequentially, each step conditioned on past QA pairs; the model decides when to stop and give the final answer.\
@@ -179,11 +179,11 @@ Decide in-context decomposition examples for the current problem: searched from 
 
 **Least-to-Most Prompting Enables Complex Reasoning in Large Language Models**. Zhou et al. 2022\
 In-context few-shot CoT for compositional tasks. Similar to above.\
-<http://arxiv.org/abs/2205.10625>
+<https://arxiv.org/abs/2205.10625>
 
 **SOLVING CHALLENGING MATH WORD PROBLEMS USING GPT-4 CODE INTERPRETER WITH CODE-BASED SELF-VERIFICATION**. Zhou et al. 2023\
 Leverage Code-Interpreter to verify results real-time and self-revise.\
-<http://arxiv.org/abs/2308.07921>
+<https://arxiv.org/abs/2308.07921>
 
 **LARGE LANGUAGE MODELS ARE HUMAN-LEVEL PROMPT ENGINEERS**. Zhou et al. ICLR'23\
 (1) Use LLM to generate prompt candidates based on input-output (2) use LLM likelihood to score candidates (3) use LLM to generate more variants for top candidates.\
@@ -203,19 +203,19 @@ Quantify specific tasks and prompting techniques regarding emergent capability o
 
 **DISSOCIATING LANGUAGE AND THOUGHT IN LARGE LANGUAGE MODELS: A COGNITIVE PERSPECTIVE**. Mahowald et al. 2022\
 Decomposition: 1) formal linguistic competence (linguistic rules and statistical regularities); 2) functional linguistic competence (formal cognitive reasoning).\
-<http://arxiv.org/abs/2301.06627>
+<https://arxiv.org/abs/2301.06627>
 
 **From Word Models to World Models: Translating from Natural Language to the Probabilistic Language of Thought**.\
 LLM to convert natural languages to program languages + use program languages as probabilistic inference for reasoning.\
-<http://arxiv.org/abs/2202.12837>
+<https://arxiv.org/abs/2202.12837>
 
 **Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?**. Yao et al. EMNLP'22\
 (1) Important: input distribution, label space, format; (2) does not rely on the ground truth input-label mapping (little gap with random labels).\
-<http://arxiv.org/abs/2202.12837>
+<https://arxiv.org/abs/2202.12837>
 
 **Do Large Language Models Know What They Don’t Know?**. Yin et al. 2023\
 Dataset: answerable and unanswerable questions.\
-<http://arxiv.org/abs/2305.18153>
+<https://arxiv.org/abs/2305.18153>
 
 **Lost in the Middle: How Language Models Use Long Contexts**. Liu et al. TACL'23\
 <https://arxiv.org/abs/2307.03172>
@@ -229,7 +229,7 @@ Conclusion: LLMs rely on similar math cases.\
 <https://openreview.net/forum?id=0ksNeD1SJT>
 
 **Why are Sensitive Functions Hard for Transformers?**. Hahn and Rofin. ACL'24\
-<http://arxiv.org/abs/2402.09963>
+<https://arxiv.org/abs/2402.09963>
 
 ## Analysis: Bias
 
@@ -286,11 +286,11 @@ Also see post about Factuality.
 
 **Halo: Estimation and Reduction of Hallucinations in Open-Source Weak Large Language Models**. Elaraby et al. 2023\
 Use SUMMAC directly; new dataset constructed by GPT, with approach to reduce hallucination.\
-<http://arxiv.org/abs/2308.11764>
+<https://arxiv.org/abs/2308.11764>
 
 **SELF-CONTRADICTORY HALLUCINATIONS OF LLMS: EVALUATION, DETECTION AND MITIGATION**. Mündler et al. 2023\
 Induce LLM to generate two statements regarding the same context, then use another LLM to detect inconsistency.\
-<http://arxiv.org/abs/2305.15852>
+<https://arxiv.org/abs/2305.15852>
 
 **CHAIN-OF-VERIFICATION REDUCES HALLUCINATION IN LARGE LANGUAGE MODELS**. Dhuliawala et al. 2023\
 QA-based verification for detecting non-factual query response.\
@@ -306,7 +306,7 @@ QA-based verification for detecting non-factual query response.\
 (2) Search a fixed suffix of the user prompt, such that the loss (negative log likelihood) of the affirmative response is low\
 (3) How to search: greedy search; selecting top tokens that achieve largest negative gradient at each suffix position INDEPENDENTLY (as if Gibbs sampling); then sample from these candidate tokens and select the sequence with lowest target loss (as if Monte-Carlo).\
 (4) Repeat this search process on multiple prompts incrementally, to find the final universal suffix that works for all prompts\
-<http://arxiv.org/abs/2307.15043>
+<https://arxiv.org/abs/2307.15043>
 
 ---
 
@@ -328,9 +328,9 @@ How to generate labeled classification dataset.\
 Few-shot prompting for writing long coherent text: designed hierarchical dialogue generation by each scene\
 Example + logline = titles; Example + logline = characters description; Example + logline + characters = brief plots with scenes; Example + characters + place + plot = detailed dialogue\
 Coherence: protected by the shared short description in prompting\
-<http://arxiv.org/abs/2209.14958>
+<https://arxiv.org/abs/2209.14958>
 
 **DOC: Improving Long Story Coherence With Detailed Outline Control**. Yang et al. 2022\
 Hierarchical generation.\
-<http://arxiv.org/abs/2212.10077>
+<https://arxiv.org/abs/2212.10077>
 

@@ -28,7 +28,7 @@ Unsupervised.\
 (1) Obtain silver labels unsupervisedly by heuristics w/o KB for better domain generalization\
 (2) Use attention-map as pure features w/o embedding to avoid surface form memorizing\
 Ablation shows attention-map-based classification is more improvement.\
-<http://arxiv.org/abs/2105.14078>
+<https://arxiv.org/abs/2105.14078>
 
 **AutoName: A Corpus-Based Set Naming Framework**. Huang et al. SIGIR'21\
 Task: name a set of given entities unsupervisedly.\

@@ -23,7 +23,7 @@ Prompt-tuning: similar to prefix-tuning, only optimizing a continuous prompt pre
 
 **LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS**. Hu et al. ICLR'22\
 Instead of inserting layers (adapters) as parts of parameters, learn a separate low-rank parameter delta.\
-<http://arxiv.org/abs/2106.09685>
+<https://arxiv.org/abs/2106.09685>
 
 **DoRA: Weight-Decomposed Low-Rank Adaptation**. Liu et al. ICML'24\
 (1) Analyzing the delta change of weights after finetuning, by decomposing into magnitude and direction.\

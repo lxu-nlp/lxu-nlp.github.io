@@ -19,7 +19,7 @@ MMLU: 57 tasks (requiring knowledge, reasoning) across STEM, social sciences, et
 
 **BEYOND THE IMITATION GAME: QUANTIFY-ING AND EXTRAPOLATING THE CAPABILITIES OF LANGUAGE MODELS**. Srivastava et al. 2022\
 Big-Bench: 204 harder tasks (requiring reasoning, math, knowledge) covering diverse topics, with 20\% interactive tasks.\
-<http://arxiv.org/abs/2206.04615>
+<https://arxiv.org/abs/2206.04615>
 
 ## Encoder-based
 
@@ -49,11 +49,11 @@ More efficient pre-training objective: a discriminator to predict whether a toke
 
 **SAS: Self-Augmentation Strategy for Language Model Pre-training**. Xu et al. AAAI'22\
 Encoder; similar to ELECTRA, but combine generator inside the model as a special head.\
-<http://arxiv.org/abs/2106.07176>
+<https://arxiv.org/abs/2106.07176>
 
 **ROFORMER: ENHANCED TRANSFORMER WITH ROTARY POSITION EMBEDDING**. Su et al. 2022\
 Relative position encoding; summary of adding relative pos into query$\cdot$key.\
-<http://arxiv.org/abs/2104.09864>
+<https://arxiv.org/abs/2104.09864>
 
 ## Generation-based
 
@@ -93,7 +93,7 @@ Decoder-only; (1) pretrain on high-quality corpus (2) finetune with designed pro
 Nonparametric: output decided by data, not by parameters.\
 Encoder on masked text + nearest-neighbor on phrases in corpus.\
 No softmax on finite vocabulary.\
-<http://arxiv.org/abs/2212.01349>
+<https://arxiv.org/abs/2212.01349>
 
 ## Incorporate External Knowledge Source
 
@@ -104,7 +104,7 @@ Pretraining retrieval: relevant doc distribution as latent distribution (no anno
 Pretraining LM: auto-denoising spans, similar to T5\
 Jointly train; use pre-computed doc embedding for document collections, and update regularly.\
 Evaluate: in-context prompting, or few-shot finetuning.\
-<http://arxiv.org/abs/2208.03299>
+<https://arxiv.org/abs/2208.03299>
 
 ## For Long Sequence
 
@@ -155,7 +155,7 @@ Training: for each chunk, regard past stored KV as given (not backprop), resulti
 
 **Focused Transformer: Contrastive Training for Context Scaling**. Tworkowski et al. 2023\
 Same as above, but add negative sampling when performing top-k search to force distinguishing important positions.\
-<http://arxiv.org/abs/2307.03170>
+<https://arxiv.org/abs/2307.03170>
 
 <https://huggingface.co/blog/long-range-transformers>
 
@@ -194,12 +194,12 @@ Fuse entity embedding: pretraining objective to predict entity given aligned tok
 **ERNIE 2.0: A Continual Pre-Training Framework for Language Understanding**. Sun et al. AAAI'20\
 Design other tasks (w/o human annotation) to further pretrain the model.\
 Continual learning without forgetting: allocate training times per task throughout the stages.\
-<http://arxiv.org/abs/1907.12412>
+<https://arxiv.org/abs/1907.12412>
 
 **ERNIE 3.0: LARGE-SCALE KNOWLEDGE ENHANCED PRE-TRAINING FOR LANGUAGE UNDERSTANDING AND GENERATION**. Sun et al. 2021\
 Leverage explicit KG in pretraining, adding another mask objective to fuse KG, in addition to other NLU and NLG objectives.\
 Model: shared bottom layers + (small) task-specific layers (w/ both NLU and NLG).\
-<http://arxiv.org/abs/2107.02137>
+<https://arxiv.org/abs/2107.02137>
 
 **K-BERT: Enabling Language Representation with Knowledge Graph**. Liu et al. AAAI'20\
 Inject triplets into the sequence with soft position embedding and masked attention.\
@@ -217,7 +217,7 @@ Distill common-sense knowledge by few-shot prompts from general GPT3 to a studen
 
 **BertNet: Harvesting Knowledge Graphs from Pretrained Language Models**. Hao et al. 2022\
 Distill KG given few-shot: paraphrase (by GPT3) relation prompts + search entities on generated auto-prompts of the same relation semantic.\
-<http://arxiv.org/abs/2206.14268>
+<https://arxiv.org/abs/2206.14268>
 
 ## For Analysis
 
@@ -238,7 +238,7 @@ Diagonal positions in attention map are not as important compared to other posit
 (3) By linear transformation probing (to smaller dimension) on embedding, word-sense is more drastic, and earlier layers retrain more semantic info.\
 (4) Another word-sense (opposite sense concatenation) towards context change shows that earlier layers are more stable than final layers against context change.\
 (5) The semantic against context change is "soft" rather than "hard": indiscriminately absorb meaning from all neighbors.\
-<http://arxiv.org/abs/1906.02715>
+<https://arxiv.org/abs/1906.02715>
 
 **How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings**. Ethayarajh et al. EMNLP'19\
 anisotropic: averaged cosine-similarity (randomly sampled) is high; self-similarity: contextualization sensitivity.\
@@ -258,11 +258,11 @@ Weighted token hidden state by pooling attention scores of different layers.\
 
 **The Inductive Bias of In-Context Learning: Rethinking Pretraining Example Design**. Levine et al. ICLR'22\
 In pretraining, directly seen > separately seen (requires generalization).\
-<http://arxiv.org/abs/2110.04541>
+<https://arxiv.org/abs/2110.04541>
 
 **Large Models are Parsimonious Learners: Activation Sparsity in Trained Transformers**. Li et al. 2022\
 Sparsity: only 2.7% activated neurons in MLPs of NLP/vision Transformers; likely related to training dynamics, as this is true for any datasets.\
-<http://arxiv.org/abs/2210.06313>
+<https://arxiv.org/abs/2210.06313>
 
 **Pre-Training to Learn in Context**. Gu et al. ACL'23\
 Pack sentences of similar tasks for pretraining.\

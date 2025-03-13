@@ -19,7 +19,7 @@ Hierarchical knowledge tree.\
 
 **AbsPyramid: Benchmarking the Abstraction Ability of Language Models with a Unified Entailment Graph**. Wang et al. 2024\
 Dataset: concrete -> abstract (hypernyms), following linguistic entailment definition.\
-<http://arxiv.org/abs/2311.09174>
+<https://arxiv.org/abs/2311.09174>
 
 **AbsInstruct: Eliciting Abstraction Ability from LLMs through Explanation Tuning with Plausibility Estimation**. Wang et al. 2024\
 Design prompt-completion (adding concept meaning) to finetune for AbsPyramid.\

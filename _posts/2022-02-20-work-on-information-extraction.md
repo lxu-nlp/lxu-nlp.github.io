@@ -177,7 +177,7 @@ Adding prefix-tuning gives ~1-2% improvement.\
 **STRUCTURED PREDICTION AS TRANSLATION BETWEEN AUGMENTED NATURAL LANGUAGES**. Paolini et al. ICLR'21\
 S2S generation on many tasks, generating augmented lexicons with original text.\
 Output original text to avoid duplicates and boost a little bit performance.\
-<http://arxiv.org/abs/2101.05779>
+<https://arxiv.org/abs/2101.05779>
 
 ### One-shot Module: Table Filling or Tagging Scheme
 
@@ -213,7 +213,7 @@ Table tagging per relation but different from table filling scheme: include trip
 USM: token-token interaction; incorporate type by verbalizing type semantics, thus only need linking, no need for tagging/classification.\
 Unify different IE tasks into linking; support multi-task, pretraining, zero/few-shot.\
 Compare to UIE: different formulation, but all convert/unify IE to automic ops, enabling pretraining and zero-shot.\
-<http://arxiv.org/abs/2301.03282>
+<https://arxiv.org/abs/2301.03282>
 
 ## Approach: focus on RE only (given Entities)
 

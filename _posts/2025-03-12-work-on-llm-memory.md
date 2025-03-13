@@ -10,7 +10,7 @@ math: true
 ## Attention Design
 
 **Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention**. Munkhdalai et al. 2024\
-<http://arxiv.org/abs/2404.07143>
+<https://arxiv.org/abs/2404.07143>
 
 
 ## Training-time Context Compression
@@ -20,7 +20,7 @@ Compress **instructions** within LLM (**objective: specific tasks**): instructio
 (1) GIST is learned to be generalized to compress arbitrary instructions.\
 (1) GIST can be cached and reused.\
 Training: simply mask out instruction after GIST.\
-<http://arxiv.org/abs/2304.08467>
+<https://arxiv.org/abs/2304.08467>
 
 **Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
 Compress **input context** (**objective: general LM**).\
@@ -29,7 +29,7 @@ Next prediction: current text segment + past vectors.\
 
 **In-context Autoencoder for Context Compression in a Large Language Model**. Ge et al. ICLR'24\
 Compress **input context** (**objectives: (reconstruction + general LM as pretraining) + specific tasks**).\
-<http://arxiv.org/abs/2307.06945>
+<https://arxiv.org/abs/2307.06945>
 
 
 ## Test-time Context Pruning: Hard Drop Non-Salient Tokens
@@ -49,7 +49,7 @@ Use GPT annotation to train a small token classifier on whether to retain.\
 
 **Fewer is More: Boosting LLM Reasoning with Reinforced Context Pruning**. Huang et al. 2024\
 RL to select and prune few-shot prompts.\
-<http://arxiv.org/abs/2312.08901>
+<https://arxiv.org/abs/2312.08901>
 
 
 ## Test-time Cache Pruning: Drop Cache per Head/Layer
@@ -58,7 +58,7 @@ RL to select and prune few-shot prompts.\
 Each layer drops kv cache independently.\
 (not dropping entire tokens/positions, as each layer can have different patterns.)\
 Train with sparse sigmoid on attention.\
-<http://arxiv.org/abs/2305.15805>
+<https://arxiv.org/abs/2305.15805>
 
 **Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned**. Voita et al. ACL'19\
 Hard-gate on attention heads, regularizing to closing gate.\

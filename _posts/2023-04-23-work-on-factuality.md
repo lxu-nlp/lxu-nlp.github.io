@@ -54,7 +54,7 @@ Correlation with human judgement:\
 (3) Semantic similarity: well with deletion, ok with insertion, poor with substitution.\
 (4) Existing factuality metrics Fact-CC & DAE: even poorer than semantic similarity.\
 (5) More annotation and train a classifier for automatic evaluation: still challenging.\
-<http://arxiv.org/abs/2204.07562>
+<https://arxiv.org/abs/2204.07562>
 
 **How Far are We from Robust Long Abstractive Summarization?**. Koh et al. EMNLP'22\
 ArXiv and GovReport dataset.\
@@ -75,7 +75,7 @@ AggreFACT: benchmark upon SUMMAC.\
 Fine-grained error types: taxonomy.\
 Evaluation of previous factuality approaches: error localization; QA-based; entailment-based.\
 Findings: (1) factuality evaluators have poorer performance on SOTA (Transformer-based); (2) no systems can capture all error types.\
-<http://arxiv.org/abs/2205.12854>
+<https://arxiv.org/abs/2205.12854>
 
 **Annotating and Modeling Fine-grained Factuality in Summarization**. Goyal and Durrett. NAACL'21\
 Study on automatic factuality evaluator by training on synthetic data.\
@@ -143,7 +143,7 @@ Similar to QuestEval but only focusing on precision.\
 
 **MQAG: Multiple-choice Question Answering and Generation for Assessing Information Consistency in Summarization**. Manakul et al. AACL'23\
 QA-based: instead of span, use multi-choice questions (QG, QA models trained on RACE, a multi-choice QA dataset).\
-<http://arxiv.org/abs/2301.12307>
+<https://arxiv.org/abs/2301.12307>
 
 ## Approach: Other Non-LLM
 

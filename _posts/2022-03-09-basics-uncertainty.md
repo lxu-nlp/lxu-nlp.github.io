@@ -111,13 +111,13 @@ Smooth one-hot label.\
 <https://arxiv.org/abs/1905.11001v5>
 
 **What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?**. Kendall and Gal. NIPS'17\
-<http://arxiv.org/abs/1703.04977>
+<https://arxiv.org/abs/1703.04977>
 
 **Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics**. Kendall et al. CVPR'18\
-<http://arxiv.org/abs/1705.07115>
+<https://arxiv.org/abs/1705.07115>
 
 **Quantifying Uncertainties in Natural Language Processing Tasks**. Xiao and Wang. AAAI'19\
-<http://arxiv.org/abs/1811.07253>
+<https://arxiv.org/abs/1811.07253>
 
 **Types of Out-of-Distribution Texts and How to Detect Them**. Arora et al. EMNLP'21\
 <https://aclanthology.org/2021.emnlp-main.835>

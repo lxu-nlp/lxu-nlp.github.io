@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Works on LLM QA"
+title: "Works on LLM QA and RAG"
 date: 2023-12-29
 categories: [NLP]
 tags: [nlp, QA, LLM]
@@ -43,7 +43,7 @@ Multi-choice.\
 
 **NovelQA: A Benchmark for Long-Range Novel Question Answering**. Wang et al. 2024\
 Novels > 50k. Designed question types and templates.\
-<http://arxiv.org/abs/2403.12766>
+<https://arxiv.org/abs/2403.12766>
 
 **RULER: What’s the Real Context Size of Your Long-Context Language Models?** Hsieh et al. COLM'24\
 Enhanced needle in a haystack.\
@@ -69,11 +69,11 @@ Summary tree: zero-shot LLM to figure out the path from root.\
 
 **A Human-Inspired Reading Agent with Gist Memory of Very Long Contexts**. Lee et al. 2024\
 Segment summaries (linear): zero-shot LLM to select which segments to read and when to stop.\
-<http://arxiv.org/abs/2402.09727>
+<https://arxiv.org/abs/2402.09727>
 
 **LongAgent: Scaling Language Models to 128k Context through Multi-Agent Collaboration**. Zhao et al. 2024\
 One leader for decision making and several members for discussion.\
-<http://arxiv.org/abs/2402.11550>
+<https://arxiv.org/abs/2402.11550>
 
 # Method: Enriched Retrieval Index (w/ Retrieval)
 
@@ -84,11 +84,15 @@ Retrieval vs. long context.\
 **RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval**. Sarthi et al. ICLR'24\
 <https://openreview.net/forum?id=GN921JHCRw>
 
-# Method: In-Context Retrieval
+# Method: In-Context
 
 **xRAG: Extreme Context Compression for Retrieval-augmented Generation with One Token**. Cheng et al. NIPS'24\
 Learn an adaptor to use single black-box embedding in the context.\
 <https://openreview.net/forum?id=6pTlXqrO0p>
+
+**Rank1: Test-Time Compute for Reranking in Information Retrieval**. Weller et al. 2025\
+Dataset of R1 COT for (query, doc) retrieval.\
+<https://arxiv.org/pdf/2502.18418>
 
 ---
 

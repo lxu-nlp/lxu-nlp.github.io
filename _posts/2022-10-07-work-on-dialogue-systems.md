@@ -15,12 +15,12 @@ Out of date..
 
 **EVA: An Open-Domain Chinese Dialogue System with Large-Scale Generative Pre-Training**. Zhou et al. 2021\
 Repost, online forum, Q&A.\
-<http://arxiv.org/abs/2108.01547>
+<https://arxiv.org/abs/2108.01547>
 
 **What would Harry say? Building Dialogue Agents for Characters in a Story**. Si et al. 2022\
 Character response under a changing environment (relations to others, etc).\
 Generation needs to be conditioned on the environment.\
-<http://arxiv.org/abs/2211.06869>
+<https://arxiv.org/abs/2211.06869>
 
 **Doc2Bot: Accessing Heterogeneous Documents via Conversational Bots**. Fu et al. EMNLP'22\
 Doc-grounded dialogues.\
@@ -55,7 +55,7 @@ large-scale corpus with negative examples.\
 Good baselines with referenced and unreferenced metrics.\
 Propose semi-supervised metric through self-learning with augmentation on unlabeled data; student model learns soft
 pseudo labels.\
-<http://arxiv.org/abs/2112.07194>
+<https://arxiv.org/abs/2112.07194>
 
 ## Dialogue Management
 

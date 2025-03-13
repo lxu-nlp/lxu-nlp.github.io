@@ -42,7 +42,7 @@ A new kv pair can be inserted in MLP by solving a constrained least-squares prob
 
 **Memory-Based Model Editing at Scale**. Mitchell et al. ICML'22\
 Pseudo-editing: not touching parameters; simply store update examples, and train a binary classifier to check if input is related to any examples.\
-<http://arxiv.org/abs/2206.06520>
+<https://arxiv.org/abs/2206.06520>
 
 ### Evaluation
 

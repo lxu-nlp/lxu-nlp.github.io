@@ -82,7 +82,7 @@ Inference: nearest-neighbor on entire $S$ (similar to Siamese).\
 
 **Uncertainty-aware Self-training for Text Classification with Few Labels**. Mukherjee and Awadallah. NIPS'20\
 Normal SL process but (1) select by BALD (dropout entropy) (2) select with exploration (3) weight loss by uncertainty from teacher.\
-<http://arxiv.org/abs/2006.15315>
+<https://arxiv.org/abs/2006.15315>
 
 **Contrast-enhanced Semi-supervised Text Classification with Few Labels**. Tsai et al. AAAI'22\
 Based on Mukherjee'20 but (1) add loss to push predicted same class towards similar repr for smooth boundary (2) in that process, only use on high confident predicted pairs (3) apply

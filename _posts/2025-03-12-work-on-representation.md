@@ -7,9 +7,34 @@ tags: [nlp, embedding]
 math: true
 ---
 
+## Benchmark
+
+**MMTEB: Massive Multilingual Text Embedding Benchmark**. Enevoldsen et al. ICLR'25\
+<https://openreview.net/forum?id=zl3pfz4VCV>
+
+---
+
 ## Embedding by Non-LLM
 
-TODO
+**Text and Code Embeddings by Contrastive Pre-Training**. Neelakantan et al. 2022\
+OpenAI embedding: w/ unsupervised pretraining.\
+<https://arxiv.org/abs/2201.10005>
+
+**Text Embeddings by Weakly-Supervised Contrastive Pre-training**. Wang et al. 2022\
+E5 model.\
+<https://arxiv.org/abs/2212.03533>
+
+**Multilingual E5 Text Embeddings: A Technical Report**. Wang et al. 2023\
+mE5.\
+<https://arxiv.org/pdf/2402.05672>
+
+**Towards General Text Embeddings with Multi-stage Contrastive Learning**. Li et al. 2023\
+GTE model.\
+<https://arxiv.org/abs/2308.03281>
+
+**mGTE: Generalized Long-Context Text Representation and Reranking Models for Multilingual Text Retrieval**. Zhang et al. EMNLP Industry'24\
+GTE with enhanced Transformers: match BGE-M3.\
+<https://aclanthology.org/2024.emnlp-industry.103>
 
 ## Embedding by LLM
 
@@ -21,7 +46,7 @@ TODO
 **Scaling Sentence Embeddings with Large Language Models**. Jiang et al. 2023\
 Use template for CLM (using the last hidden state):
 This sentence: \[text\] means in one word:\
-<http://arxiv.org/abs/2307.16645>
+<https://arxiv.org/abs/2307.16645>
 
 **Meaning Representations from Trajectories in Autoregressive Models**. Liu et al. ICLR'24\
 Core idea: Wittgenstein’s use theory of meaning (meaning is use).\
