@@ -49,6 +49,9 @@ Novels > 50k. Designed question types and templates.\
 Enhanced needle in a haystack.\
 <https://openreview.net/forum?id=kIoBbc76Sy>
 
+**∞ Bench: Extending Long Context Evaluation Beyond 100K Tokens**. Zhang et al. 2025\
+<https://arxiv.org/abs/2402.13718>
+
 ### RAG
 
 **LaRA: Benchmarking Retrieval-Augmented Generation and Long-Context LLMs - No Silver Bullet for LC or RAG Routing**. Li et al. 2025\
