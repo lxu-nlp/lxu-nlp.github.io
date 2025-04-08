@@ -52,6 +52,9 @@ Enhanced needle in a haystack.\
 **∞ Bench: Extending Long Context Evaluation Beyond 100K Tokens**. Zhang et al. 2025\
 <https://arxiv.org/abs/2402.13718>
 
+**HELMET: How to Evaluate Long-Context Language Models Effectively and Thoroughly**. Yen et al. ICLR'25\
+<https://openreview.net/forum?id=293V3bJbmE>
+
 ### RAG
 
 **LaRA: Benchmarking Retrieval-Augmented Generation and Long-Context LLMs - No Silver Bullet for LC or RAG Routing**. Li et al. 2025\
@@ -60,42 +63,64 @@ Empirical comparison: Long Context vs. RAG.\
 
 ---
 
-# Method: Multi-Step or Planning (w/o Retrieval)
+# Method: Building Enhanced Index
+
+**Walking Down the Memory Maze: Beyond Context Limit through Interactive Reading**. Chen et al. 2023\
+Semantic similarity tree by summaries: zero-shot LLM to figure out the path from root.\
+<https://arxiv.org/abs/2310.05029>
+
+**RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval**. Sarthi et al. ICLR'24\
+Semantic similarity tree.\
+<https://openreview.net/forum?id=GN921JHCRw>
+
+**From Local to Global: A GraphRAG Approach to Query-Focused Summarization**. Edge et al. 2024\
+GraphRAG: KG nodes and relations.\
+<https://arxiv.org/abs/2404.16130>
+
+**LightRAG: Simple and Fast Retrieval-Augmented Generation**. Guo et al. 2024\
+KG-based.\
+<https://arxiv.org/abs/2410.05779>
+
+**From RAG to Memory: Non-Parametric Continual Learning for Large Language Models**. Gutiérrez et al. 2025\
+HippoRAG v2: combine KG and passage nodes for contextualization.\
+<https://arxiv.org/abs/2502.14802>
+
+**SiReRAG: Indexing Similar and Related Information for Multihop Reasoning**. Zhang et al. ICLR'25\
+Semantic similarity tree + entity proposition tree for relatedness.\
+<https://openreview.net/forum?id=yp95goUAT1>
+
+# Method: Map Query to Index
 
 **Generate rather than Retrieve: Large Language Models are Strong Context Generators**. Yu et al. ICLR'23\
 Use LLM to replace retrieval by relevant context generation.\
 <https://openreview.net/forum?id=fB0hRu9GZUS>
 
-**Walking Down the Memory Maze: Beyond Context Limit through Interactive Reading**. Chen et al. 2023\
-Summary tree: zero-shot LLM to figure out the path from root.\
-<https://arxiv.org/abs/2310.05029>
-
 **A Human-Inspired Reading Agent with Gist Memory of Very Long Contexts**. Lee et al. 2024\
-Segment summaries (linear): zero-shot LLM to select which segments to read and when to stop.\
+Use LLM to select which segments to read and when to stop (on linear segment summaries).\
 <https://arxiv.org/abs/2402.09727>
 
 **LongAgent: Scaling Language Models to 128k Context through Multi-Agent Collaboration**. Zhao et al. 2024\
-One leader for decision making and several members for discussion.\
+Use LLM: one leader for decision making and several members for discussion.\
 <https://arxiv.org/abs/2402.11550>
 
-# Method: Enriched Retrieval Index (w/ Retrieval)
+**HippoRAG: Neurobiologically Inspired Long-Term Memory for Large Language Models**. Gutiérrez et al. NIPS'24\
+Graph-based + page rank for related node/edge expansion.\
+<https://openreview.net/forum?id=hkujvAPVsg>
 
-**Retrieval meets Long Context Large Language Models**. Xu et al. ICLR'24\
-Retrieval vs. long context.\
-<https://arxiv.org/abs/2310.03025>
-
-**RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval**. Sarthi et al. ICLR'24\
-<https://openreview.net/forum?id=GN921JHCRw>
-
-# Method: In-Context
-
-**xRAG: Extreme Context Compression for Retrieval-augmented Generation with One Token**. Cheng et al. NIPS'24\
-Learn an adaptor to use single black-box embedding in the context.\
-<https://openreview.net/forum?id=6pTlXqrO0p>
+# Method: Explicit In-Context Retrieval
 
 **Rank1: Test-Time Compute for Reranking in Information Retrieval**. Weller et al. 2025\
 Dataset of R1 COT for (query, doc) retrieval.\
 <https://arxiv.org/pdf/2502.18418>
+
+# Method: Implicit In-Context Retrieval
+
+See Context Compression in post Works on LLM Memory.
+
+# Method: RL-based Multi-step
+
+**Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning**. Jin et al. 2025\
+<https://arxiv.org/abs/2503.09516>
 
 ---
 
@@ -131,3 +156,10 @@ Applications: passage retrieval, etc.\
 QG -> QA -> rewrite upon QA pairs (online manner).\
 Evaluation on LLM prompting.\
 <https://aclanthology.org/2023.emnlp-main.193>
+
+# Task: LLM Retrieval
+
+**Autoregressive Search Engines: Generating Substrings as Document Identifiers**. Bevilacqua et al. NIPS'22\
+SEAL: train LM to generate distinguished ngrams upon query.\
+Test time: constrained decoding using FM index.\
+<https://openreview.net/forum?id=Z4kZxAjg8Y>

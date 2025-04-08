@@ -65,6 +65,11 @@ Similar to PaLM/Chinchilla: train with more data on smaller models.\
 Sparse gating: constant computation cost while scaling up parameters.\
 <https://arxiv.org/abs/2401.04088>
 
+**How to Train Long-Context Language Models (Effectively)**. Gao et al. 2024\
+(1) Continuous long-context pretraining: good mix ratio of short + long context\
+(2) Short-context instruction SFT\
+<https://arxiv.org/abs/2410.02660>
+
 ## Instruction Alignment
 
 **Training language models to follow instructions with human feedback**. Ouyang et al. 2022\

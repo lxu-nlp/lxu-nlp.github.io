@@ -39,13 +39,20 @@ GTE with enhanced Transformers: match BGE-M3.\
 ## Embedding by LLM
 
 **LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders**. BehnamGhader et al. COLM'24\
+Bidirectional + contrastive.\
 <https://arxiv.org/pdf/2404.05961>
+
+**BeLLM: Backward Dependency Enhanced Large Language Model for Sentence Embeddings**. Li and Li. NAACL'24\
+Bidirectional on last layer + contrastive.\
+<https://arxiv.org/pdf/2311.05296>
+
+**NV-Embed: Improved Techniques for Training LLMs as Generalist Embedding Models**. Lee et al. ICLR'25\
+<https://arxiv.org/abs/2405.17428>
 
 ## Other Representation by LLM
 
 **Scaling Sentence Embeddings with Large Language Models**. Jiang et al. 2023\
-Use template for CLM (using the last hidden state):
-This sentence: \[text\] means in one word:\
+Use template for CLM to obtain the last hidden state: This sentence: \[text\] means in one word:\
 <https://arxiv.org/abs/2307.16645>
 
 **Meaning Representations from Trajectories in Autoregressive Models**. Liu et al. ICLR'24\
@@ -53,10 +60,6 @@ Core idea: Wittgenstein’s use theory of meaning (meaning is use).\
 Meaning representation: the likelihood of the continuation in language space.\
 Similarity: sampling continuation equal times from both two inputs as the approximated continuation space.\
 <https://arxiv.org/abs/2310.18348>
-
-**BeLLM: Backward Dependency Enhanced Large Language Model for Sentence Embeddings**. Li and Li. NAACL'24\
-Bidirectional on last layer + contrastive.\
-<https://arxiv.org/pdf/2311.05296>
 
 ## Embedding Privacy
 
