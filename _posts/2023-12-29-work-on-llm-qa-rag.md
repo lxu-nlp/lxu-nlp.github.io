@@ -81,6 +81,10 @@ GraphRAG: KG nodes and relations.\
 KG-based.\
 <https://arxiv.org/abs/2410.05779>
 
+**KAG: Boosting LLMs in Professional Domains via Knowledge Augmented Generation**. Liang et al. 2024\
+Complex KG-based.\
+<https://arxiv.org/abs/2409.13731>
+
 **From RAG to Memory: Non-Parametric Continual Learning for Large Language Models**. Gutiérrez et al. 2025\
 HippoRAG v2: combine KG and passage nodes for contextualization.\
 <https://arxiv.org/abs/2502.14802>
@@ -121,6 +125,9 @@ See Context Compression in post Works on LLM Memory.
 
 **Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning**. Jin et al. 2025\
 <https://arxiv.org/abs/2503.09516>
+
+**DeepRetrieval: Hacking Real Search Engines and Retrievers with Large Language Models via Reinforcement Learning**. Jiang et al. 2025\
+<https://arxiv.org/abs/2503.00223>
 
 ---
 
