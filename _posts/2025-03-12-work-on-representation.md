@@ -16,20 +16,41 @@ math: true
 
 ## Embedding by Non-LLM
 
+**Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks**. Reimers and Gurevych. EMNLP'19\
+S-BERT: first dual encoder.\ 
+<https://aclanthology.org/D19-1410/>
+
+**SimCSE: Simple Contrastive Learning of Sentence Embeddings**. Gao et al. EMNLP'21\
+SimCSE: dropout as unsupervised negatives.\
+<https://aclanthology.org/2021.emnlp-main.552/>
+
+**Unsupervised Dense Information Retrieval with Contrastive Learning**. Izacard et al. TMLR'22\
+Contriever: unsupervised.\
+<https://openreview.net/forum?id=jKN1pXi7b0>
+
 **Text and Code Embeddings by Contrastive Pre-Training**. Neelakantan et al. 2022\
-OpenAI embedding: w/ unsupervised pretraining.\
+OpenAI embedding: unsupervised + supervised.\
+Large batch size: big improvement; large model size: ok improvement.\
 <https://arxiv.org/abs/2201.10005>
 
+**Large Dual Encoders Are Generalizable Retrievers**. Ni et al. EMNLP'22\
+Increasing model size: mediocre improvement.\ 
+<https://aclanthology.org/2022.emnlp-main.669/>
+
 **Text Embeddings by Weakly-Supervised Contrastive Pre-training**. Wang et al. 2022\
-E5 model.\
+E5: unsupervised + supervised.\
 <https://arxiv.org/abs/2212.03533>
 
 **Multilingual E5 Text Embeddings: A Technical Report**. Wang et al. 2023\
 mE5.\
 <https://arxiv.org/pdf/2402.05672>
 
+**C-Pack: Packed Resources For General Chinese Embeddings**. Xiao et al. SIGIR'24\
+BGE: unsupervised + supervised.\
+<https://arxiv.org/abs/2309.07597>
+
 **Towards General Text Embeddings with Multi-stage Contrastive Learning**. Li et al. 2023\
-GTE model.\
+GTE: unsupervised + supervised.\
 <https://arxiv.org/abs/2308.03281>
 
 **mGTE: Generalized Long-Context Text Representation and Reranking Models for Multilingual Text Retrieval**. Zhang et al. EMNLP Industry'24\
@@ -37,6 +58,10 @@ GTE with enhanced Transformers: match BGE-M3.\
 <https://aclanthology.org/2024.emnlp-industry.103>
 
 ## Embedding by LLM
+
+**Improving Text Embeddings with Large Language Models**. Wang et al. ACL'24\
+LLM-generated corpus + hidden state from the last LLM position.\
+<https://aclanthology.org/2024.acl-long.642>
 
 **LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders**. BehnamGhader et al. COLM'24\
 Bidirectional + contrastive.\
@@ -47,6 +72,7 @@ Bidirectional on last layer + contrastive.\
 <https://arxiv.org/pdf/2311.05296>
 
 **NV-Embed: Improved Techniques for Training LLMs as Generalist Embedding Models**. Lee et al. ICLR'25\
+Latent pooling: hidden state from the last LLM position (Q) attended over latent dictionaries (K).\
 <https://arxiv.org/abs/2405.17428>
 
 ## Other Representation by LLM
