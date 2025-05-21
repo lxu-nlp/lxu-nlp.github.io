@@ -9,6 +9,9 @@ math: true
 
 ## Benchmark
 
+**MTEB: Massive Text Embedding Benchmark**. Muennighoff et al. EACL'23\
+<https://aclanthology.org/2023.eacl-main.148/>
+
 **MMTEB: Massive Multilingual Text Embedding Benchmark**. Enevoldsen et al. ICLR'25\
 <https://openreview.net/forum?id=zl3pfz4VCV>
 
@@ -43,7 +46,7 @@ E5: unsupervised + supervised.\
 
 **Multilingual E5 Text Embeddings: A Technical Report**. Wang et al. 2023\
 mE5.\
-<https://arxiv.org/pdf/2402.05672>
+<https://arxiv.org/abs/2402.05672>
 
 **C-Pack: Packed Resources For General Chinese Embeddings**. Xiao et al. SIGIR'24\
 BGE: unsupervised + supervised.\
@@ -65,7 +68,7 @@ LLM-generated corpus + hidden state from the last LLM position.\
 
 **LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders**. BehnamGhader et al. COLM'24\
 Bidirectional + contrastive.\
-<https://arxiv.org/pdf/2404.05961>
+<https://openreview.net/forum?id=IW1PR7vEBf>
 
 **BeLLM: Backward Dependency Enhanced Large Language Model for Sentence Embeddings**. Li and Li. NAACL'24\
 Bidirectional on last layer + contrastive.\
@@ -86,6 +89,11 @@ Core idea: Wittgenstein’s use theory of meaning (meaning is use).\
 Meaning representation: the likelihood of the continuation in language space.\
 Similarity: sampling continuation equal times from both two inputs as the approximated continuation space.\
 <https://arxiv.org/abs/2310.18348>
+
+## Training Paradigms
+
+**EASE: Entity-Aware Contrastive Learning of Sentence Embedding**. Nishikawa et al. NAACL'22\
+<https://aclanthology.org/2022.naacl-main.284>
 
 ## Embedding Privacy
 

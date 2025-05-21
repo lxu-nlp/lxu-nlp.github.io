@@ -137,3 +137,6 @@ Thus, able to prune attention heads adaptively (per head per layer).\
 **MiniCache: KV Cache Compression in Depth Dimension for Large Language Models**. Liu et al. 2024\
 <https://arxiv.org/abs/2405.14366>
 
+**Dynamic Memory Compression: Retrofitting LLMs for Accelerated Inference**. Nawrot et al. ICML'24\
+Sublinear KV cache: whether to append the current key and value representations to the cache or to perform a weighted average.\
+<https://openreview.net/forum?id=tDRYrAkOB7>
