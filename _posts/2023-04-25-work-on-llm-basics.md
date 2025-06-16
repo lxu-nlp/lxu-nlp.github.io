@@ -225,11 +225,6 @@ Dataset: answerable and unanswerable questions.\
 **Lost in the Middle: How Language Models Use Long Contexts**. Liu et al. TACL'23\
 <https://arxiv.org/abs/2307.03172>
 
-**Case-Based or Rule-Based: How Do Transformers Do the Math?**. Hu et al. ICML'24\
-Design math dataset that controls case similarity, then train & evaluate.\
-Conclusion: LLMs rely on similar math cases.\
-<https://openreview.net/forum?id=4Vqr8SRfyX>
-
 **Scaling Exponents Across Parameterizations and Optimizers**. Everett et al. ICML'24\
 <https://openreview.net/forum?id=0ksNeD1SJT>
 
@@ -260,6 +255,10 @@ More capable model -> better instruction understanding -> better alignment (less
 **Look at the Text: Instruction-Tuned Language Models are More Robust Multiple Choice Selectors than You Think**. Wang et al. 2024\
 For both accuracy & selection bias & robustness by perturbation: text answer > debiased first token prob > direct first token prob.\
 <https://arxiv.org/abs/2404.08382>
+
+**A Peek into Token Bias: Large Language Models Are Not Yet Genuine Reasoners**. Jiang et al. EMNLP'24\
+Quantify token bias (e.g. widely seen entities) through perturbation.\
+<https://aclanthology.org/2024.emnlp-main.272>
 
 ## Analysis: Self-Reasoning
 

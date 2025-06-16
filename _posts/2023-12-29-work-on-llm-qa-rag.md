@@ -26,6 +26,9 @@ More abstractive questions: how, why, description.\
 Multi-choice.\
 <https://aclanthology.org/2022.naacl-main.391>
 
+**True Detective: A Deep Abductive Reasoning Benchmark Undoable for GPT-3 and Challenging for GPT-4**. Del and Fishel. *SEM'23\
+<https://aclanthology.org/2023.starsem-1.28>
+
 **LONGBENCH: A BILINGUAL, MULTITASK BENCHMARK FOR LONG CONTEXT UNDERSTANDING**. Bai et al. 2023\
 <https://arxiv.org/abs/2403.03514>
 

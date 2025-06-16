@@ -75,6 +75,13 @@ Reflection is gradual, not sudden, likely just a result of alignment upon pretra
 RL generalizes better than SFT.\
 <https://arxiv.org/abs/2502.14768>
 
+### Analysis
+
+**Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?**. Yue et al. 2025\
+RL training enables new patterns or just alignment of base model?\
+Observation: latter.\
+<https://arxiv.org/abs/2504.13837>
+
 
 # SFT Training: Add Negative Signals
 
