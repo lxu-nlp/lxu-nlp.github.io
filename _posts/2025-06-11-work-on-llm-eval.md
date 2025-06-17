@@ -8,7 +8,7 @@ math: true
 ---
 
 
-See the separate [post](work-on-llm-qa-rag) for general QA-related evaluation.
+See the separate [post](https://lxu-nlp.github.io/posts/work-on-llm-qa-rag/) for general QA-related evaluation.
 
 
 ## Length

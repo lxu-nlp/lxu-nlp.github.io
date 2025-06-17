@@ -10,7 +10,7 @@ math: true
 
 # Benchmark
 
-QA Datasets with natural context. See the separate [post](work-on-llm-eval) for other evaluation datasets.
+QA Datasets with natural context. See the separate [post](https://lxu-nlp.github.io/posts/work-on-llm-eval/) for other evaluation datasets.
 
 **The NarrativeQA Reading Comprehension Challenge**. Kočiský et al. TACL'18\
 Questions on long stories that require higher-level abstraction than superficial pattern matching: majority answers do not have spans directly in text.\
