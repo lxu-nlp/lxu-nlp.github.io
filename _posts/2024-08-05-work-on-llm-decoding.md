@@ -7,7 +7,6 @@ tags: [nlp, LLM, decoding]
 math: true
 ---
 
-Also see the LLM Memory post for prefill compression before generation.
 
 # Speculative Decoding
 

@@ -10,7 +10,7 @@ math: true
 
 # Benchmark
 
-### Long Context / Global Reasoning
+QA Datasets with natural context. See the separate [post](work-on-llm-eval) for other evaluation datasets.
 
 **The NarrativeQA Reading Comprehension Challenge**. Kočiský et al. TACL'18\
 Questions on long stories that require higher-level abstraction than superficial pattern matching: majority answers do not have spans directly in text.\
@@ -48,9 +48,8 @@ Multi-choice.\
 Novels > 50k. Designed question types and templates.\
 <https://arxiv.org/abs/2403.12766>
 
-**RULER: What’s the Real Context Size of Your Long-Context Language Models?** Hsieh et al. COLM'24\
-Enhanced needle in a haystack.\
-<https://openreview.net/forum?id=kIoBbc76Sy>
+**GPQA: A Graduate-Level Google-Proof Q&A Benchmark**. Rein et al. COLM'24\
+<https://openreview.net/forum?id=Ti67584b98>
 
 **∞ Bench: Extending Long Context Evaluation Beyond 100K Tokens**. Zhang et al. 2025\
 <https://arxiv.org/abs/2402.13718>
@@ -58,7 +57,8 @@ Enhanced needle in a haystack.\
 **HELMET: How to Evaluate Long-Context Language Models Effectively and Thoroughly**. Yen et al. ICLR'25\
 <https://openreview.net/forum?id=293V3bJbmE>
 
-### RAG
+**LiveBench: A Challenging, Contamination-Limited LLM Benchmark**. White et al. ICLR'25\
+<https://openreview.net/forum?id=sKYHBTAxVa>
 
 **LaRA: Benchmarking Retrieval-Augmented Generation and Long-Context LLMs - No Silver Bullet for LC or RAG Routing**. Li et al. 2025\
 Empirical comparison: Long Context vs. RAG.\
@@ -105,6 +105,10 @@ Use LLM to replace retrieval by relevant context generation.\
 **A Human-Inspired Reading Agent with Gist Memory of Very Long Contexts**. Lee et al. 2024\
 Use LLM to select which segments to read and when to stop (on linear segment summaries).\
 <https://arxiv.org/abs/2402.09727>
+
+**Are Long-LLMs A Necessity For Long-Context Tasks?**. Qian et al. 2024\
+Reading agent with short-context model.\
+<https://arxiv.org/abs/2405.15318>
 
 **LongAgent: Scaling Language Models to 128k Context through Multi-Agent Collaboration**. Zhao et al. 2024\
 Use LLM: one leader for decision making and several members for discussion.\

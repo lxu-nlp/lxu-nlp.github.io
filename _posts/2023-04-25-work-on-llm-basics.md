@@ -312,6 +312,12 @@ QA-based verification for detecting non-factual query response.\
 (4) Repeat this search process on multiple prompts incrementally, to find the final universal suffix that works for all prompts\
 <https://arxiv.org/abs/2307.15043>
 
+## Analysis: Data Contamination
+
+**Benchmarking Benchmark Leakage in Large Language Models**. Xu et al. 2024\
+Metrics: compare perplexity and n-gram between existing corpus and synthesis corpus.\
+<https://arxiv.org/abs/2404.18824>
+
 ---
 
 ## Applications

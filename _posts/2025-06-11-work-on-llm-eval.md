@@ -1,22 +1,61 @@
 ---
 layout: post
-title: "Works on LLM Eval"
+title: "Works on LLM Evaluation"
 date: 2025-06-11
 categories: [NLP]
 tags: [nlp, LLM]
 math: true
 ---
 
-See separate post for QA-related evaluation.
+
+See the separate [post](work-on-llm-qa-rag) for general QA-related evaluation.
 
 
-## General
+## Length
 
-**LiveBench: A Challenging, Contamination-Limited LLM Benchmark**. White et al. ICLR'25\
-<https://openreview.net/forum?id=sKYHBTAxVa>
+**RULER: What’s the Real Context Size of Your Long-Context Language Models?** Hsieh et al. COLM'24\
+Enhanced needle in a haystack.\
+<https://openreview.net/forum?id=kIoBbc76Sy>
 
-**GPQA: A Graduate-Level Google-Proof Q&A Benchmark**. Rein et al. COLM'24\
-<https://openreview.net/forum?id=Ti67584b98>
+**BABILong: Testing the Limits of LLMs with Long Context Reasoning-in-a-Haystack**. Kuratov et al. NIPS'24\
+20 tasks; evidence scattered across long natural context.\
+<https://openreview.net/forum?id=u7m2CG84BQ>
+
+**Same Task, More Tokens: the Impact of Input Length on the Reasoning Performance of Large Language Models**. Levy et al. ACL'24\
+Add irrelevant context.\
+<https://aclanthology.org/2024.acl-long.818>
+
+
+## In-Context Learning
+
+**Long-context LLMs Struggle with Long In-context Learning**. Li et al. TMLR'25\
+Long in-context learning in extreme-label classification with up to 174 classes.\
+<https://openreview.net/forum?id=Cw2xlg0e46>
+
+
+## Global Evidence Coverage
+
+**Is It Really Long Context if All You Need Is Retrieval? Towards Genuinely Difficult Long Context NLP**. Goldman et al. EMNLP'24\
+Define properties:\
+(1) dispersion: difficulty of information finding\
+(2) scope: quantity of information needed to solve the task\
+<https://aclanthology.org/2024.emnlp-main.924>
+
+**Ada-LEval: Evaluating long-context LLMs with length-adaptable benchmarks**. Wang et al. NAACL'24\
+Tasks: 1) SORT segments; 2) identify BEST answers from many candidates.\
+<https://aclanthology.org/2024.naacl-long.205>
+
+**BAMBOO: A Comprehensive Benchmark for Evaluating Long Text Modeling Capacities of Large Language Models**. Dong et al. LREC'24\
+Tasks: 1) multi-evidence QA; 2) SORT segments, or sort summaries given full context; 3) ...\
+<https://aclanthology.org/2024.lrec-main.188>
+
+**Leave No Document Behind: Benchmarking Long-Context LLMs with Extended Multi-Doc QA**. Wang et al. EMNLP'24\
+Tasks: 1) simple localization; 2) multi-piece COMPARISON; 3) multi-piece clustering; 4) multi-piece dependency and deduction, e.g. temporal or citation chain.\
+<https://aclanthology.org/2024.emnlp-main.322>
+
+**ETHIC: Evaluating Large Language Models on Long-Context Tasks with High Information Coverage**. Lee et al. NAACL'25\
+Tasks: 1) recall ALL entities; 2) summarize EACH segment; 3) SORT segment summaries; 4) attribute relevant segments.\
+<https://aclanthology.org/2025.naacl-long.283>
 
 
 ## Algorithmic/Mathematics Reasoning
