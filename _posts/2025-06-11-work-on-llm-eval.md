@@ -32,6 +32,31 @@ Add irrelevant context.\
 Long in-context learning in extreme-label classification with up to 174 classes.\
 <https://openreview.net/forum?id=Cw2xlg0e46>
 
+**In-Context Learning with Long-Context Models: An In-Depth Exploration**. Bertsch et al. NAACL'25\
+Scaling examples works.\
+<https://aclanthology.org/2025.naacl-long.605/>
+
+**Many-Shot In-Context Learning**. Agarwal et al. NIPS'24\
+Experiments on traditional NLP, math/algorithmic task, as well as vector classification, parity.\
+Scaling in-context examples: 1) using auto-gen rationale; 2) using only inputs (still works by locating relevant knowledge).\
+Observations: both surpass few-shot; auto-rationale usually performs better.\
+<https://openreview.net/forum?id=AB6XpMzvqH>
+
+**Stress-Testing Long-Context Language Models with Lifelong ICL and Task Haystack**. Xu et al. NIPS'24\
+Scaling tasks.\
+<https://proceedings.neurips.cc/paper_files/paper/2024/hash/1cc8db5884a7474b4771762b6f0c8ee1-Abstract-Datasets_and_Benchmarks_Track.html>
+
+#### Analysis
+
+**Larger language models do in-context learning differently**. Wei et al. 2023\
+Intrinsic knowledge vs. in-context label mapping: label mapping supersedes intrinsic knowledge, and can scale by model size.\
+<https://arxiv.org/abs/2303.03846>
+
+**Why Larger Language Models Do In-context Learning Differently?**. Shi et al. ICML'24\
+Theoretical: larger model learns more features but is more prone to noises.\
+Good related work.\
+<https://openreview.net/forum?id=WOa96EG26M>
+
 
 ## Global Evidence Coverage
 

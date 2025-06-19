@@ -17,6 +17,10 @@ Questions on long stories that require higher-level abstraction than superficial
 Approach: retrieval & concatenation to shorter doc -> QA.\
 <https://aclanthology.org/Q18-1023>
 
+**CHAPTERBREAK: A Challenge Dataset for Long-Range Language Models**. Sun et al. NAACL'21\
+Predict suffix from options given context.\
+<https://aclanthology.org/2022.naacl-main.271>
+
 **Fantastic Questions and Where to Find Them: FairytaleQA – An Authentic Dataset for Narrative Comprehension**. Xu et al. ACL'22\
 FairytaleQA: similar to NarrativeQA with more diverse questions.\
 <https://aclanthology.org/2022.acl-long.34>
@@ -52,7 +56,17 @@ Novels > 50k. Designed question types and templates.\
 <https://openreview.net/forum?id=Ti67584b98>
 
 **∞ Bench: Extending Long Context Evaluation Beyond 100K Tokens**. Zhang et al. 2025\
-<https://arxiv.org/abs/2402.13718>
+<https://aclanthology.org/2024.acl-long.814>
+
+**One Thousand and One Pairs: A “novel” challenge for long-context language models**. Karpinska et al. EMNLP'24\
+To prevent memorization: 1) use fictions; 2) new books and non-released.\
+Question: minimum statement.\
+<https://aclanthology.org/2024.emnlp-main.948>
+
+**LV-Eval: A Balanced Long-Context Benchmark with 5 Length Levels Up to 256K**. Yuan et al. 2024\
+Question: fact statement.\
+Context: add noise, 1) irrelevant docs; 2) confusing fact statements; 3) keywords swap.\
+<https://arxiv.org/abs/2402.05136>
 
 **HELMET: How to Evaluate Long-Context Language Models Effectively and Thoroughly**. Yen et al. ICLR'25\
 <https://openreview.net/forum?id=293V3bJbmE>
