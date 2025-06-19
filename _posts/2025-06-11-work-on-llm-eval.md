@@ -26,6 +26,26 @@ Add irrelevant context.\
 <https://aclanthology.org/2024.acl-long.818>
 
 
+## Number
+
+Analysis on number-related limitations.
+
+**Transformers need glasses! Information over-squashing in language tasks**. Barbero et al. NIPS'24\
+Theoretical: limitation on counting or copying due to representational collapse.\
+<https://openreview.net/forum?id=93HCE8vTye>
+
+**When Can Transformers Count to n?**. Yehudai et al. 2024\
+<https://arxiv.org/abs/2407.15160>
+
+**Can We Count on LLMs? The Fixed-Effect Fallacy and Claims of GPT-4 Capabilities**. Ball et al. TMLR'24\
+Evaluate on count/max/sort/multiply... tasks.\
+<https://openreview.net/forum?id=qt4d0EGZsK>
+
+**LLM The Genius Paradox: A Linguistic and Math Expert’s Struggle with Simple Word-based Counting Problems**. Xu and Ma. NAACL'25\
+Count words.\
+<https://aclanthology.org/2025.naacl-long.172>
+
+
 ## In-Context Learning
 
 **Long-context LLMs Struggle with Long In-context Learning**. Li et al. TMLR'25\
