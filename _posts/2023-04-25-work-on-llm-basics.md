@@ -232,7 +232,7 @@ Dataset: answerable and unanswerable questions.\
 <https://openreview.net/forum?id=0ksNeD1SJT>
 
 **Why are Sensitive Functions Hard for Transformers?**. Hahn and Rofin. ACL'24\
-<https://arxiv.org/abs/2402.09963>
+<https://aclanthology.org/2024.acl-long.800>
 
 ## Analysis: Bias
 

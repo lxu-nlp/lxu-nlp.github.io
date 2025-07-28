@@ -33,6 +33,9 @@ Multi-choice.\
 **True Detective: A Deep Abductive Reasoning Benchmark Undoable for GPT-3 and Challenging for GPT-4**. Del and Fishel. *SEM'23\
 <https://aclanthology.org/2023.starsem-1.28>
 
+**DetectiveQA: Evaluating Long-Context Reasoning on Detective Novels**. Xu et al. 2025\
+<https://openreview.net/forum?id=9ExIs5ELlk>
+
 **LONGBENCH: A BILINGUAL, MULTITASK BENCHMARK FOR LONG CONTEXT UNDERSTANDING**. Bai et al. 2023\
 <https://arxiv.org/abs/2403.03514>
 
@@ -48,9 +51,9 @@ Multi-choice.\
 **CLongEval: A Chinese Benchmark for Evaluating Long-Context Large Language Models**. Qiu et al. 2024\
 <https://arxiv.org/abs/2403.03514>
 
-**NovelQA: A Benchmark for Long-Range Novel Question Answering**. Wang et al. 2024\
+**NovelQA: A Benchmark for Long-Range Novel Question Answering**. Wang et al. ICLR'25\
 Novels > 50k. Designed question types and templates.\
-<https://arxiv.org/abs/2403.12766>
+<https://openreview.net/forum?id=f42vltW04E>
 
 **GPQA: A Graduate-Level Google-Proof Q&A Benchmark**. Rein et al. COLM'24\
 <https://openreview.net/forum?id=Ti67584b98>

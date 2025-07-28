@@ -64,7 +64,7 @@ Observations: both surpass few-shot; auto-rationale usually performs better.\
 
 **Stress-Testing Long-Context Language Models with Lifelong ICL and Task Haystack**. Xu et al. NIPS'24\
 Scaling tasks.\
-<https://proceedings.neurips.cc/paper_files/paper/2024/hash/1cc8db5884a7474b4771762b6f0c8ee1-Abstract-Datasets_and_Benchmarks_Track.html>
+<https://openreview.net/forum?id=j6PTT6NB2O>
 
 #### Analysis
 
