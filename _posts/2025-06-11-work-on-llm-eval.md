@@ -45,6 +45,15 @@ Evaluate on count/max/sort/multiply... tasks.\
 Count words.\
 <https://aclanthology.org/2025.naacl-long.172>
 
+**Language Models Need Inductive Biases to Count Inductively**. Chang and Bisk. ICLR'25\
+Different model architectures enable counting or not.\
+<https://openreview.net/forum?id=s3IBHTTDYl>
+
+**Number Cookbook: Number Understanding of Language Models and How to Improve It**. Yang et al. ICLR'25\
+17 distinct numerical tasks, including arithmetic, comparison, conversion, etc.\
+Finetuning with COT is more effective.\
+<https://openreview.net/forum?id=BWS5gVjgeY>
+
 
 ## In-Context Learning
 
@@ -65,17 +74,6 @@ Observations: both surpass few-shot; auto-rationale usually performs better.\
 **Stress-Testing Long-Context Language Models with Lifelong ICL and Task Haystack**. Xu et al. NIPS'24\
 Scaling tasks.\
 <https://openreview.net/forum?id=j6PTT6NB2O>
-
-#### Analysis
-
-**Larger language models do in-context learning differently**. Wei et al. 2023\
-Intrinsic knowledge vs. in-context label mapping: label mapping supersedes intrinsic knowledge, and can scale by model size.\
-<https://arxiv.org/abs/2303.03846>
-
-**Why Larger Language Models Do In-context Learning Differently?**. Shi et al. ICML'24\
-Theoretical: larger model learns more features but is more prone to noises.\
-Good related work.\
-<https://openreview.net/forum?id=WOa96EG26M>
 
 
 ## Global Evidence Coverage
@@ -132,11 +130,22 @@ A collection of RL-oriented logical puzzles.\
 Very simple template-based problem.\
 <https://arxiv.org/abs/2406.02061>
 
+**CogMath: Assessing LLMs' Authentic Mathematical Ability from a Human Cognitive Perspective**. Liu et al. ICML'25\
+Design 9 fine-grained evaluation dimensions.\
+<https://openreview.net/forum?id=mqY0X3Yoy9>
+
 
 ## NLP Context Reasoning
 
 **MuSR: Testing the Limits of Chain-of-thought with Multistep Soft Reasoning**. Sprague et al. ICLR'24\
 <https://openreview.net/forum?id=jenyYQzue1>
+
+
+## Knowledge QA
+
+**Is Complex Query Answering Really Complex?** Gregucci et al. 2025\
+Benchmark of multi-hop queries.\
+<https://arxiv.org/abs/2410.12537>
 
 
 ## Instruction Following / Preference

@@ -75,7 +75,19 @@ Reflection is gradual, not sudden, likely just a result of alignment upon pretra
 RL generalizes better than SFT.\
 <https://arxiv.org/abs/2502.14768>
 
-### Analysis
+
+# Training Dynamics
+
+**Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets**. Power et al. 2022\
+Generalize after overfitting.\
+<https://arxiv.org/abs/2201.02177>
+
+**Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision**. Burns et al. ICML'24\
+strong models trained with weak supervision can often generalize to a substantially higher performance than the weak model itself.\
+<https://openreview.net/forum?id=BEqFYCDU0u>
+
+**Scaling Exponents Across Parameterizations and Optimizers**. Everett et al. ICML'24\
+<https://openreview.net/forum?id=0ksNeD1SJT>
 
 **Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?**. Yue et al. 2025\
 RL training enables new patterns or just alignment of base model?\

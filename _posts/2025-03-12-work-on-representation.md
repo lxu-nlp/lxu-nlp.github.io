@@ -95,6 +95,17 @@ Similarity: sampling continuation equal times from both two inputs as the approx
 **EASE: Entity-Aware Contrastive Learning of Sentence Embedding**. Nishikawa et al. NAACL'22\
 <https://aclanthology.org/2022.naacl-main.284>
 
+## Embedding Granularity
+
+**Simple Entity-Centric Questions Challenge Dense Retrievers**. Sciavolino et al. EMNLP'21\
+Recognize entity in entity-centric queries: unable to generalize to long-tail entities unless the query pattern is seen.\
+<https://aclanthology.org/2021.emnlp-main.496>
+
+**Salient Phrase Aware Dense Retrieval: Can a Dense Retriever Imitate a Sparse One?**. Chen et al. EMNLP Findings'22\
+Able to mimic BM25 by dense retriever (but does it generalize?)\
+Combine with DPR by concatenation works.\
+<https://aclanthology.org/2022.findings-emnlp.19>
+
 ## Embedding Privacy
 
 **Sentence Embedding Leaks More Information than You Expect: Generative Embedding Inversion Attack to Recover the Whole Sentence**. Li et al. ACL Findings'23\

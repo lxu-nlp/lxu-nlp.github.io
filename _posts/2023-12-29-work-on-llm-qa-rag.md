@@ -119,6 +119,12 @@ Semantic similarity tree + entity proposition tree for relatedness.\
 Use LLM to replace retrieval by relevant context generation.\
 <https://openreview.net/forum?id=fB0hRu9GZUS>
 
+**HippoRAG: Neurobiologically Inspired Long-Term Memory for Large Language Models**. Gutiérrez et al. NIPS'24\
+Graph-based + page rank for related node/edge expansion.\
+<https://openreview.net/forum?id=hkujvAPVsg>
+
+# Method: Agent
+
 **A Human-Inspired Reading Agent with Gist Memory of Very Long Contexts**. Lee et al. 2024\
 Use LLM to select which segments to read and when to stop (on linear segment summaries).\
 <https://arxiv.org/abs/2402.09727>
@@ -131,9 +137,8 @@ Reading agent with short-context model.\
 Use LLM: one leader for decision making and several members for discussion.\
 <https://arxiv.org/abs/2402.11550>
 
-**HippoRAG: Neurobiologically Inspired Long-Term Memory for Large Language Models**. Gutiérrez et al. NIPS'24\
-Graph-based + page rank for related node/edge expansion.\
-<https://openreview.net/forum?id=hkujvAPVsg>
+**KBQA-o1: Agentic Knowledge Base Question Answering with Monte Carlo Tree Search**. Luo et al. ICML'25\
+<https://openreview.net/forum?id=QuecSemZIy>
 
 # Method: Explicit In-Context Retrieval
 
