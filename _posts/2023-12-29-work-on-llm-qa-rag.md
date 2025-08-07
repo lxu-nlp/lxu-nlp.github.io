@@ -105,9 +105,9 @@ KG-based.\
 Complex KG-based.\
 <https://arxiv.org/abs/2409.13731>
 
-**From RAG to Memory: Non-Parametric Continual Learning for Large Language Models**. Gutiérrez et al. 2025\
+**From RAG to Memory: Non-Parametric Continual Learning for Large Language Models**. Gutiérrez et al. ICML'25\
 HippoRAG v2: combine KG and passage nodes for contextualization.\
-<https://arxiv.org/abs/2502.14802>
+<https://openreview.net/forum?id=LWH8yn4HS2>
 
 **SiReRAG: Indexing Similar and Related Information for Multihop Reasoning**. Zhang et al. ICLR'25\
 Semantic similarity tree + entity proposition tree for relatedness.\

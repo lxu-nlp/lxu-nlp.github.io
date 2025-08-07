@@ -64,9 +64,9 @@ Compress **input context** (**objectives: (reconstruction + general LM as pretra
 Learn an adaptor to compress into a single token embedding utilized by generation.\
 <https://openreview.net/forum?id=6pTlXqrO0p>
 
-**MemoRAG: Moving towards Next-Gen RAG Via Memory-Inspired Knowledge Discovery**. Qian et al. 2024\
+**MemoRAG: Moving towards Next-Gen RAG Via Memory-Inspired Knowledge Discovery**. Qian et al. WWW'25\
 Train model to learn gist token that memorizes the past context to provide approximate clues, serving as a model to bridge the query and full context.\
-<https://arxiv.org/abs/2409.05591>
+<https://dl.acm.org/doi/10.1145/3696410.3714805>
 
 
 ## Test-time Context Pruning: Hard Drop Non-Salient Tokens
