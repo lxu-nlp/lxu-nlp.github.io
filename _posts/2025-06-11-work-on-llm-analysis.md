@@ -14,6 +14,12 @@ math: true
 <https://aclanthology.org/2024.acl-long.800>
 
 
+## Generalization
+
+**Is Chain-of-Thought Reasoning of LLMs a Mirage? A Data Distribution Lens**. Zhao et al. 2025\
+<https://arxiv.org/abs/2508.01191>
+
+
 ## Context Utilization
 
 **Lost in the Middle: How Language Models Use Long Contexts**. Liu et al. TACL'23\
@@ -162,7 +168,12 @@ Probe on goal-oriented task that requires sequential actions.\
 <https://arxiv.org/abs/2505.14530>
 
 **On Reasoning Strength Planning in Large Reasoning Models**. Sheng et al. 2025\
+Obtain mean vector of different difficulties, which could steer reasoning length.\
 <https://arxiv.org/abs/2506.08390>
+
+**Enhancing Chain-of-Thought Reasoning with Critical Representation Fine-tuning**. Huang et al. ACL'25\
+Use information flow to identify critical positions to finetune.\
+<https://aclanthology.org/2025.acl-long.1129>
 
 
 ## Others

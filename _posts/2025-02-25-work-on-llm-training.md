@@ -36,6 +36,9 @@ Same local window size for each attention head. But, half heads on original loca
 Thus, although receiving local k/v at each attention layer, global attention can still be achieved by stacked attention layers.\
 <https://arxiv.org/pdf/2309.12307>
 
+**ReFT: Representation Finetuning for Language Models**. Wu et al. NIPS'24\
+<https://openreview.net/forum?id=fykjplMc0V>
+
 
 # RL Training
 

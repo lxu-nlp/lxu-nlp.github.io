@@ -135,6 +135,13 @@ Design 9 fine-grained evaluation dimensions.\
 <https://openreview.net/forum?id=mqY0X3Yoy9>
 
 
+## Coding
+
+**SWE-bench: Can Language Models Resolve Real-world Github Issues?**. Jimenez et al. ICLR'24\
+Github repo + issue -> pass test.\
+<https://openreview.net/forum?id=VTF8yNQM66>
+
+
 ## NLP Context Reasoning
 
 **MuSR: Testing the Limits of Chain-of-thought with Multistep Soft Reasoning**. Sprague et al. ICLR'24\
