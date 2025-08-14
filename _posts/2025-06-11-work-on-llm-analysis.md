@@ -16,6 +16,21 @@ math: true
 
 ## Generalization
 
+**How Far Can Transformers Reason? The Globality Barrier and Inductive Scratchpad**. Abbe et al. NIPS'24\
+Formal on task difficulty: global degree.\
+Can only learn constant degree task by regular training.\
+Scratchpad (decomposition by low global degree) can help.\
+<https://openreview.net/forum?id=FoGwiFXzuN>
+
+**Grokking of Implicit Reasoning in Transformers: A Mechanistic Journey to the Edge of Generalization**. Wang et al. NIPS'24\
+Examine implicit reasoning on composition task (two-hop tail entity prediction), with aspects on: grokking, causal tracing, etc.\
+<https://openreview.net/forum?id=D4QgSWxiOb>
+
+**The Coverage Principle: A Framework for Understanding Compositional Generalization**. Chang et al. 2025\
+Compositional generalization comes from: functional equivalence.\
+Task: different compute graph.\
+<https://arxiv.org/abs/2505.20278>
+
 **Is Chain-of-Thought Reasoning of LLMs a Mirage? A Data Distribution Lens**. Zhao et al. 2025\
 <https://arxiv.org/abs/2508.01191>
 
