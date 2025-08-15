@@ -8,13 +8,24 @@ math: true
 ---
 
 
-## Learnability and Expressibility
+## Learnability, Generalization, Composition
 
 **Why are Sensitive Functions Hard for Transformers?**. Hahn and Rofin. ACL'24\
 <https://aclanthology.org/2024.acl-long.800>
 
+**Sub-Task Decomposition Enables Learning in Sequence to Sequence Tasks**. Wies et al. ICLR'23\
+Theoretical: adding intermediate decomposition makes unlearnable problem learnable.\
+<https://openreview.net/forum?id=BrJATVZDWEH>
 
-## Generalization
+**Faith and Fate: Limits of Transformers on Compositionality**. Dziri et al. NIPS'23\
+Cannot generalize multi-hop solving procedure.\
+LLMs solve compositional tasks by reducing multi-step compositional reasoning into linearized subgraph matching.\
+<https://openreview.net/forum?id=Fkckkr3ya8>
+
+**The Coverage Principle: A Framework for Understanding Compositional Generalization**. Chang et al. 2025\
+Compositional generalization comes from: functional equivalence.\
+Task: different compute graph.\
+<https://arxiv.org/abs/2505.20278>
 
 **How Far Can Transformers Reason? The Globality Barrier and Inductive Scratchpad**. Abbe et al. NIPS'24\
 Formal on task difficulty: global degree.\
@@ -26,10 +37,15 @@ Scratchpad (decomposition by low global degree) can help.\
 Examine implicit reasoning on composition task (two-hop tail entity prediction), with aspects on: grokking, causal tracing, etc.\
 <https://openreview.net/forum?id=D4QgSWxiOb>
 
-**The Coverage Principle: A Framework for Understanding Compositional Generalization**. Chang et al. 2025\
-Compositional generalization comes from: functional equivalence.\
-Task: different compute graph.\
-<https://arxiv.org/abs/2505.20278>
+**Auto-Regressive Next-Token Predictors are Universal Learners**. Malach. ICML'24\
+CoT can approximate any function efficiently computed by a Turing machine.\
+Length complexity: the number of intermediate tokens in a CoT sequence required to approximate some target function.\
+<https://dl.acm.org/doi/10.5555/3692070.3693470>
+
+**Generalizing Reasoning Problems to Longer Lengths**. Xiao and Liu. ICLR'25\
+Theoretical: length generalization only with CoT.\
+(n-r) consistency enables generalization.\
+<https://openreview.net/forum?id=zpENPcQSj1>
 
 **Is Chain-of-Thought Reasoning of LLMs a Mirage? A Data Distribution Lens**. Zhao et al. 2025\
 <https://arxiv.org/abs/2508.01191>
@@ -192,10 +208,6 @@ Use information flow to identify critical positions to finetune.\
 
 
 ## Others
-
-**Emergent Abilities of Large Language Models**. Wei et al. TMLR'22\
-Quantify specific tasks and prompting techniques regarding emergent capability on different models.\
-<https://arxiv.org/pdf/2206.07682>
 
 **From Word Models to World Models: Translating from Natural Language to the Probabilistic Language of Thought**.\
 LLM to convert natural languages to program languages + use program languages as probabilistic inference for reasoning.\
