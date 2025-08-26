@@ -97,6 +97,10 @@ RL training enables new patterns or just alignment of base model?\
 Observation: latter.\
 <https://arxiv.org/abs/2504.13837>
 
+**Beyond the 80/20 Rule: High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning**. Wang et al. 2025\
+Expected: 20\% tokens are high entropy, which usually decide reasoning path and are critical to the final performance.\
+<https://arxiv.org/abs/2506.01939>
+
 
 # SFT Training: Add Negative Signals
 

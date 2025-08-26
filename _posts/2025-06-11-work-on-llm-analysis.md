@@ -10,6 +10,18 @@ math: true
 
 ## Learnability, Generalization, Composition
 
+**Overcoming a Theoretical Limitation of Self-Attention**. Chiang and Cholak. ACL'22\
+Parity can be learned by Transformers with simple modification.\
+<https://aclanthology.org/2022.acl-long.527>
+
+**Exploring Length Generalization in Large Language Models**. Anil et al. NIPS'22\
+Parity learning is not generalized by SFT, but scratchpad helps.\ 
+<https://openreview.net/forum?id=zSkYVeX7bC4>
+
+**Simplicity Bias in Transformers and their Ability to Learn Sparse Boolean Functions**. Bhattamishra et al. ACL'23\
+Experiments on model architectures vs. sensitivity (k-sparse parity).\
+<https://aclanthology.org/2023.acl-long.317>
+
 **Why are Sensitive Functions Hard for Transformers?**. Hahn and Rofin. ACL'24\
 <https://aclanthology.org/2024.acl-long.800>
 
@@ -75,6 +87,10 @@ Good related work.\
 **Label Words are Anchors: An Information Flow Perspective for Understanding In-Context Learning**. Wang et al. EMNLP'24\
 Analysis by attention-based saliency: labels are anchors in ICL.\
 <https://aclanthology.org/2023.emnlp-main.609>
+
+**Why In-Context Learning Models are Good Few-Shot Learners?**. Wu et al. ICLR'25\
+Theoretical: ICL functions as a new learning algorithm.\
+<https://openreview.net/forum?id=iLUcsecZJp>
 
 
 ## Bias
