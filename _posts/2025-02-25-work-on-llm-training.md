@@ -101,6 +101,14 @@ Observation: latter.\
 Expected: 20\% tokens are high entropy, which usually decide reasoning path and are critical to the final performance.\
 <https://arxiv.org/abs/2506.01939>
 
+**Beyond Accuracy: Dissecting Mathematical Reasoning for LLMs Under Reinforcement Learning**. Wang et al. 2025\
+Empirical on RL training dynamics e.g. plan following, sample efficiency.\
+<https://arxiv.org/abs/2506.04723>
+
+**Demystifying Long Chain-of-Thought Reasoning**. Yang et al. ICML'25\
+Empirical on long COT dynamics: SFT, emergence, etc.\
+<https://openreview.net/forum?id=OLodUbcWjB>
+
 
 # SFT Training: Add Negative Signals
 
