@@ -121,3 +121,8 @@ Smooth one-hot label.\
 
 **Types of Out-of-Distribution Texts and How to Detect Them**. Arora et al. EMNLP'21\
 <https://aclanthology.org/2021.emnlp-main.835>
+
+# For LLM
+
+**A Survey of Uncertainty Estimation Methods on Large Language Models**. Xia et al. ACL'25 Finding\
+<https://aclanthology.org/2025.findings-acl.1101/>
