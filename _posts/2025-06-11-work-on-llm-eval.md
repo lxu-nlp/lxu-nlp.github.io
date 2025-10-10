@@ -101,7 +101,7 @@ Tasks: 1) recall ALL entities; 2) summarize EACH segment; 3) SORT segment summar
 <https://aclanthology.org/2025.naacl-long.283>
 
 
-## Algorithmic/Mathematics Reasoning
+## Algorithmic/Mathematics/Logical Reasoning
 
 **Faith and Fate: Limits of Transformers on Compositionality**. Dziri et al. NIPS'23\
 Controlled complexity: explicit computational graph.\
@@ -133,6 +133,10 @@ Very simple template-based problem.\
 **CogMath: Assessing LLMs' Authentic Mathematical Ability from a Human Cognitive Perspective**. Liu et al. ICML'25\
 Design 9 fine-grained evaluation dimensions.\
 <https://openreview.net/forum?id=mqY0X3Yoy9>
+
+**ZebraLogic: On the Scaling Limits of LLMs for Logical Reasoning**. Lin et al. ICML'25\
+Constraint satisfaction problems (CSPs): assign attribute values to each slot.\
+<https://openreview.net/forum?id=sTAJ9QyA6l>
 
 
 ## Coding

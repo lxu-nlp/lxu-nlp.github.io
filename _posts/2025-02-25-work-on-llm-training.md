@@ -65,18 +65,9 @@ Reflection exists in pretraining; RL (as alignment) strengthens effective reflec
 Reasoning length is not an indicator of performance.\
 <https://oatllm.notion.site/oat-zero>
 
-**Open-Reasoner-Zero: An Open Source Approach to Scaling Up Reinforcement Learning on the Base Model**. Hu et al.\
-PPO is robust and effective.\
-Minimal reward is not only sufficient but optimal.\
-<https://github.com/Open-Reasoner-Zero/Open-Reasoner-Zero>
-
-**Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning**. Xie et al.\
-Reward: format + answer\
-REINFORCE++ >= PPO > GRPO.\
-Thinking tokens can be performance indicator, but not reasoning length.\
-Reflection is gradual, not sudden, likely just a result of alignment upon pretraining.\
-RL generalizes better than SFT.\
-<https://arxiv.org/abs/2502.14768>
+**Let's Verify Step by Step**. Lightman et al. ICLR'24\
+Train reward model to score steps (token-level scoring) for RL supervision.\
+<https://openreview.net/forum?id=v8L0pN6EOi>
 
 
 # Training Dynamics
