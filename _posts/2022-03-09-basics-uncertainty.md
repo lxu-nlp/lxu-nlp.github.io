@@ -124,5 +124,16 @@ Smooth one-hot label.\
 
 # For LLM
 
+**A Survey of Confidence Estimation and Calibration in Large Language Models**. Geng et al. NAACL'24\
+<https://aclanthology.org/2024.naacl-long.366/>
+
 **A Survey of Uncertainty Estimation Methods on Large Language Models**. Xia et al. ACL'25 Finding\
 <https://aclanthology.org/2025.findings-acl.1101/>
+
+**Scalable Best-of-N Selection for Large Language Models via Self-Certainty**. Kang et al. NIPS'25\
+Metric: for each pos, use avg prob of entire vocab (as distribution).\
+<https://openreview.net/forum?id=29FRqmVQK8>
+
+**Deep Think with Confidence**. Fu et al. 2025\
+Weighted voting by sliding window seq prob.\
+<https://arxiv.org/abs/2508.15260>
