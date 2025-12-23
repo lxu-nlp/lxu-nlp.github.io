@@ -42,3 +42,6 @@ Metric: covariance det of averaged token hidden states of multiple sampled respo
 **LLM-Check: Investigating Detection of Hallucinations in Large Language Models**. Sriramanan et al. NIPS'24\
 <https://openreview.net/forum?id=LYx4w3CAgy>
 
+**Scalable Best-of-N Selection for Large Language Models via Self-Certainty**. Kang et al. NIPS'25\
+Distribution-level per step: similar to entropy.\
+<https://arxiv.org/abs/2502.18581>

@@ -7,7 +7,26 @@ tags: [nlp, LLM, training]
 math: true
 ---
 
+
+# General Training Dynamics
+
+**Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision**. Burns et al. ICML'24\
+strong models trained with weak supervision can often generalize to a substantially higher performance than the weak model itself.\
+<https://openreview.net/forum?id=BEqFYCDU0u>
+
+**Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets**. Power et al. 2022\
+Generalize after overfitting.\
+<https://arxiv.org/abs/2201.02177>
+
+**Scaling Exponents Across Parameterizations and Optimizers**. Everett et al. ICML'24\
+<https://openreview.net/forum?id=0ksNeD1SJT>
+
+
 # Efficient Training: Low-Rank
+
+**Parameter-Efficient Transfer Learning for NLP**. Houlsby et al. ICML'19\
+Bottleneck lor-rank adapters.\
+<https://proceedings.mlr.press/v97/houlsby19a.html>
 
 **Prefix-Tuning: Optimizing Continuous Prompts for Generation**. Li and Liang. ACL'21\
 Prefix-tuning: optimize a continuous prompt prefix per task, instead of discrete task prompt.\
@@ -24,6 +43,10 @@ Prompt-tuning: similar to prefix-tuning, only optimizing a continuous prompt pre
 **LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS**. Hu et al. ICLR'22\
 Instead of inserting layers (adapters) as parts of parameters, learn a separate low-rank parameter delta.\
 <https://arxiv.org/abs/2106.09685>
+
+**Towards a Unified View of Parameter-Efficient Transfer Learning**. He et al. ICLR'22\
+Connecting adapter, prefix-tuning and lora.\
+<https://openreview.net/forum?id=0RDcd5Axok>
 
 **DoRA: Weight-Decomposed Low-Rank Adaptation**. Liu et al. ICML'24\
 (1) Analyzing the delta change of weights after finetuning, by decomposing into magnitude and direction.\
@@ -69,36 +92,14 @@ Reasoning length is not an indicator of performance.\
 Train reward model to score steps (token-level scoring) for RL supervision.\
 <https://openreview.net/forum?id=v8L0pN6EOi>
 
-
-# Training Dynamics
-
-**Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets**. Power et al. 2022\
-Generalize after overfitting.\
-<https://arxiv.org/abs/2201.02177>
-
-**Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision**. Burns et al. ICML'24\
-strong models trained with weak supervision can often generalize to a substantially higher performance than the weak model itself.\
-<https://openreview.net/forum?id=BEqFYCDU0u>
-
-**Scaling Exponents Across Parameterizations and Optimizers**. Everett et al. ICML'24\
-<https://openreview.net/forum?id=0ksNeD1SJT>
-
-**Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?**. Yue et al. 2025\
-RL training enables new patterns or just alignment of base model?\
-Observation: latter.\
-<https://arxiv.org/abs/2504.13837>
-
-**Beyond the 80/20 Rule: High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning**. Wang et al. 2025\
-Expected: 20\% tokens are high entropy, which usually decide reasoning path and are critical to the final performance.\
-<https://arxiv.org/abs/2506.01939>
-
-**Beyond Accuracy: Dissecting Mathematical Reasoning for LLMs Under Reinforcement Learning**. Wang et al. 2025\
-Empirical on RL training dynamics e.g. plan following, sample efficiency.\
-<https://arxiv.org/abs/2506.04723>
-
 **Demystifying Long Chain-of-Thought Reasoning**. Yang et al. ICML'25\
-Empirical on long COT dynamics: SFT, emergence, etc.\
+(1) SFT is not strictly necessary but significantly simplifies efficiency\
+(2) reasoning capabilities are not guaranteed, making reward shaping essential for stabilizing CoT length growth\
 <https://openreview.net/forum?id=OLodUbcWjB>
+
+**CoT-Valve: Length-Compressible Chain-of-Thought Tuning**. Ma et al. ACL'25\
+Train lora to control length.\
+<https://aclanthology.org/2025.acl-long.300>
 
 
 # SFT Training: Add Negative Signals

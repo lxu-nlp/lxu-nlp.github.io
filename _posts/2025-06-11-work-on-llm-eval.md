@@ -103,25 +103,6 @@ Tasks: 1) recall ALL entities; 2) summarize EACH segment; 3) SORT segment summar
 
 ## Algorithmic/Mathematics/Logical Reasoning
 
-**Faith and Fate: Limits of Transformers on Compositionality**. Dziri et al. NIPS'23\
-Controlled complexity: explicit computational graph.\
-Problems: multiplication, puzzle, DP.\
-Observations: hard to generalize even trained with COT; memorization.\
-<https://openreview.net/forum?id=Fkckkr3ya8>
-
-**Case-Based or Rule-Based: How Do Transformers Do the Math?**. Hu et al. ICML'24\
-Design math dataset that controls case similarity, then train & evaluate.\
-Observations: LLMs rely on similar math cases.\
-<https://openreview.net/forum?id=4Vqr8SRfyX>
-
-**GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models**. Mirzadeh et al. 2024\
-GSM-stype math problem through generation with controlled complexity.\
-<https://arxiv.org/abs/2410.05229>
-
-**The Illusion of Thinking: Understanding the Strengths and Limitations of Reasoning Models via the Lens of Problem Complexity**. Shojaee et al. 2025\
-Logic problems with controlled complexity, e.g. Hanoi tower.\
-<https://arxiv.org/pdf/2506.06941>
-
 **PUZZLES: A Benchmark for Neural Algorithmic Reasoning**. Estermann et al. NIPS'24\
 A collection of RL-oriented logical puzzles.\
 <https://neurips.cc/virtual/2024/poster/97818>
@@ -137,6 +118,10 @@ Design 9 fine-grained evaluation dimensions.\
 **ZebraLogic: On the Scaling Limits of LLMs for Logical Reasoning**. Lin et al. ICML'25\
 Constraint satisfaction problems (CSPs): assign attribute values to each slot.\
 <https://openreview.net/forum?id=sTAJ9QyA6l>
+
+**Beyond Accuracy: Dissecting Mathematical Reasoning for LLMs Under Reinforcement Learning**. Wang et al. NIPS'25\
+SPARKLEL: empirical on RL training dynamics e.g. plan following, sample efficiency.\
+<https://openreview.net/forum?id=vTWNVYuvuF>
 
 
 ## Coding

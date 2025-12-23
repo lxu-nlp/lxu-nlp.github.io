@@ -15,6 +15,10 @@ math: true
 **MMTEB: Massive Multilingual Text Embedding Benchmark**. Enevoldsen et al. ICLR'25\
 <https://openreview.net/forum?id=zl3pfz4VCV>
 
+**BRIGHT: A Realistic and Challenging Benchmark for Reasoning-Intensive Retrieval**. Su et al. ICLR'25\
+Retrieval pairs with deeper reasoning/relations.\
+<https://openreview.net/forum?id=ykuc5q381b>
+
 ---
 
 ## Embedding by Non-LLM
@@ -78,6 +82,16 @@ Bidirectional on last layer + contrastive.\
 Latent pooling: hidden state from the last LLM position (Q) attended over latent dictionaries (K).\
 <https://arxiv.org/abs/2405.17428>
 
+## Jepa
+
+**Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture**. Assran et al. ICCV'23\
+Self-supervised contrastive on: context with masked blocks + locator <=> target block emb\
+<https://arxiv.org/abs/2301.08243>
+
+**V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning**. Assran et al. 2025\
+on 3D.\
+<https://arxiv.org/abs/2506.09985>
+
 ## Other Representation by LLM
 
 **Scaling Sentence Embeddings with Large Language Models**. Jiang et al. 2023\
@@ -94,6 +108,13 @@ Similarity: sampling continuation equal times from both two inputs as the approx
 
 **EASE: Entity-Aware Contrastive Learning of Sentence Embedding**. Nishikawa et al. NAACL'22\
 <https://aclanthology.org/2022.naacl-main.284>
+
+## Embedding Analysis
+
+**Layer by Layer: Uncovering Hidden Representations in Language Models**. Skean et al. ICML'25\
+Evaluate representation by different dimensions, e.g. information compression, signal preservation.\
+Intermediate layers can encode even richer representation, balancing these two aspects.\
+<https://openreview.net/forum?id=WGXb7UdvTX>
 
 ## Embedding Granularity
 

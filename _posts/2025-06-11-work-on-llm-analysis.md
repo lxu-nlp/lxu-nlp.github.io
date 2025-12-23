@@ -30,6 +30,7 @@ Theoretical: adding intermediate decomposition makes unlearnable problem learnab
 <https://openreview.net/forum?id=BrJATVZDWEH>
 
 **Faith and Fate: Limits of Transformers on Compositionality**. Dziri et al. NIPS'23\
+Controlled complexity: explicit computational graph: multiplication, puzzle, DP.\
 Cannot generalize multi-hop solving procedure.\
 LLMs solve compositional tasks by reducing multi-step compositional reasoning into linearized subgraph matching.\
 <https://openreview.net/forum?id=Fkckkr3ya8>
@@ -49,18 +50,77 @@ Scratchpad (decomposition by low global degree) can help.\
 Examine implicit reasoning on composition task (two-hop tail entity prediction), with aspects on: grokking, causal tracing, etc.\
 <https://openreview.net/forum?id=D4QgSWxiOb>
 
+**The Parallelism Tradeoff: Limitations of Log-Precision Transformers**. Merrill and Sabharwal. TACL'23\
+Transformers can only express O(1)-parallel complexity.\
+<https://aclanthology.org/2023.tacl-1.31/>
+
+**Chain of Thought Empowers Transformers to Solve Inherently Serial Problems**. Li et al. ICLR'24\
+CoT allows serial (multi-hop) computation. Without CoT, it is then bounded by transformer depth.\
+<https://openreview.net/forum?id=3EWTEy9MTM>
+
 **Auto-Regressive Next-Token Predictors are Universal Learners**. Malach. ICML'24\
 CoT can approximate any function efficiently computed by a Turing machine.\
 Length complexity: the number of intermediate tokens in a CoT sequence required to approximate some target function.\
 <https://dl.acm.org/doi/10.5555/3692070.3693470>
+
+**Limits of Deep Learning: Sequence Modeling through the Lens of Complexity Theory**. Zubic et al. ICLR'25\
+Cannot efficiently perform function composition (multi-hop); even with CoT, requiring large intermediate steps.\
+<https://openreview.net/forum?id=DhdqML3FdM>
 
 **Generalizing Reasoning Problems to Longer Lengths**. Xiao and Liu. ICLR'25\
 Theoretical: length generalization only with CoT.\
 (n-r) consistency enables generalization.\
 <https://openreview.net/forum?id=zpENPcQSj1>
 
-**Is Chain-of-Thought Reasoning of LLMs a Mirage? A Data Distribution Lens**. Zhao et al. 2025\
-<https://arxiv.org/abs/2508.01191>
+
+## CoT / Thinking
+
+**Why think step by step? Reasoning emerges from the locality of experience**. Prystawski et al. NIPS'23\
+Key training data hop property: intermediate steps are only helpful when the training data is locally structured with respect to dependencies between variables.\
+<https://openreview.net/forum?id=rcXXNFVlEn>
+
+**Case-Based or Rule-Based: How Do Transformers Do the Math?**. Hu et al. ICML'24\
+Design math dataset that controls case similarity, then train & evaluate.\
+Observations: LLMs rely on similar math cases.\
+<https://openreview.net/forum?id=4Vqr8SRfyX>
+
+**Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?**. Yue et al. NIPS'25\
+RL training enables new patterns or just alignment of base model?\
+Observation: latter.\
+<https://openreview.net/forum?id=4OsgYD7em5>
+
+**GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models**. Mirzadeh et al. ICLR'25\
+GSM-stype math problem through generation with controlled complexity.\
+LLM is not robust to problem variation.\
+<https://openreview.net/forum?id=AjXkRZIvjB>
+
+**Beyond the 80/20 Rule: High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning**. Wang et al. NIPS'25\
+Expected: 20\% tokens are high entropy, which usually decide reasoning path and are critical to the final performance.\
+<https://openreview.net/forum?id=yfcpdY4gMP>
+
+**Compressing Chain-of-Thought in LLMs via Step Entropy**. Li et al. 2025\
+80\% of low-entropy intermediate steps can be pruned.\
+<https://arxiv.org/abs/2508.03346>
+
+**Understanding Chain-of-Thought in LLMs through Information Theory**. Ton et al. ICML'25\
+Quantify the information gain at each reasoning step.\
+<https://openreview.net/forum?id=IjOWms0hrf>
+
+**Do NOT Think That Much for 2+3=? On the Overthinking of Long Reasoning Models**. Chen et al. ICML'25\
+Quantify overthinking on math.\
+<https://openreview.net/forum?id=MSbU3L7V00>
+
+**The Illusion of Thinking: Understanding the Strengths and Limitations of Reasoning Models via the Lens of Problem Complexity**. Shojaee et al. NIPS'25\
+CoT is not always reliable, such that it could underperform on simple cases and fail on harder cases.\
+<https://arxiv.org/pdf/2506.06941>
+
+**Mind Your Step (by Step): Chain-of-Thought can Reduce Performance on Tasks where Thinking Makes Humans Worse**. Liu et al. ICML'25\
+When CoT brings negative.\
+<https://openreview.net/forum?id=J3gzdbYZxS>
+
+**To CoT or not to CoT? Chain-of-thought helps mainly on math and symbolic reasoning**. Sprague et al. ICLR'25\
+Cot mostly benefits symbolic (multi-hop) tasks, but still underperforms actual symbolic solvers.\
+<https://openreview.net/forum?id=w6nlcS8Kkn>
 
 
 ## Context Utilization
@@ -69,11 +129,15 @@ Theoretical: length generalization only with CoT.\
 <https://aclanthology.org/2024.tacl-1.9/>
 
 
-## In-Context Learning
+## In-Context Learning (ICL)
 
 **Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?**. Yao et al. EMNLP'22\
 (1) Important: input distribution, label space, format; (2) does not rely on the ground truth input-label mapping (little gap with random labels).\
 <https://arxiv.org/abs/2202.12837>
+
+**Data Distributional Properties Drive Emergent In-Context Learning in Transformers**. Chan et al. NIPS'22\
+ICL emerges when the training data exhibits particular distributional properties such as burstiness (items appear in clusters rather than being uniformly distributed over time).\
+<https://openreview.net/forum?id=lHj-q9BSRjF>
 
 **Larger language models do in-context learning differently**. Wei et al. 2023\
 Intrinsic knowledge vs. in-context label mapping: label mapping supersedes intrinsic knowledge, and can scale by model size.\
@@ -165,6 +229,17 @@ Metrics: compare perplexity and n-gram between existing corpus and synthesis cor
 <https://arxiv.org/abs/2404.18824>
 
 
+## Conceptual Grounding / World Representation
+
+**Mapping Language Models to Grounded Conceptual Spaces**. Patel and  Pavlick. ICLR'22\
+LLM can not only learn to ground the concepts that it is explicitly taught, but appears to generalise to several instances of unseen concepts as well.\
+<https://openreview.net/forum?id=gJcEM8sxHK>
+
+**Emergent World Representations: Exploring a Sequence Model Trained on a Synthetic Task**. Li et al. ICLR'23\
+Othello GPT: probe board state.\
+<https://openreview.net/forum?id=DeG07_TcZvT>
+
+
 ## Probing
 
 **Eliciting Latent Predictions from Transformers with the Tuned Lens**. Belrose et al. 2023\
@@ -187,8 +262,9 @@ Probe and attention blocking.\
 Probe on goal-oriented task that requires sequential actions.\
 <https://openreview.net/forum?id=Ce79P8ULPY>
 
-**Internal Chain-of-Thought: Empirical Evidence for Layer-wise Subtask Scheduling in LLMs**. Yang et al. 2025\
-<https://arxiv.org/abs/2505.14530>
+**Internal Chain-of-Thought: Empirical Evidence for Layer-wise Subtask Scheduling in LLMs**. Yang et al. EMNLP'25\
+Two-hop across layers. (but did not investigate max hops)\
+<https://aclanthology.org/2025.emnlp-main.1147>
 
 **On Reasoning Strength Planning in Large Reasoning Models**. Sheng et al. 2025\
 Obtain mean vector of different difficulties, which could steer reasoning length.\
