@@ -39,9 +39,12 @@ QA-based verification for detecting non-factual query response.\
 Metric: covariance det of averaged token hidden states of multiple sampled responses.\
 <https://openreview.net/forum?id=Zj12nzlQbz>
 
+**Detecting hallucinations in large language models using semantic entropy**. Farquhar et al. Nature'24\
+<https://www.nature.com/articles/s41586-024-07421-0>
+
 **LLM-Check: Investigating Detection of Hallucinations in Large Language Models**. Sriramanan et al. NIPS'24\
 <https://openreview.net/forum?id=LYx4w3CAgy>
 
 **Scalable Best-of-N Selection for Large Language Models via Self-Certainty**. Kang et al. NIPS'25\
 Distribution-level per step: similar to entropy.\
-<https://arxiv.org/abs/2502.18581>
+<https://openreview.net/forum?id=29FRqmVQK8>

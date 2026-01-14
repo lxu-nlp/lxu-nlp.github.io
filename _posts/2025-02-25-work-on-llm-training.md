@@ -101,6 +101,11 @@ Train reward model to score steps (token-level scoring) for RL supervision.\
 Train lora to control length.\
 <https://aclanthology.org/2025.acl-long.300>
 
+### RL Training Variants
+
+**DAPO: An Open-Source LLM Reinforcement Learning System at Scale**. Yu et al. NIPS'25\
+<https://openreview.net/forum?id=2a36EMSSTp>
+
 
 # SFT Training: Add Negative Signals
 

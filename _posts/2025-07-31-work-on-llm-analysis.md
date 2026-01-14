@@ -86,13 +86,21 @@ Observations: LLMs rely on similar math cases.\
 
 **Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?**. Yue et al. NIPS'25\
 RL training enables new patterns or just alignment of base model?\
-Observation: latter.\
+Observation: the latter.\
 <https://openreview.net/forum?id=4OsgYD7em5>
+
+### CoT Robustness
 
 **GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models**. Mirzadeh et al. ICLR'25\
 GSM-stype math problem through generation with controlled complexity.\
-LLM is not robust to problem variation.\
+CoT is not robust to problem variation.\
 <https://openreview.net/forum?id=AjXkRZIvjB>
+
+**The Illusion of Thinking: Understanding the Strengths and Limitations of Reasoning Models via the Lens of Problem Complexity**. Shojaee et al. NIPS'25\
+CoT is not always reliable, such that it could underperform on simple cases and fail on harder cases.\
+<https://arxiv.org/abs/2506.06941>
+
+### CoT Saliency Identification / CoT Efficiency
 
 **Beyond the 80/20 Rule: High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning**. Wang et al. NIPS'25\
 Expected: 20\% tokens are high entropy, which usually decide reasoning path and are critical to the final performance.\
@@ -106,13 +114,27 @@ Expected: 20\% tokens are high entropy, which usually decide reasoning path and 
 Quantify the information gain at each reasoning step.\
 <https://openreview.net/forum?id=IjOWms0hrf>
 
+**Forking Paths in Neural Text Generation**. Bigelow et al. ICLR'25\
+Identify critical tokens that significantly impact subsequent generation.\
+<https://openreview.net/forum?id=8RCmNLeeXx>
+
+**Enhancing Chain-of-Thought Reasoning with Critical Representation Fine-tuning**. Huang et al. ACL'25\
+Use information flow to identify critical positions to finetune.\
+<https://aclanthology.org/2025.acl-long.1129>
+
+**Do LLMs Encode Functional Importance of Reasoning Tokens?**. Singh and Hakkani. 2025\
+Token-level sequential pruning that preserves reasoning likelihood.\
+<https://arxiv.org/abs/2601.03066>
+
+**Thought Anchors: Which LLM Reasoning Steps Matter?**. Bogdan et al. 2025\
+Identify salient sentences by sampling without each sentence.\
+<https://arxiv.org/abs/2506.19143>
+
+### CoT Necessity
+
 **Do NOT Think That Much for 2+3=? On the Overthinking of Long Reasoning Models**. Chen et al. ICML'25\
 Quantify overthinking on math.\
 <https://openreview.net/forum?id=MSbU3L7V00>
-
-**The Illusion of Thinking: Understanding the Strengths and Limitations of Reasoning Models via the Lens of Problem Complexity**. Shojaee et al. NIPS'25\
-CoT is not always reliable, such that it could underperform on simple cases and fail on harder cases.\
-<https://arxiv.org/pdf/2506.06941>
 
 **Mind Your Step (by Step): Chain-of-Thought can Reduce Performance on Tasks where Thinking Makes Humans Worse**. Liu et al. ICML'25\
 When CoT brings negative.\
@@ -122,11 +144,68 @@ When CoT brings negative.\
 Cot mostly benefits symbolic (multi-hop) tasks, but still underperforms actual symbolic solvers.\
 <https://openreview.net/forum?id=w6nlcS8Kkn>
 
+**When Reasoning Meets Its Laws**. Zhang et al. 2025\
+Quantify task difficulty + new benchmark.\
+Finetune to control CoT length in proportional to task difficulty.\
+<https://arxiv.org/abs/2512.17901>
 
-## Context Utilization
+### CoT Planning
 
-**Lost in the Middle: How Language Models Use Long Contexts**. Liu et al. TACL'23\
-<https://aclanthology.org/2024.tacl-1.9/>
+**The Internal State of an LLM Knows When It’s Lying**. Azaria and Mitchell. EMNLP Finding'23\
+Probing on the last input hidden state by binary label (truthfulness).\
+Prober gives more accuracy estimation compared to rollout probability.\
+<https://aclanthology.org/2023.findings-emnlp.68>
+
+**Knowing Before Saying: LLM Representations Encode Information About Chain-of-Thought Success Before Completion**. Afzal et al. ACL Finding'25\
+Probing on the last input hidden state by binary label (correctness).\
+<https://aclanthology.org/2025.findings-acl.662>
+
+**Enhancing Language Model Factuality via Activation-Based Confidence Calibration and Guided Decoding**. Liu et al. EMNLP'24\
+Train truthfulness classifier on hidden states.\
+<https://aclanthology.org/2024.emnlp-main.583>
+
+**Estimating Knowledge in Large Language Models Without Generating a Single Token**. Gottesman and Geva. EMNLP'24\
+Similar to above.\
+<https://aclanthology.org/2024.emnlp-main.232>
+
+**Emergent Response Planning in LLMs**. Dong et al. ICML'25\
+Probe on goal-oriented task that requires sequential actions.\
+<https://openreview.net/forum?id=Ce79P8ULPY>
+
+**On Reasoning Strength Planning in Large Reasoning Models**. Sheng et al. 2025\
+Obtain mean vector of different difficulties, which could steer reasoning length.\
+<https://arxiv.org/abs/2506.08390>
+
+
+## Probing / Internal Planning
+
+**Eliciting Latent Predictions from Transformers with the Tuned Lens**. Belrose et al. 2023\
+Middle-layer hidden states -> last-layer hidden states, which can then be decoded to vocab.\
+<https://arxiv.org/abs/2303.08112>
+
+**Future Lens: Anticipating Subsequent Tokens from a Single Hidden State**. Pal et al. CoNLL'23\
+Hidden state transferred to another prompt can yield the same results, thus current hidden state contains subsequent info.\
+<https://aclanthology.org/2023.conll-1.37/>
+
+**Dissecting Recall of Factual Associations in Auto-Regressive Language Models**. Geva et al. EMNLP'23\
+Attention blocking.\
+<https://aclanthology.org/2023.emnlp-main.751>
+
+**Unlocking the Future: Exploring Look-Ahead Planning Mechanistic Interpretability in Large Language Models**. Men et al. EMNLP'24\
+Probe and attention blocking.\
+<https://aclanthology.org/2024.emnlp-main.440>
+
+**Internal Chain-of-Thought: Empirical Evidence for Layer-wise Subtask Scheduling in LLMs**. Yang et al. EMNLP'25\
+Two-hop across layers. (but did not investigate max hops)\
+<https://aclanthology.org/2025.emnlp-main.1147>
+
+**Think before you speak: Training Language Models With Pause Tokens**. Goyal et al. ICLR'24\
+Add PAUSE token to pretraining+SFT+inference to allow for planning and compression.\
+<https://openreview.net/forum?id=ph04CRkPdC>
+
+**Deep Hidden Cognition Facilitates Reliable Chain-of-Thought Reasoning**. Chen et al. AAAI'26\
+Train confidence predictor on hidden state of each CoT step.\
+<https://arxiv.org/abs/2507.10007>
 
 
 ## In-Context Learning (ICL)
@@ -155,6 +234,12 @@ Analysis by attention-based saliency: labels are anchors in ICL.\
 **Why In-Context Learning Models are Good Few-Shot Learners?**. Wu et al. ICLR'25\
 Theoretical: ICL functions as a new learning algorithm.\
 <https://openreview.net/forum?id=iLUcsecZJp>
+
+
+## Context Utilization
+
+**Lost in the Middle: How Language Models Use Long Contexts**. Liu et al. TACL'23\
+<https://aclanthology.org/2024.tacl-1.9/>
 
 
 ## Bias
@@ -239,40 +324,8 @@ LLM can not only learn to ground the concepts that it is explicitly taught, but 
 Othello GPT: probe board state.\
 <https://openreview.net/forum?id=DeG07_TcZvT>
 
-
-## Probing
-
-**Eliciting Latent Predictions from Transformers with the Tuned Lens**. Belrose et al. 2023\
-Middle-layer hidden states -> last-layer hidden states, which can then be decoded to vocab.\
-<https://arxiv.org/abs/2303.08112>
-
-**Future Lens: Anticipating Subsequent Tokens from a Single Hidden State**. Pal et al. CoNLL'23\
-Hidden state transferred to another prompt can yield the same results, thus current hidden state contains subsequent info.\
-<https://aclanthology.org/2023.conll-1.37/>
-
-**Dissecting Recall of Factual Associations in Auto-Regressive Language Models**. Geva et al. EMNLP'23\
-Attention blocking.\
-<https://aclanthology.org/2023.emnlp-main.751>
-
-**Unlocking the Future: Exploring Look-Ahead Planning Mechanistic Interpretability in Large Language Models**. Men et al. EMNLP'24\
-Probe and attention blocking.\
-<https://aclanthology.org/2024.emnlp-main.440>
-
-**Emergent Response Planning in LLMs**. Dong et al. ICML'25\
-Probe on goal-oriented task that requires sequential actions.\
-<https://openreview.net/forum?id=Ce79P8ULPY>
-
-**Internal Chain-of-Thought: Empirical Evidence for Layer-wise Subtask Scheduling in LLMs**. Yang et al. EMNLP'25\
-Two-hop across layers. (but did not investigate max hops)\
-<https://aclanthology.org/2025.emnlp-main.1147>
-
-**On Reasoning Strength Planning in Large Reasoning Models**. Sheng et al. 2025\
-Obtain mean vector of different difficulties, which could steer reasoning length.\
-<https://arxiv.org/abs/2506.08390>
-
-**Enhancing Chain-of-Thought Reasoning with Critical Representation Fine-tuning**. Huang et al. ACL'25\
-Use information flow to identify critical positions to finetune.\
-<https://aclanthology.org/2025.acl-long.1129>
+**From Tokens to Thoughts: How LLMs and Humans Trade Compression for Meaning**. Shani et al. 2025\
+<https://arxiv.org/abs/2505.17117>
 
 
 ## Others
