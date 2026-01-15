@@ -149,7 +149,11 @@ Quantify task difficulty + new benchmark.\
 Finetune to control CoT length in proportional to task difficulty.\
 <https://arxiv.org/abs/2512.17901>
 
-### CoT Planning
+### CoT Planning / Internal Planning
+
+**Future Lens: Anticipating Subsequent Tokens from a Single Hidden State**. Pal et al. CoNLL'23\
+Hidden state transferred to another prompt can yield the same results, thus current hidden state contains subsequent info.\
+<https://aclanthology.org/2023.conll-1.37/>
 
 **The Internal State of an LLM Knows When It’s Lying**. Azaria and Mitchell. EMNLP Finding'23\
 Probing on the last input hidden state by binary label (truthfulness).\
@@ -177,15 +181,11 @@ Obtain mean vector of different difficulties, which could steer reasoning length
 <https://arxiv.org/abs/2506.08390>
 
 
-## Probing / Internal Planning
+## Probing Methods
 
 **Eliciting Latent Predictions from Transformers with the Tuned Lens**. Belrose et al. 2023\
 Middle-layer hidden states -> last-layer hidden states, which can then be decoded to vocab.\
 <https://arxiv.org/abs/2303.08112>
-
-**Future Lens: Anticipating Subsequent Tokens from a Single Hidden State**. Pal et al. CoNLL'23\
-Hidden state transferred to another prompt can yield the same results, thus current hidden state contains subsequent info.\
-<https://aclanthology.org/2023.conll-1.37/>
 
 **Dissecting Recall of Factual Associations in Auto-Regressive Language Models**. Geva et al. EMNLP'23\
 Attention blocking.\
@@ -198,10 +198,6 @@ Probe and attention blocking.\
 **Internal Chain-of-Thought: Empirical Evidence for Layer-wise Subtask Scheduling in LLMs**. Yang et al. EMNLP'25\
 Two-hop across layers. (but did not investigate max hops)\
 <https://aclanthology.org/2025.emnlp-main.1147>
-
-**Think before you speak: Training Language Models With Pause Tokens**. Goyal et al. ICLR'24\
-Add PAUSE token to pretraining+SFT+inference to allow for planning and compression.\
-<https://openreview.net/forum?id=ph04CRkPdC>
 
 **Deep Hidden Cognition Facilitates Reliable Chain-of-Thought Reasoning**. Chen et al. AAAI'26\
 Train confidence predictor on hidden state of each CoT step.\

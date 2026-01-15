@@ -129,3 +129,10 @@ Margin loss on sampled generations; relative ordering per scores performs better
 **Click: Controllable Text Generation with Sequence Likelihood Contrastive Learning**. Zheng et al. ACL Findings'23\
 Margin loss on negative sequence likelihood; with method to sample negative without gold references.\
 <https://aclanthology.org/2023.findings-acl.65>
+
+
+# Others
+
+**Think before you speak: Training Language Models With Pause Tokens**. Goyal et al. ICLR'24\
+Add PAUSE token to pretraining+SFT+inference to allow for planning and compression.\
+<https://openreview.net/forum?id=ph04CRkPdC>
