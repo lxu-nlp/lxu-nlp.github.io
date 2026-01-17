@@ -160,10 +160,6 @@ Probing on the last input hidden state by binary label (truthfulness).\
 Prober gives more accuracy estimation compared to rollout probability.\
 <https://aclanthology.org/2023.findings-emnlp.68>
 
-**Knowing Before Saying: LLM Representations Encode Information About Chain-of-Thought Success Before Completion**. Afzal et al. ACL Finding'25\
-Probing on the last input hidden state by binary label (correctness).\
-<https://aclanthology.org/2025.findings-acl.662>
-
 **Enhancing Language Model Factuality via Activation-Based Confidence Calibration and Guided Decoding**. Liu et al. EMNLP'24\
 Train truthfulness classifier on hidden states.\
 <https://aclanthology.org/2024.emnlp-main.583>
@@ -171,6 +167,10 @@ Train truthfulness classifier on hidden states.\
 **Estimating Knowledge in Large Language Models Without Generating a Single Token**. Gottesman and Geva. EMNLP'24\
 Similar to above.\
 <https://aclanthology.org/2024.emnlp-main.232>
+
+**Knowing Before Saying: LLM Representations Encode Information About Chain-of-Thought Success Before Completion**. Afzal et al. ACL Finding'25\
+Probing on the last input hidden state by binary label (correctness).\
+<https://aclanthology.org/2025.findings-acl.662>
 
 **Emergent Response Planning in LLMs**. Dong et al. ICML'25\
 Probe on goal-oriented task that requires sequential actions.\
@@ -202,6 +202,25 @@ Two-hop across layers. (but did not investigate max hops)\
 **Deep Hidden Cognition Facilitates Reliable Chain-of-Thought Reasoning**. Chen et al. AAAI'26\
 Train confidence predictor on hidden state of each CoT step.\
 <https://arxiv.org/abs/2507.10007>
+
+
+## Inference with Planning
+
+**Successive Prompting for Decomposing Complex Questions**. Dua et al. EMNLP'22\
+Task decomposition: generate intermediate states as QA pairs sequentially, each step conditioned on past QA pairs; the model decides when to stop and give the final answer.\
+Benefits: modularity of sub-problems, able to involve other solvers.\
+Decide in-context decomposition examples for the current problem: searched from index.\
+<https://aclanthology.org/2022.emnlp-main.81>
+
+**Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models**. Wang et al. ACL'23\
+<https://aclanthology.org/2023.acl-long.147/>
+
+**Decomposed Prompting: A Modular Approach for Solving Complex Tasks**. Khot et a. ICLR'23\
+In-context few-shot CoT to generate reasoning steps (algorithms), where each step is handled by a specific LLM/program for this sub-problem.\
+<https://openreview.net/forum?id=_nGgzQjzaRy>
+
+**Planning in Natural Language Improves LLM Search for Code Generation**. Wang et al. ICLR'25\
+<https://openreview.net/forum?id=48WAZhwHHw>
 
 
 ## In-Context Learning (ICL)

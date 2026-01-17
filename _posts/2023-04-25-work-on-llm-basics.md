@@ -175,16 +175,6 @@ Give CoT prompt, generate multiple paths and aggregate the final answers (e.g. m
 A systematic evaluation ChatGPT on various types of tasks, including reasoning, multimodality, factuality/hallucination.\
 <https://arxiv.org/abs/2302.04023>
 
-**Decomposed Prompting: A Modular Approach for Solving Complex Tasks**. Khot et a. 2022\
-In-context few-shot CoT to generate reasoning steps (algorithms), where each step is handled by a specific LLM/program for this sub-problem.\
-<https://arxiv.org/abs/2210.02406>
-
-**Successive Prompting for Decomposing Complex Questions**. Dua et al. EMNLP'22\
-Task decomposition: generate intermediate states as QA pairs sequentially, each step conditioned on past QA pairs; the model decides when to stop and give the final answer.\
-Benefits: modularity of sub-problems, able to involve other solvers.\
-Decide in-context decomposition examples for the current problem: searched from index.\
-<https://aclanthology.org/2022.emnlp-main.81>
-
 **Least-to-Most Prompting Enables Complex Reasoning in Large Language Models**. Zhou et al. 2022\
 In-context few-shot CoT for compositional tasks. Similar to above.\
 <https://arxiv.org/abs/2205.10625>
