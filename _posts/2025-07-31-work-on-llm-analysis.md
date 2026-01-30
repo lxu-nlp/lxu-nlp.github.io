@@ -176,7 +176,7 @@ Probing on the last input hidden state by binary label (correctness).\
 Probe on goal-oriented task that requires sequential actions.\
 <https://openreview.net/forum?id=Ce79P8ULPY>
 
-**On Reasoning Strength Planning in Large Reasoning Models**. Sheng et al. 2025\
+**On Reasoning Strength Planning in Large Reasoning Models**. Sheng et al. NIPS'25\
 Obtain mean vector of different difficulties, which could steer reasoning length.\
 <https://arxiv.org/abs/2506.08390>
 

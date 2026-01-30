@@ -109,13 +109,6 @@ Similarity: sampling continuation equal times from both two inputs as the approx
 **EASE: Entity-Aware Contrastive Learning of Sentence Embedding**. Nishikawa et al. NAACL'22\
 <https://aclanthology.org/2022.naacl-main.284>
 
-## Embedding Analysis
-
-**Layer by Layer: Uncovering Hidden Representations in Language Models**. Skean et al. ICML'25\
-Evaluate representation by different dimensions, e.g. information compression, signal preservation.\
-Intermediate layers can encode even richer representation, balancing these two aspects.\
-<https://openreview.net/forum?id=WGXb7UdvTX>
-
 ## Embedding Granularity
 
 **Simple Entity-Centric Questions Challenge Dense Retrievers**. Sciavolino et al. EMNLP'21\
