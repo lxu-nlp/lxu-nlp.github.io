@@ -4,4 +4,4 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-Don't come here.
+Hand-typing for my own memory. No AI here.
