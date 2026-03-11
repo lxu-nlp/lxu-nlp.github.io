@@ -155,6 +155,10 @@ Finetune to control CoT length in proportional to task difficulty.\
 Hidden state transferred to another prompt can yield the same results, thus current hidden state contains subsequent info.\
 <https://aclanthology.org/2023.conll-1.37/>
 
+**Patchscopes: A Unifying Framework for Inspecting Hidden Representations of Language Models**. Ghandeharioun et al. ICML'24\
+Similar to Future Lens: move hidden state to another prompt to derive the meaning of hidden state.\
+<https://openreview.net/forum?id=5uwBzcn885>
+
 **The Internal State of an LLM Knows When It’s Lying**. Azaria and Mitchell. EMNLP Finding'23\
 Probing on the last input hidden state by binary label (truthfulness).\
 Prober gives more accuracy estimation compared to rollout probability.\

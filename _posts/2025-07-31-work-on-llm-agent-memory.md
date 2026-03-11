@@ -7,13 +7,27 @@ tags: [nlp, LLM, agent]
 math: true
 ---
 
-## Memory Design
+## Experiential Memory Design
+
+### Explicit
+
+**ExpeL: LLM Agents Are Experiential Learners**. Zhao et al. AAAI'24\
+<https://arxiv.org/abs/2308.10144>
+
+**MemoryBank: Enhancing Large Language Models with Long-Term Memory**. Zhong et al. AAAI'24\
+<https://arxiv.org/abs/2305.10250>
 
 **A-Mem: Agentic Memory for LLM Agents**. Xu et al. 2025\
 <https://arxiv.org/abs/2502.12110>
 
 **G-Memory: Tracing Hierarchical Memory for Multi-Agent Systems**. Zhang et al. 2025\
 <https://arxiv.org/abs/2506.07398>
+
+### Latent
+
+**MemGen: Weaving Generative Latent Memory for Self-Evolving Agents**. Zhang et al. ICLR'26\
+RL trained lora: interleave latent hidden states as experiential memory.\
+<https://openreview.net/forum?id=vI56m4Iu4e>
 
 
 ## Agent Training

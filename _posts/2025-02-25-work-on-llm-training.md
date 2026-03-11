@@ -157,10 +157,3 @@ Unlike pos reward, which keeps pushing probs of sampled trajectories (as in SFT)
 Essentially, neg reward learns slower in solution space by telling which not do, but keeps healthy entropy/generalization; pos reward learns faster by remembering what to do, but prone to losing other potential solutions through exploration.\
 Note that GRPO naturally avoids this problem through rollout reward normalization.\
 <https://arxiv.org/abs/2506.01347>
-
-
-# Others
-
-**Think before you speak: Training Language Models With Pause Tokens**. Goyal et al. ICLR'24\
-Add PAUSE token to pretraining+SFT+inference to allow for planning and compression.\
-<https://openreview.net/forum?id=ph04CRkPdC>
