@@ -82,6 +82,11 @@ Bidirectional on last layer + contrastive.\
 Latent pooling: hidden state from the last LLM position (Q) attended over latent dictionaries (K).\
 <https://arxiv.org/abs/2405.17428>
 
+## Embedding with Reasoning
+
+**O1 Embedder: Let Retrievers Think Before Action**. Yan et al. 2025\
+<https://arxiv.org/abs/2502.07555>
+
 ## Jepa
 
 **Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture**. Assran et al. ICCV'23\
@@ -91,18 +96,6 @@ Self-supervised contrastive on: context with masked blocks + locator <=> target 
 **V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning**. Assran et al. 2025\
 on 3D.\
 <https://arxiv.org/abs/2506.09985>
-
-## Other Representation by LLM
-
-**Scaling Sentence Embeddings with Large Language Models**. Jiang et al. 2023\
-Use template for CLM to obtain the last hidden state: This sentence: \[text\] means in one word:\
-<https://arxiv.org/abs/2307.16645>
-
-**Meaning Representations from Trajectories in Autoregressive Models**. Liu et al. ICLR'24\
-Core idea: Wittgenstein’s use theory of meaning (meaning is use).\
-Meaning representation: the likelihood of the continuation in language space.\
-Similarity: sampling continuation equal times from both two inputs as the approximated continuation space.\
-<https://arxiv.org/abs/2310.18348>
 
 ## Training Paradigms
 
@@ -129,3 +122,20 @@ Combine with DPR by concatenation works.\
 Train a generator to recover input of its embedding from a black-box encoder.\
 (which can be a strong argument that auto-encoder != semantic comprehension, as embedding performance is not perfect on downstream tasks)\
 <https://aclanthology.org/2023.emnlp-main.765>
+
+## Other Representation by LLM
+
+**Scaling Sentence Embeddings with Large Language Models**. Jiang et al. 2023\
+Use template for CLM to obtain the last hidden state: This sentence: \[text\] means in one word:\
+<https://arxiv.org/abs/2307.16645>
+
+**Meaning Representations from Trajectories in Autoregressive Models**. Liu et al. ICLR'24\
+Core idea: Wittgenstein’s use theory of meaning (meaning is use).\
+Meaning representation: the likelihood of the continuation in language space.\
+Similarity: sampling continuation equal times from both two inputs as the approximated continuation space.\
+<https://arxiv.org/abs/2310.18348>
+
+**Infinite Retrieval: Attention Enhanced LLMs in Long-Context Processing**. Ye et al. 2025\
+Observation: attention pattern aligns with retrieval-augmented in latter layers.\
+Memory: simply add sentences of top salient tokens as context.\
+<https://arxiv.org/abs/2502.12962>

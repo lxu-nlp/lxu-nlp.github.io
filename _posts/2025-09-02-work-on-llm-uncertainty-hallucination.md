@@ -48,3 +48,6 @@ Metric: covariance det of averaged token hidden states of multiple sampled respo
 **Scalable Best-of-N Selection for Large Language Models via Self-Certainty**. Kang et al. NIPS'25\
 Distribution-level per step: similar to entropy.\
 <https://openreview.net/forum?id=29FRqmVQK8>
+
+**Think Deep, Not Just Long: Measuring LLM Reasoning Effort via Deep-Thinking Tokens**. Chen et al. 2026\
+<https://arxiv.org/abs/2602.13517>

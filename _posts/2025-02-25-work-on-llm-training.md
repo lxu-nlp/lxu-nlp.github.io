@@ -21,6 +21,10 @@ Generalize after overfitting.\
 **Scaling Exponents Across Parameterizations and Optimizers**. Everett et al. ICML'24\
 <https://openreview.net/forum?id=0ksNeD1SJT>
 
+**For Better or for Worse, Transformers Seek Patterns for Memorization**. Panwar et al. NIPS'25\
+LLMs memorize and generalize on easier patterns first.\
+<https://openreview.net/pdf?id=98NrkXPRZ9>
+
 
 # Efficient Training: Low-Rank
 
@@ -101,15 +105,28 @@ Train reward model to score steps (token-level scoring) for RL supervision.\
 Train lora to control length.\
 <https://aclanthology.org/2025.acl-long.300>
 
-### RL Training Variants
+### RL Training Ingredients
 
 **DAPO: An Open-Source LLM Reinforcement Learning System at Scale**. Yu et al. NIPS'25\
 <https://openreview.net/forum?id=2a36EMSSTp>
 
+**Part I: Tricks or Traps? A Deep Dive into RL for LLM Reasoning**. Liu et al. 2025\
+<https://arxiv.org/abs/2508.08221>
 
-# SFT Training: Add Negative Signals
+**A Comedy of Estimators: On KL Regularization in RL Training of LLMs**. Shah et al. 2025\
+KL: use K1 in Reward.\
+<https://arxiv.org/abs/2512.21852>
 
-Not just vanilla MLE on gold sequences.
+[**JustRL**](https://iclr-blogposts.github.io/2026/blog/2026/justrl/): many tricks are not necessary
+
+
+# Training: Add Negative Signals
+
+Not just on gold sequences.
+
+### in SFT
+
+Usually scale loss or do contrastive.
 
 **NEURAL TEXT DEGENERATION WITH UNLIKELIHOOD TRAINING**. Welleck et al. ICLR'20\
 Determine negative tokens at each step and minimize likelihood.\
@@ -129,6 +146,17 @@ Margin loss on sampled generations; relative ordering per scores performs better
 **Click: Controllable Text Generation with Sequence Likelihood Contrastive Learning**. Zheng et al. ACL Findings'23\
 Margin loss on negative sequence likelihood; with method to sample negative without gold references.\
 <https://aclanthology.org/2023.findings-acl.65>
+
+### in RL
+
+Natural pos+neg optimization.
+
+**The Surprising Effectiveness of Negative Reinforcement in LLM Reasoning**. Zhu et al. NIPS'25\
+When neg reward: only penalize incorrect rollout, redistribute probs from sampled trajectories to unsampled, while reserving overall prior.\
+Unlike pos reward, which keeps pushing probs of sampled trajectories (as in SFT), leading to losing entropy/generalization/exploration.\
+Essentially, neg reward learns slower in solution space by telling which not do, but keeps healthy entropy/generalization; pos reward learns faster by remembering what to do, but prone to losing other potential solutions through exploration.\
+Note that GRPO naturally avoids this problem through rollout reward normalization.\
+<https://arxiv.org/abs/2506.01347>
 
 
 # Others

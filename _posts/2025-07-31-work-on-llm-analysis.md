@@ -259,6 +259,10 @@ Theoretical: ICL functions as a new learning algorithm.\
 
 ## Bias
 
+**Language Models Don’t Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting**. Turpin et al. NIPS'23\
+Positional bias and social bias.\
+<https://proceedings.neurips.cc/paper_files/paper/2023/hash/ed3fea9033a80fea1376299fa7863f4a-Abstract-Conference.html>
+
 **Large Language Models are not Fair Evaluators**. Wang et al. ACL'24\
 Determine when model is uncertain and human should step in.\
 Uncertain calibration mainly by swapping orders.\

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Works on LLM Agents"
+title: "Works on LLM Agents and Memory"
 date: 2025-07-31
 categories: [NLP]
 tags: [nlp, LLM, agent]
@@ -22,3 +22,6 @@ math: true
 RL agent with web search, with a keep-appending short-term memory repository.\
 <https://arxiv.org/abs/2504.03160>
 
+**Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate**. Liang et al. EMNLP'24\
+Spur exploration by forcing different stances and roles explicitly.\
+<https://aclanthology.org/2024.emnlp-main.992>
