@@ -36,20 +36,20 @@ Multi-choice.\
 **DetectiveQA: Evaluating Long-Context Reasoning on Detective Novels**. Xu et al. 2025\
 <https://openreview.net/forum?id=9ExIs5ELlk>
 
-**LONGBENCH: A BILINGUAL, MULTITASK BENCHMARK FOR LONG CONTEXT UNDERSTANDING**. Bai et al. 2023\
-<https://arxiv.org/abs/2403.03514>
+**LongBench: A Bilingual, Multitask Benchmark for Long Context Understanding**. Bai et al. ACL'24\
+<https://aclanthology.org/2024.acl-long.172/>
 
-**LongBench v2: Towards Deeper Understanding and Reasoning on Realistic Long-context Multitasks**. Bai et al. 2024\
-<https://arxiv.org/abs/2412.15204>
+**LongBench v2: Towards Deeper Understanding and Reasoning on Realistic Long-context Multitasks**. Bai et al. ACL'25\
+<https://aclanthology.org/2025.acl-long.183/>
 
 **XLBench: A Benchmark for Extremely Long Context Understanding with Long-range Dependencies**. Ni et al. 2024\
-<https://arxiv.org/abs/2308.14508>
+<https://openreview.net/forum?id=1QOHc49xgA>
 
-**LooGLE: Can Long-Context Language Models Understand Long Contexts?**. Li et al. 2024\
-<https://arxiv.org/abs/2311.04939>
+**LooGLE: Can Long-Context Language Models Understand Long Contexts?**. Li et al. ACL'24\
+<https://aclanthology.org/2024.acl-long.859/>
 
-**CLongEval: A Chinese Benchmark for Evaluating Long-Context Large Language Models**. Qiu et al. 2024\
-<https://arxiv.org/abs/2403.03514>
+**CLongEval: A Chinese Benchmark for Evaluating Long-Context Large Language Models**. Qiu et al. EMNLP Findings'24\
+<https://aclanthology.org/2024.findings-emnlp.230/>
 
 **NovelQA: A Benchmark for Long-Range Novel Question Answering**. Wang et al. ICLR'25\
 Novels > 50k. Designed question types and templates.\
@@ -58,7 +58,7 @@ Novels > 50k. Designed question types and templates.\
 **GPQA: A Graduate-Level Google-Proof Q&A Benchmark**. Rein et al. COLM'24\
 <https://openreview.net/forum?id=Ti67584b98>
 
-**∞ Bench: Extending Long Context Evaluation Beyond 100K Tokens**. Zhang et al. 2025\
+**∞ Bench: Extending Long Context Evaluation Beyond 100K Tokens**. Zhang et al. ACL'24\
 <https://aclanthology.org/2024.acl-long.814>
 
 **One Thousand and One Pairs: A “novel” challenge for long-context language models**. Karpinska et al. EMNLP'24\

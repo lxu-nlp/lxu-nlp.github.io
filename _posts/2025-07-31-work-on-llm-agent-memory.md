@@ -17,11 +17,14 @@ math: true
 **MemoryBank: Enhancing Large Language Models with Long-Term Memory**. Zhong et al. AAAI'24\
 <https://arxiv.org/abs/2305.10250>
 
-**A-Mem: Agentic Memory for LLM Agents**. Xu et al. 2025\
-<https://arxiv.org/abs/2502.12110>
+**A-Mem: Agentic Memory for LLM Agents**. Xu et al. NIPS'25\
+<https://openreview.net/forum?id=FiM0M8gcct>
 
-**G-Memory: Tracing Hierarchical Memory for Multi-Agent Systems**. Zhang et al. 2025\
-<https://arxiv.org/abs/2506.07398>
+**G-Memory: Tracing Hierarchical Memory for Multi-Agent Systems**. Zhang et al. NIPS'25\
+<https://openreview.net/forum?id=mmIAp3cVS0>
+
+**CAM: A Constructivist View of Agentic Memory for LLM-Based Reading Comprehension**. Li et al. NIPS'25\
+<https://openreview.net/forum?id=ACSOnSHiWe>
 
 ### Latent
 

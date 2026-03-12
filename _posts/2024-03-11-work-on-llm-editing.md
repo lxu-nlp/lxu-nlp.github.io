@@ -38,6 +38,9 @@ A new kv pair can be inserted in MLP by solving a constrained least-squares prob
 **Editing models with task arithmetic**. Ilharco et al. ICLR'23\
 <https://openreview.net/forum?id=6t0Kwf8-jrj>
 
+**AnyEdit: Edit Any Knowledge Encoded in Language Models**. Jiang et al. ICLR'25\
+<https://openreview.net/forum?id=aJIoBur0Ef>
+
 ### Cache-based
 
 **Memory-Based Model Editing at Scale**. Mitchell et al. ICML'22\
