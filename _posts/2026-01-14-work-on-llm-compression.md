@@ -103,6 +103,10 @@ Thus, able to prune attention heads adaptively (per head per layer).\
 **Twilight: Adaptive Attention Sparsity with Hierarchical Top-p Pruning**. Lin et al. NIPS'25\
 <https://openreview.net/forum?id=Ve693NkzcU>
 
+**Free(): Learning to Forget in Malloc-Only Reasoning Models**. Zheng et al. 2026\
+Iteratively switching between reasoning and cleaning modes, Free()LM dynamically identifies and prunes useless context chunks.\
+<https://arxiv.org/abs/2602.08030>
+
 ## Cache Merging
 
 **MiniCache: KV Cache Compression in Depth Dimension for Large Language Models**. Liu et al. 2024\

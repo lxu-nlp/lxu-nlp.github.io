@@ -9,7 +9,7 @@ math: true
 
 ## Experiential Memory Design
 
-### Explicit
+### Explicit Design
 
 **ExpeL: LLM Agents Are Experiential Learners**. Zhao et al. AAAI'24\
 <https://arxiv.org/abs/2308.10144>
@@ -26,7 +26,10 @@ math: true
 **CAM: A Constructivist View of Agentic Memory for LLM-Based Reading Comprehension**. Li et al. NIPS'25\
 <https://openreview.net/forum?id=ACSOnSHiWe>
 
-### Latent
+### Agentic Design
+
+**Agentic Memory: Learning Unified Long-Term and Short-Term Memory Management for Large Language Model Agents**. Yu et al. 2026\
+<https://arxiv.org/abs/2601.01885>
 
 **MemGen: Weaving Generative Latent Memory for Self-Evolving Agents**. Zhang et al. ICLR'26\
 RL trained lora: interleave latent hidden states as experiential memory.\
