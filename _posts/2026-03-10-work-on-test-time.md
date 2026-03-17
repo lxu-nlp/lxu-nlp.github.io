@@ -8,6 +8,14 @@ math: true
 ---
 
 
+# Test-Time Scaling
+
+**s1: Simple test-time scaling**. Muennighoff et al. EMNLP'25\
+Add "Wait" or "Final Answer" to force full reasoning length.\
+Sequential scaling >> parallel scaling.\
+<https://aclanthology.org/2025.emnlp-main.1025>
+
+
 # Test-Time Training
 
 **End-to-End Test-Time Training for Long Context**. Tandon et al. 2025\

@@ -125,6 +125,8 @@ Graph-based + page rank for related node/edge expansion.\
 
 # Method: Agent
 
+Also see the separate Agent and Memory post.
+
 **A Human-Inspired Reading Agent with Gist Memory of Very Long Contexts**. Lee et al. 2024\
 Use LLM to select which segments to read and when to stop (on linear segment summaries).\
 <https://arxiv.org/abs/2402.09727>
@@ -145,18 +147,6 @@ Use LLM: one leader for decision making and several members for discussion.\
 **Rank1: Test-Time Compute for Reranking in Information Retrieval**. Weller et al. 2025\
 Dataset of R1 COT for (query, doc) retrieval.\
 <https://arxiv.org/pdf/2502.18418>
-
-# Method: Implicit In-Context Retrieval
-
-See Context Compression in post Works on LLM Memory.
-
-# Method: RL-based Multi-step
-
-**Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning**. Jin et al. 2025\
-<https://arxiv.org/abs/2503.09516>
-
-**DeepRetrieval: Hacking Real Search Engines and Retrievers with Large Language Models via Reinforcement Learning**. Jiang et al. 2025\
-<https://arxiv.org/abs/2503.00223>
 
 ---
 

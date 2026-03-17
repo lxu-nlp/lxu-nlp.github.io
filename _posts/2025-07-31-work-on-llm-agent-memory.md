@@ -8,14 +8,25 @@ math: true
 ---
 
 
-## Experiential Memory
+## Evaluation
 
-### Explicit Design w/o Training
+**Evaluating Very Long-Term Conversational Memory of LLM Agents**. Maharana et al. ACL'24\
+LoCoMo: dialogue generation by LLM.\
+Task type: single/multi-hop, temporal, commonsense, unanswerable, etc.\
+<https://aclanthology.org/2024.acl-long.747>
 
-**ExpeL: LLM Agents Are Experiential Learners**. Zhao et al. AAAI'24\
-Abstraction (insights) on pos and neg trajectories: 1) reflect pos and neg for the same task; 2) reflect pos trajectories across tasks.\
-Inference: add full task insights to context.\
-<https://arxiv.org/abs/2308.10144>
+**LongMemEval: Benchmarking Chat Assistants on Long-Term Interactive Memory**. Wu et al. ICLR'25\
+(question, answer, evidence) -> embed evidence to session -> embed session to irrelevant sessions.\
+<https://openreview.net/forum?id=pZiyCaVuti>
+
+**Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions**. Hu et al. ICLR'26\
+Task types: retrieval, learning (similar to ICL), QA and sum, etc.\
+<https://openreview.net/forum?id=DT7JyQC3MR>
+
+
+## Memory Organization
+
+### Explicit Organization (w/o Training)
 
 **MemoryBank: Enhancing Large Language Models with Long-Term Memory**. Zhong et al. AAAI'24\
 Simple mem update with decay.\
@@ -36,31 +47,74 @@ Link across notes: select top-k notes to generate relations.\
 **CAM: A Constructivist View of Agentic Memory for LLM-Based Reading Comprehension**. Li et al. NIPS'25\
 <https://openreview.net/forum?id=ACSOnSHiWe>
 
-### Latent Experiential Memory
+### Explicit Organization (w/ Training)
 
-**Agentic Memory: Learning Unified Long-Term and Short-Term Memory Management for Large Language Model Agents**. Yu et al. 2026\
-<https://arxiv.org/abs/2601.01885>
+**The Pensieve Paradigm: Stateful Language Models Mastering Their Own Context**. Liu et al. ICLR'26\
+Learn tool-use regarding context management (build index, take notes), along with learning context pruning.\
+<https://openreview.net/forum?id=GymjF88oGQ>
+
+**Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning**. Yan et al. 2025\
+Similar to StateLM.\
+<https://arxiv.org/abs/2508.19828>
+
+### Latent Experiential Memory (w/ Training)
+
+**M+: Extending MemoryLLM with Scalable Long-Term Memory**. Wang et al. ICML'25\
+Good related work; bad writing.\
+Separate long and short-term memory models to hold memory tokens; load into context during inference.\
+<https://openreview.net/forum?id=OcqbkROe8J>
 
 **MemGen: Weaving Generative Latent Memory for Self-Evolving Agents**. Zhang et al. ICLR'26\
 RL trained lora: interleave latent hidden states as experiential memory.\
 <https://openreview.net/forum?id=vI56m4Iu4e>
 
-
-## General Agent Training
-
-**DeepResearcher: Scaling Deep Research via Reinforcement Learning in Real-world Environments**. Zheng et al. 2025\
-RL agent with web search, with a keep-appending short-term memory repository.\
-<https://arxiv.org/abs/2504.03160>
-
-**Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate**. Liang et al. EMNLP'24\
-Spur exploration by forcing different stances and roles explicitly.\
-<https://aclanthology.org/2024.emnlp-main.992>
+**Agentic Memory: Learning Unified Long-Term and Short-Term Memory Management for Large Language Model Agents**. Yu et al. 2026\
+<https://arxiv.org/abs/2601.01885>
 
 
-## Evolving
+## Self-Evolving with Experiential Memory
+
+**ExpeL: LLM Agents Are Experiential Learners**. Zhao et al. AAAI'24\
+Abstraction (insights) on pos and neg trajectories: 1) reflect pos and neg for the same task; 2) reflect pos trajectories across tasks.\
+Inference: add full task insights to context.\
+<https://arxiv.org/abs/2308.10144>
+
+**Synapse: Trajectory-as-Exemplar Prompting with Memory for Computer Control**. Zheng et al. ICLR'24\
+Abstraction on pos and neg trajectories; retrieve relevant abstract trajectories in-context.\
+<https://openreview.net/forum?id=Pc8AU1aF5e>
+
+**ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory**. Ouyang et al. 2025\
+Similar to SynapseSynapse. Abstraction: consolidate memory notes on trajectories through parallel or sequential scaling.\
+<https://arxiv.org/abs/2509.25140>
 
 **EvolveR: Self-Evolving LLM Agents through an Experience-Driven Lifecycle**. Wu et al. 2025\
 Offline: generate trajectories and form insights/principles.\
 Inference: retrieve principles.\
 RL training to utilize and integrate principles.\
 <https://arxiv.org/abs/2510.16079>
+
+**MemEvolve: Meta-Evolution of Agent Memory Systems**. Zhang et al. 2025\
+<https://arxiv.org/abs/2512.18746>
+
+**MemRL: Self-Evolving Agents via Runtime Reinforcement Learning on Episodic Memory**. Zhang et al. 2026\
+Optimizes the retrieval policy instead of model weights: learn memory Q val estimation.\
+<https://arxiv.org/abs/2601.03192>
+
+**SKILLRL: Evolving Agents via Recursive Skill-Augmented Reinforcement Learning**. Xia et al. 2026.\
+<https://arxiv.org/abs/2602.08234>
+
+
+## Other Agent Training
+
+**Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning**. Jin et al. 2025\
+<https://arxiv.org/abs/2503.09516>
+
+**DeepRetrieval: Hacking Real Search Engines and Retrievers with Large Language Models via Reinforcement Learning**. Jiang et al. 2025\
+<https://arxiv.org/abs/2503.00223>
+
+**DeepResearcher: Scaling Deep Research via Reinforcement Learning in Real-world Environments**. Zheng et al. 2025\
+RL agent with web search, with a keep-appending short-term memory repository.\
+<https://arxiv.org/abs/2504.03160>
+
+**Search Self-Play: Pushing the Frontier of Agent Capability without Supervision**. Lu et al. ICLR'26\
+<https://openreview.net/forum?id=ZmGirmNJqE>

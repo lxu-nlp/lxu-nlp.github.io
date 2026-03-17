@@ -295,7 +295,7 @@ Quantify token bias (e.g. widely seen entities) through perturbation.\
 <https://aclanthology.org/2024.emnlp-main.272>
 
 
-## Self-Reasoning
+## Agent Debating & Self-Reasoning
 
 **Reflexion: language agents with verbal reinforcement learning**. Shinn et al. NIPS'23\
 <https://openreview.net/forum?id=vAElhFcKW6>
@@ -305,6 +305,10 @@ Quantify token bias (e.g. widely seen entities) through perturbation.\
 
 **Improving Factuality and Reasoning in Language Models through Multiagent Debate**. Du et al. ICML'24\
 <https://openreview.net/forum?id=zj7YuTE4t8>
+
+**Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate**. Liang et al. EMNLP'24\
+Spur exploration by forcing different stances and roles explicitly.\
+<https://aclanthology.org/2024.emnlp-main.992>
 
 **ReConcile: Round-Table Conference Improves Reasoning via Consensus among Diverse LLMs**. Chen et al. ACL'24\
 <https://aclanthology.org/2024.acl-long.381/>
