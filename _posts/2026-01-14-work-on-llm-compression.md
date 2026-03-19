@@ -116,6 +116,9 @@ Iteratively switching between reasoning and cleaning modes, Free()LM dynamically
 Sublinear KV cache: whether to append the current key and value representations to the cache or to perform a weighted average.\
 <https://openreview.net/forum?id=tDRYrAkOB7>
 
+**COMI: Coarse-to-fine Context Compression via Marginal Information Gain**. Tang et al. ICLR'26\
+<https://openreview.net/forum?id=OGDIXDfaN4>
+
 ## Efficient Cache
 
 **Augmenting Language Models with Long-Term Memory**. Wang et al. NIPS'23\
