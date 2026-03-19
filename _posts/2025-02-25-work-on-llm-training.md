@@ -2,7 +2,7 @@
 layout: post
 title: "Works on LLM Training"
 date: 2025-02-25
-categories: [NLP]
+categories: [NLP, RL]
 tags: [nlp, LLM, training]
 math: true
 ---
@@ -73,18 +73,19 @@ RL spinup:
 - <https://spinningup.openai.com/en/latest/spinningup/rl_intro.html>
 - <https://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_4_policy_gradient.pdf>
 
-Q&A
+General RL:
 - Why using log trick in policy gradient? To make the trajectory probability computable by converting $\prod$ to $\sum$, so to achieve derivative of sum == sum of derivative; otherwise derivative of prod is not traceable.
 - BTW: log trick can derive the general product rule
+- REINFORCE (policy gradient) is strictly on-policy; we can introduce mini-batch update to improve sample efficiency, where PPO uses relative prob and clipping to combat the off-policy drift.
+  - Relative prob: even though this data is slightly old, here is how likely the current model is to take that action compared to the old one
+  - Clipping: if the model drifts too far, the clipping kills the gradient
+- RL is essentially steering the desired alignment
+- RL does exploration; for trajectory reward, both pos+neg provide contrastive signals for robust generalization
 
-- GRPO vs. PPO? GRPO is REINFORCE variant, only have sequence end score; while PPO uses critic estimation to provide per-step score.
-- PPO/GRPO vs. vanilla REINFORCE? PPO adopts relative prob estimation (rather than raw trajectory prob) to achieve more stable update (along with clipping).
-- Reference model in PPO/GRPO? A fixed model, used as KL loss or reward penalty to control exploration.
-- PPO/GRPO loss? Relative Prob * Trajectory Advantage + Entropy + KL
-- Mini update step? Split a batch to mini batches to accelerate convergence (mini batches use the same sampled trajectories)
-
-- What does RL essentially do for LLM? To steer alignment of desired behaviors upon the existing language model distribution.
-- Why RL is more robust compared to SFT? RL receives negative signals during exploration, while SFT has no exploration with no negative signals; RL has tried more distribution space.
+Details:
+- Original PPO: use critic estimation to provide per-step score
+- Reference model: use as KL loss or reward penalty to control drifting
+- PPO/GRPO loss: Relative Prob * Trajectory Advantage + Entropy + KL
 
 
 **There May Not be Aha Moment in R1-Zero-like Training — A Pilot Study**. Liu et al.\

@@ -47,6 +47,9 @@ Link across notes: select top-k notes to generate relations.\
 **CAM: A Constructivist View of Agentic Memory for LLM-Based Reading Comprehension**. Li et al. NIPS'25\
 <https://openreview.net/forum?id=ACSOnSHiWe>
 
+**SimpleMem: Efficient Lifelong Memory for LLM Agents**. Liu et al. 2026\
+<https://arxiv.org/abs/2601.02553>
+
 ### Explicit Organization (w/ Training)
 
 **The Pensieve Paradigm: Stateful Language Models Mastering Their Own Context**. Liu et al. ICLR'26\
@@ -57,7 +60,7 @@ Learn tool-use regarding context management (build index, take notes), along wit
 Similar to StateLM.\
 <https://arxiv.org/abs/2508.19828>
 
-### Latent Experiential Memory (w/ Training)
+### Latent Organization (w/ Training)
 
 **M+: Extending MemoryLLM with Scalable Long-Term Memory**. Wang et al. ICML'25\
 Good related work; bad writing.\
@@ -77,30 +80,36 @@ RL trained lora: interleave latent hidden states as experiential memory.\
 **ExpeL: LLM Agents Are Experiential Learners**. Zhao et al. AAAI'24\
 Abstraction (insights) on pos and neg trajectories: 1) reflect pos and neg for the same task; 2) reflect pos trajectories across tasks.\
 Inference: add full task insights to context.\
+No parameterization.\
 <https://arxiv.org/abs/2308.10144>
 
 **Synapse: Trajectory-as-Exemplar Prompting with Memory for Computer Control**. Zheng et al. ICLR'24\
 Abstraction on pos and neg trajectories; retrieve relevant abstract trajectories in-context.\
+No parameterization.\
 <https://openreview.net/forum?id=Pc8AU1aF5e>
 
 **ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory**. Ouyang et al. 2025\
-Similar to SynapseSynapse. Abstraction: consolidate memory notes on trajectories through parallel or sequential scaling.\
+Similar to Synapse. Abstraction: consolidate memory notes on trajectories through parallel or sequential scaling.\
 <https://arxiv.org/abs/2509.25140>
-
-**EvolveR: Self-Evolving LLM Agents through an Experience-Driven Lifecycle**. Wu et al. 2025\
-Offline: generate trajectories and form insights/principles.\
-Inference: retrieve principles.\
-RL training to utilize and integrate principles.\
-<https://arxiv.org/abs/2510.16079>
 
 **MemEvolve: Meta-Evolution of Agent Memory Systems**. Zhang et al. 2025\
 <https://arxiv.org/abs/2512.18746>
 
+**EvolveR: Self-Evolving LLM Agents through an Experience-Driven Lifecycle**. Wu et al. 2025\
+Offline: generate trajectories and form insights/principles.\
+Inference: retrieve principles similar to query.\
+Parameterization on procedures to utilize principles, via RL training.\
+<https://arxiv.org/abs/2510.16079>
+
 **MemRL: Self-Evolving Agents via Runtime Reinforcement Learning on Episodic Memory**. Zhang et al. 2026\
-Optimizes the retrieval policy instead of model weights: learn memory Q val estimation.\
+Experience: pair with intent. Retrieval: 1) use query-intent similarity; 2) learn additional Q val estimation paired with each experience.\
+(Only retrieve once within each trajectory).\
+No parameterization: update Q by general TD (or regression, as if last step TD) (EM paradigm).\
 <https://arxiv.org/abs/2601.03192>
 
-**SKILLRL: Evolving Agents via Recursive Skill-Augmented Reinforcement Learning**. Xia et al. 2026.\
+**SkillRL: Evolving Agents via Recursive Skill-Augmented Reinforcement Learning**. Xia et al. 2026.\
+Similar to EvolveR: skill consolidation, retrieval and utilization.\
+Parameterization on procedures to utilize skills.\
 <https://arxiv.org/abs/2602.08234>
 
 
