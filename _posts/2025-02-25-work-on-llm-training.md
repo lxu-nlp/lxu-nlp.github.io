@@ -26,7 +26,7 @@ LLMs memorize and generalize on easier patterns first.\
 <https://openreview.net/pdf?id=98NrkXPRZ9>
 
 
-# Efficient Training: Low-Rank
+# Efficient Training
 
 **Parameter-Efficient Transfer Learning for NLP**. Houlsby et al. ICML'19\
 Bottleneck lor-rank adapters.\

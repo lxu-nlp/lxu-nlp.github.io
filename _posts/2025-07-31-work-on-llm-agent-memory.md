@@ -104,8 +104,7 @@ Parameterization on procedures to utilize principles, via RL training.\
 **MemRL: Self-Evolving Agents via Runtime Reinforcement Learning on Episodic Memory**. Zhang et al. 2026\
 Experience is the estimation target (like action is the target in classic RL).\
 Rely on assumption: if two intents (queries) are close, then the experience utility is close.\
-Design: pair experience with intent. Maintain: (intent, experience, Q).\
-(intent, experience) is like conventional (state, action).\
+Design: pair experience with intent. Maintain: [intent -> (experience, Q) list]; just like [state -> (action, Q) list]\
 Rank/Retrieval policy: 1) use query-intent similarity as initial filtering; 2) learn additional Q estimation.\
 No parameterization: update Q by general TD (or regression, as if last step TD) (EM paradigm).\
 <https://arxiv.org/abs/2601.03192>

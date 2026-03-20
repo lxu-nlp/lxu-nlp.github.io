@@ -7,7 +7,7 @@ tags: [bayes]
 math: true
 ---
 
-# Basic Distributions
+# Distributions
 
 ### Binomial, Multinomial & Poisson Distribution
 
