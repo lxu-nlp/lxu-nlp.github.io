@@ -3,7 +3,7 @@ layout: post
 title: "Works on Neural Topic Modeling"
 date: 2022-08-07
 categories: [NLP]
-tags: [nlp, topic modeling]
+tags: [nlp, latent]
 math: true
 ---
 

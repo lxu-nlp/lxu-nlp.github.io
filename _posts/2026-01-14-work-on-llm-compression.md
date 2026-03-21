@@ -2,8 +2,8 @@
 layout: post
 title: "Works on LLM Compression and Efficiency"
 date: 2026-01-14
-categories: [NLP]
-tags: [nlp, LLM]
+categories: [LLM]
+tags: [nlp, LLM, compression]
 math: true
 ---
 

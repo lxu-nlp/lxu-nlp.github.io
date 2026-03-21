@@ -3,7 +3,7 @@ layout: post
 title: "Works on Abstraction and Concepts"
 date: 2024-03-21
 categories: [NLP]
-tags: [nlp]
+tags: [nlp, Semantics]
 math: true
 ---
 

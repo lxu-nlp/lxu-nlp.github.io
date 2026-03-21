@@ -2,7 +2,7 @@
 layout: post
 title: "Works on LLM Causality"
 date: 2024-02-23
-categories: [NLP]
+categories: [LLM]
 tags: [nlp, causal, LLM]
 math: true
 ---

@@ -2,8 +2,8 @@
 layout: post
 title: "Works on AI for Research"
 date: 2026-03-11
-categories: [NLP]
-tags: [nlp, LLM]
+categories: [LLM]
+tags: [nlp, LLM, AI4S]
 math: true
 ---
 

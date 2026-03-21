@@ -2,8 +2,8 @@
 layout: post
 title: "Works on LLM Latent Thinking and Generation"
 date: 2026-03-11
-categories: [NLP]
-tags: [nlp, LLM, training]
+categories: [LLM]
+tags: [nlp, LLM, latent, training]
 math: true
 ---
 

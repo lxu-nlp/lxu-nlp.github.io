@@ -3,7 +3,7 @@ layout: post
 title: "Works on Context Structure Extraction"
 date: 2024-03-10
 categories: [NLP]
-tags: [nlp, structure]
+tags: [nlp, extraction]
 math: true
 ---
 

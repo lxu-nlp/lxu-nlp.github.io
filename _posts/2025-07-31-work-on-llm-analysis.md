@@ -2,7 +2,7 @@
 layout: post
 title: "Works on LLM Analysis"
 date: 2025-07-31
-categories: [NLP]
+categories: [LLM]
 tags: [nlp, LLM]
 math: true
 ---

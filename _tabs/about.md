@@ -4,4 +4,4 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-Hand-typing for my own memory. No AI here.
+Paper reading and consolidation: hand-typing for my own memory.

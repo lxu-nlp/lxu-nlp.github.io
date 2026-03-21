@@ -2,7 +2,7 @@
 layout: post
 title: "Works on LLM Decoding"
 date: 2024-08-05
-categories: [NLP]
+categories: [LLM]
 tags: [nlp, LLM, decoding]
 math: true
 ---

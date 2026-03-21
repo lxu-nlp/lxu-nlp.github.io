@@ -2,7 +2,7 @@
 layout: post
 title: "Works on LLM Test-Time Scaling"
 date: 2026-03-10
-categories: [NLP]
+categories: [LLM]
 tags: [nlp, LLM, training]
 math: true
 ---

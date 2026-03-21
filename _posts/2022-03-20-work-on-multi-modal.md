@@ -3,7 +3,7 @@ layout: post
 title: "Works on Multi-Modal"
 date: 2022-03-20
 categories: [NLP]
-tags: [nlp, multimodal]
+tags: [nlp, multimodal, LLM]
 math: true
 ---
 

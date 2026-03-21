@@ -2,8 +2,8 @@
 layout: post
 title: "Works on LLM Editing"
 date: 2024-03-11
-categories: [NLP]
-tags: [nlp, model editing, LLM]
+categories: [LLM]
+tags: [nlp, editing, LLM]
 math: true
 ---
 

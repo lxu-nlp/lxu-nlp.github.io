@@ -2,7 +2,7 @@
 layout: post
 title: "Works on LLM Uncertainty and Hallucination"
 date: 2025-09-02
-categories: [NLP]
+categories: [LLM]
 tags: [nlp, LLM, uncertainty]
 math: true
 ---

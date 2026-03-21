@@ -1,15 +1,13 @@
 ---
 layout: post
-title: "Uncertainty Estimation"
+title: "Notes on Uncertainty Estimation"
 date: 2022-03-09
 categories: [Basics]
 tags: [uncertainty, bayes]
 math: true
 ---
 
-## Basics
-
-See the updated post "Bayes".
+Also see other posts on Bayes and LLM-related.
 
 ### MAP
 

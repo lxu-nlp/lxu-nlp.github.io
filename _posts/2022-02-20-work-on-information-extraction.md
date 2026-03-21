@@ -3,7 +3,7 @@ layout: post
 title: "Works on Document Information Extraction"
 date: 2022-02-20
 categories: [NLP]
-tags: [nlp, information extraction, IE]
+tags: [nlp, IE, extraction]
 math: true
 ---
 

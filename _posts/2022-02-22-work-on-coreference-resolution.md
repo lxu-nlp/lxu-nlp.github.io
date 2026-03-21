@@ -3,7 +3,7 @@ layout: post
 title: "Works on Coreference Resolution"
 date: 2022-02-22
 categories: [NLP]
-tags: [nlp, coreference, discourse]
+tags: [nlp, discourse]
 math: true
 ---
 

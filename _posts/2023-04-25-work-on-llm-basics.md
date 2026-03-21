@@ -2,7 +2,7 @@
 layout: post
 title: "Works on LLM Basics"
 date: 2023-04-25
-categories: [NLP]
+categories: [LLM]
 tags: [nlp, LLM]
 math: true
 ---

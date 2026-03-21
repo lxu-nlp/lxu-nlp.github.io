@@ -2,8 +2,8 @@
 layout: post
 title: "Works on LLM Training"
 date: 2025-02-25
-categories: [NLP, RL]
-tags: [nlp, LLM, training]
+categories: [LLM]
+tags: [nlp, LLM, training, RL]
 math: true
 ---
 

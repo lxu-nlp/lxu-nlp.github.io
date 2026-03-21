@@ -2,8 +2,8 @@
 layout: post
 title: "Works on LLM Agents and Memory"
 date: 2025-07-31
-categories: [NLP]
-tags: [nlp, LLM, agent]
+categories: [LLM]
+tags: [nlp, LLM, agent, memory]
 math: true
 ---
 

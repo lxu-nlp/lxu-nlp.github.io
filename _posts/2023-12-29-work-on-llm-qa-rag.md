@@ -2,8 +2,8 @@
 layout: post
 title: "Works on LLM QA and RAG"
 date: 2023-12-29
-categories: [NLP]
-tags: [nlp, QA, LLM]
+categories: [LLM]
+tags: [nlp, QA, LLM, RAG]
 math: true
 ---
 
