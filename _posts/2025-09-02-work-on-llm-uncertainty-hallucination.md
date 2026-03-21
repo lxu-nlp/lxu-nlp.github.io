@@ -7,9 +7,11 @@ tags: [nlp, LLM, uncertainty]
 math: true
 ---
 
+Also see the [post](https://lxu-nlp.github.io/posts/basics-uncertainty/) on general uncertainty.
+
 ## Hallucination
 
-Also see post about Factuality.
+Also see the [post](https://lxu-nlp.github.io/posts/work-on-factuality/) on Summary Factuality.
 
 **Do Large Language Models Know What They Don’t Know?**. Yin et al. 2023\
 Dataset: answerable and unanswerable questions.\

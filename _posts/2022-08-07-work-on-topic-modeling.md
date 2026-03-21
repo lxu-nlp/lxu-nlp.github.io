@@ -7,7 +7,7 @@ tags: [nlp, latent]
 math: true
 ---
 
-See another post for Bayes-related.
+Also see the [post](https://lxu-nlp.github.io/posts/basics-latent-modeling/) for latent variable modeling.
 
 **Neural Variational Inference for Text Processing**. Miao et al. ICML'16\
 Document modeling: apply VAE on document to learn latent document representation (latent document semantics), dubbed **NVDM**.\

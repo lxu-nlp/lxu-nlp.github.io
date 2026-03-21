@@ -7,7 +7,7 @@ tags: [uncertainty, bayes]
 math: true
 ---
 
-Also see other posts on Bayes and LLM-related.
+Also see the [post](https://lxu-nlp.github.io/posts/basics-bayes/) on Bayes basics, and [post](https://lxu-nlp.github.io/posts/work-on-llm-uncertainty-hallucination/) on LLM-related uncertainty.
 
 ### MAP
 

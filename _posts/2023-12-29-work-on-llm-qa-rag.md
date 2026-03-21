@@ -83,6 +83,10 @@ Empirical comparison: Long Context vs. RAG.\
 
 ---
 
+**Retrieval-augmented generation for knowledge-intensive NLP tasks**. Lewis et al. NIPS'20\
+RAG: joint training on retriever and generation.\
+<https://dl.acm.org/doi/abs/10.5555/3495724.3496517>
+
 # Method: Building Enhanced Index
 
 **Walking Down the Memory Maze: Beyond Context Limit through Interactive Reading**. Chen et al. 2023\

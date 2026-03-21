@@ -7,6 +7,9 @@ tags: [bayes, latent]
 math: true
 ---
 
+Also see the [post](https://lxu-nlp.github.io/posts/basics-bayes/) on Bayes basics.
+
+
 # ELBO, EM, and VAE: From Latent Variable Models to Trainable Deep Generative Models
 
 ## 1. Starting from the “log-sum wall”
@@ -236,6 +239,8 @@ The effectiveness of EM comes from the following chain of reasoning:
 
 This is the core monotonic-improvement logic behind EM.
 
+One comparison point is worth postponing until the VAE setup is fully on the table: why classical EM is usually **not** described as suffering from VAE-style posterior collapse. The clearest answer only appears once amortization and prior matching enter the story, so we return to that contrast in Section 6.3.
+
 ---
 
 ## 5. GEM: a more flexible and more realistic version of EM
@@ -300,6 +305,34 @@ So compared with classical EM:
 That is the real meaning of the encoder. It is not a concept outside EM; it is an amortized, shared, parameterized version of the E-step.
 
 This speedup comes with a price. Even if the variational family is expressive enough, the shared encoder $q_\phi(z \mid x)$ may still fail to match the per-sample optimum one would obtain by separately optimizing a variational distribution for each $x_i$. That extra approximation cost is often called the **amortization gap**. In plain terms, VAEs gain scalability by giving up some sample-specific inference accuracy.
+
+### 6.3 Why classical EM is usually not discussed in terms of “collapse”, and what extra risks VAEs introduce
+
+Before listing the extra risks of VAEs, it is useful to make one contrast explicit. Classical EM can certainly fail, but usually in **different** ways: it may get stuck in poor local optima, become sensitive to initialization, or in some models drift toward degenerate parameter settings. What is less typical is the specific VAE-style phenomenon called **posterior collapse**.
+
+The reason is structural. In classical EM, the E-step is trying to compute or closely approximate the current model posterior,
+
+$$
+q(z \mid x) \approx p(z \mid x, \theta^{(t)}),
+$$
+
+and if exact EM is possible, it simply sets them equal. There is no separate learned inference network that is shared across all examples, and there is no extra pressure pushing the posterior toward a simple, input-independent prior. So EM is not rewarded for making the latent variable uninformative; if the posterior needs to depend strongly on $x$, EM simply uses that dependence.
+
+A VAE changes that geometry. It still inherits the latent-variable logic of EM, but it adds several ingredients that make training more fragile.
+
+First, it introduces **amortization**: instead of solving a separate inference problem for each datapoint, it asks one shared encoder to handle all datapoints. That creates the amortization gap just discussed.
+
+Second, it introduces explicit **prior matching** through the KL term,
+
+$$
+D_{\mathrm{KL}}\bigl(q_\phi(z \mid x) \parallel p(z)\bigr),
+$$
+
+which is not merely an optimization convenience. It actively pushes the latent representation toward a simple, globally organized distribution. This is useful for sampling and for obtaining a smooth latent space, but it also creates pressure to reduce how much input-specific information the latent variable carries.
+
+Third, VAEs are often paired with powerful neural decoders. If the decoder can reconstruct $x$ reasonably well on its own, then the model can improve the objective by letting the encoder transmit less information and by shrinking the KL term. That is the basic route to posterior collapse.
+
+So compared with classical EM, a VAE is solving a harder combined problem: it is not only fitting a latent-variable model, but also learning a shared inference network, shaping the geometry of the latent space, and training a powerful decoder end-to-end by stochastic optimization. Those extra goals are exactly why VAEs gain scalability and flexibility — and also why they introduce additional failure modes beyond standard EM.
 
 ---
 
