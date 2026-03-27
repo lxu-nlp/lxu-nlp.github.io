@@ -82,6 +82,20 @@ Bidirectional on last layer + contrastive.\
 Latent pooling: hidden state from the last LLM position (Q) attended over latent dictionaries (K).\
 <https://arxiv.org/abs/2405.17428>
 
+## Token-Level
+
+**ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT**. Khattab and Zaharia. SIGIR'20\
+Late token-level cross interaction (after encoding).\
+<https://arxiv.org/abs/2004.12832>
+
+## Multi-View
+
+**Multi-View Document Representation Learning for Open-Domain Dense Retrieval**. Zhang et al. ACL'22\
+MVR: multi-view representation.\
+Prevent learning the same: add loss to force sharp distribution among views for each query.\
+Prevent learning only one: annealed temperature towards softer distribution initially to make every viewer fair to be selected and get back gradient.\
+<https://aclanthology.org/2022.acl-long.414/>
+
 ## Embedding with Reasoning
 
 **O1 Embedder: Let Retrievers Think Before Action**. Yan et al. 2025\

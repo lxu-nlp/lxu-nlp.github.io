@@ -7,7 +7,7 @@ tags: [nlp, LLM, latent, training]
 math: true
 ---
 
-Also see the [post](https://lxu-nlp.github.io/posts/basics-latent-modeling/) on latent variable modeling.
+Also see the [post](https://lxu-nlp.github.io/posts/basics-latent-modeling/) on latent variable modeling and [post](https://lxu-nlp.github.io/posts/work-on-topic-modeling/) on latent topic modeling.
 
 # Latent Training
 

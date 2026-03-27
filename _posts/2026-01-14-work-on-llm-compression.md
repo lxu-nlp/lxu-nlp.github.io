@@ -107,6 +107,9 @@ Thus, able to prune attention heads adaptively (per head per layer).\
 Iteratively switching between reasoning and cleaning modes, Free()LM dynamically identifies and prunes useless context chunks.\
 <https://arxiv.org/abs/2602.08030>
 
+**The Spike, the Sparse and the Sink: Anatomy of Massive Activations and Attention Sinks**. Sun et al. 2026\
+<https://arxiv.org/abs/2603.05498>
+
 ## Cache Merging
 
 **MiniCache: KV Cache Compression in Depth Dimension for Large Language Models**. Liu et al. 2024\
