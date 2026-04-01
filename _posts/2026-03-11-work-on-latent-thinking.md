@@ -24,9 +24,9 @@ Each thinking step: input an embedding weighted by last step vocab prob.\
 Termination: when exceeding consecutive steps of low entropy.\
 <https://openreview.net/forum?id=ByQdHPGKgU>
 
-**Training Large Language Models to Reason in a Continuous Latent Space**. Hao et al. 2025\
+**Training Large Language Models to Reason in a Continuous Latent Space**. Hao et al. COLM'25\
 Multi-stage training: step by step replacing explicit partial thinking to latent token, till all latent.\
-<https://arxiv.org/abs/2412.06769>
+<https://openreview.net/forum?id=Itxz7S4Ip3>
 
 **Compressed Chain of Thought: Efficient Reasoning through Dense Representations**. Cheng et al. 2024\
 Distill to match interleaved hidden states.\

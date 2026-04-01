@@ -106,9 +106,9 @@ CoT is not always reliable, such that it could underperform on simple cases and 
 Expected: 20\% tokens are high entropy, which usually decide reasoning path and are critical to the final performance.\
 <https://openreview.net/forum?id=yfcpdY4gMP>
 
-**Compressing Chain-of-Thought in LLMs via Step Entropy**. Li et al. 2025\
+**Compressing Chain-of-Thought in LLMs via Step Entropy**. Li et al. ICLR'26\
 80\% of low-entropy intermediate steps can be pruned.\
-<https://arxiv.org/abs/2508.03346>
+<https://openreview.net/abs?id=cGLqQfS5wH>
 
 **Understanding Chain-of-Thought in LLMs through Information Theory**. Ton et al. ICML'25\
 Quantify the information gain at each reasoning step.\
