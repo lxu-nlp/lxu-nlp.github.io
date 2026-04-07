@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Works on LLM Agents and Memory"
+title: "Works on Agents and Memory"
 date: 2025-07-31
 categories: [LLM]
 tags: [nlp, LLM, agent, memory]
