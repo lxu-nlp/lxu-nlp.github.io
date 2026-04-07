@@ -26,23 +26,11 @@ LLMs memorize and generalize on easier patterns first.\
 <https://openreview.net/pdf?id=98NrkXPRZ9>
 
 
-# Efficient Training
+# Lora
 
 **Parameter-Efficient Transfer Learning for NLP**. Houlsby et al. ICML'19\
 Bottleneck lor-rank adapters.\
 <https://proceedings.mlr.press/v97/houlsby19a.html>
-
-**Prefix-Tuning: Optimizing Continuous Prompts for Generation**. Li and Liang. ACL'21\
-Prefix-tuning: optimize a continuous prompt prefix per task, instead of discrete task prompt.\
-Close to finetuning, and better than finetuning when data is small.\
-<https://aclanthology.org/2021.acl-long.353>
-
-**The Power of Scale for Parameter-Efficient Prompt Tuning**. Lester et al. EMNLP'21\
-Prompt-tuning: similar to prefix-tuning, only optimizing a continuous prompt prefix.\
-(1) Prompt length can be critical.\
-(2) Initializing prompt by class-label vocab performs the best.\
-(3) Prompt tuning becomes more competitive with scale (same performance as finetuning).\
-<https://aclanthology.org/2021.emnlp-main.243>
 
 **LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS**. Hu et al. ICLR'22\
 Instead of inserting layers (adapters) as parts of parameters, learn a separate low-rank parameter delta.\

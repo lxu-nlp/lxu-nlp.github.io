@@ -10,6 +10,18 @@ math: true
 
 ## Context Compression
 
+**Prefix-Tuning: Optimizing Continuous Prompts for Generation**. Li and Liang. ACL'21\
+Prefix-tuning: optimize a continuous prompt prefix per task, instead of discrete task prompt.\
+Close to finetuning, and better than finetuning when data is small.\
+<https://aclanthology.org/2021.acl-long.353>
+
+**The Power of Scale for Parameter-Efficient Prompt Tuning**. Lester et al. EMNLP'21\
+Prompt-tuning: similar to prefix-tuning, only optimizing a continuous prompt prefix.\
+(1) Prompt length can be critical.\
+(2) Initializing prompt by class-label vocab performs the best.\
+(3) Prompt tuning becomes more competitive with scale (same performance as finetuning).\
+<https://aclanthology.org/2021.emnlp-main.243>
+
 **Learning to Compress Prompts with Gist Tokens**. Mu et al. NIPS'23\
 Compress **instructions** within LLM (**objective: specific tasks**): instruction + GIST (soft tokens) + input_context, such that:\
 (1) GIST is learned to be generalized to compress arbitrary instructions.\
@@ -33,6 +45,10 @@ Learn an adaptor to compress into a single token embedding utilized by generatio
 **MemoRAG: Moving towards Next-Gen RAG Via Memory-Inspired Knowledge Discovery**. Qian et al. WWW'25\
 Train model to learn gist token that memorizes the past context to provide approximate clues, serving as a model to bridge the query and full context.\
 <https://dl.acm.org/doi/10.1145/3696410.3714805>
+
+**TokMem: One-Token Procedural Memory for Large Language Models**. Wu et al. ICLR'26\
+Similar to Prompt-tuning: learn tok emb as instruction; can be used interleaved in thinking.\
+<https://openreview.net/forum?id=RWjEf9PdiJ>
 
 
 ## Test-time Context Pruning: Hard Drop Non-Salient Tokens

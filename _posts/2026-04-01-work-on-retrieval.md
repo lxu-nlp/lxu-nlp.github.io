@@ -1,11 +1,20 @@
 ---
 layout: post
-title: "Works on Retrieval"
+title: "Works on Internalization"
 date: 2026-04-01
-categories: [nlp]
+categories: [llm]
 tags: [nlp, LLM, retrieval]
 math: true
 ---
+
+
+# Internalize to Adapter
+
+**Doc-to-LoRA: Learning to Instantly Internalize Contexts**. Charakorn et al. 2026\
+Learn: input context -> lora weight, without actual lora training.\
+Training: for each context, use LLM-generated queries.\
+(since the meta model is shared across contexts and their queries, it mitigates query coverage?)\
+<https://arxiv.org/abs/2602.15902>
 
 
 # Generative Retrieval

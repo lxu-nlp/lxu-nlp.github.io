@@ -49,7 +49,7 @@ Scratchpad (decomposition by low global degree) can help.\
 **Grokking of Implicit Reasoning in Transformers: A Mechanistic Journey to the Edge of Generalization**. Wang et al. NIPS'24\
 Examine implicit reasoning on composition task (two-hop tail entity prediction), with aspects on: grokking, causal tracing, etc.\
 <https://openreview.net/forum?id=D4QgSWxiOb>
-
+w
 **The Parallelism Tradeoff: Limitations of Log-Precision Transformers**. Merrill and Sabharwal. TACL'23\
 Transformers can only express O(1)-parallel complexity.\
 <https://aclanthology.org/2023.tacl-1.31/>
@@ -132,10 +132,6 @@ Identify salient sentences by sampling without each sentence.\
 
 ### CoT Necessity
 
-**Do NOT Think That Much for 2+3=? On the Overthinking of Long Reasoning Models**. Chen et al. ICML'25\
-Quantify overthinking on math.\
-<https://openreview.net/forum?id=MSbU3L7V00>
-
 **Mind Your Step (by Step): Chain-of-Thought can Reduce Performance on Tasks where Thinking Makes Humans Worse**. Liu et al. ICML'25\
 When CoT brings negative.\
 <https://openreview.net/forum?id=J3gzdbYZxS>
@@ -143,11 +139,6 @@ When CoT brings negative.\
 **To CoT or not to CoT? Chain-of-thought helps mainly on math and symbolic reasoning**. Sprague et al. ICLR'25\
 Cot mostly benefits symbolic (multi-hop) tasks, but still underperforms actual symbolic solvers.\
 <https://openreview.net/forum?id=w6nlcS8Kkn>
-
-**When Reasoning Meets Its Laws**. Zhang et al. 2025\
-Quantify task difficulty + new benchmark.\
-Finetune to control CoT length in proportional to task difficulty.\
-<https://arxiv.org/abs/2512.17901>
 
 ### CoT Planning / Internal Planning
 

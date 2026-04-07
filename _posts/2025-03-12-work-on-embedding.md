@@ -153,3 +153,8 @@ Similarity: sampling continuation equal times from both two inputs as the approx
 Observation: attention pattern aligns with retrieval-augmented in latter layers.\
 Memory: simply add sentences of top salient tokens as context.\
 <https://arxiv.org/abs/2502.12962>
+
+## Analysis
+
+**On the Theoretical Limitations of Embedding-Based Retrieval**. Weller et al. ICLR'26\
+<https://openreview.net/forum?id=k9CzIvzfaA>
