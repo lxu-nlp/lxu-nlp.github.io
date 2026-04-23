@@ -238,7 +238,7 @@ Diagonal positions in attention map are not as important compared to other posit
 (3) By linear transformation probing (to smaller dimension) on embedding, word-sense is more drastic, and earlier layers retrain more semantic info.\
 (4) Another word-sense (opposite sense concatenation) towards context change shows that earlier layers are more stable than final layers against context change.\
 (5) The semantic against context change is "soft" rather than "hard": indiscriminately absorb meaning from all neighbors.\
-<https://arxiv.org/abs/1906.02715>
+<https://proceedings.neurips.cc/paper/2019/hash/159c1ffe5b61b41b3c4d8f4c2150f6c4-Abstract.html>
 
 **How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings**. Ethayarajh et al. EMNLP'19\
 anisotropic: averaged cosine-similarity (randomly sampled) is high; self-similarity: contextualization sensitivity.\

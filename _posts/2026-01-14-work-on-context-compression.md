@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Works on LLM Compression and Efficiency"
+title: "Works on Context Compression and Efficiency"
 date: 2026-01-14
 categories: [LLM]
 tags: [nlp, LLM, compression]
@@ -36,7 +36,7 @@ Next prediction: current text segment + past vectors.\
 
 **In-context Autoencoder for Context Compression in a Large Language Model**. Ge et al. ICLR'24\
 Compress **input context** (**objectives: (reconstruction + general LM as pretraining) + specific tasks**).\
-<https://arxiv.org/abs/2307.06945>
+<https://openreview.net/forum?id=uREj4ZuGJE>
 
 **xRAG: Extreme Context Compression for Retrieval-augmented Generation with One Token**. Cheng et al. NIPS'24\
 Learn an adaptor to compress into a single token embedding utilized by generation.\

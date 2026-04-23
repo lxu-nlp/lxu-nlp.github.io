@@ -25,8 +25,12 @@ Termination: when exceeding consecutive steps of low entropy.\
 <https://openreview.net/forum?id=ByQdHPGKgU>
 
 **Training Large Language Models to Reason in a Continuous Latent Space**. Hao et al. COLM'25\
-Multi-stage training: step by step replacing explicit partial thinking to latent token, till all latent.\
+Learn to compress then generate: step by step replacing explicit partial thinking to latent token, till all latent.\
 <https://openreview.net/forum?id=Itxz7S4Ip3>
+
+**LightThinker: Thinking Step-by-Step Compression**. Zhang et al. EMNLP'25\
+Learn to generate then compress, repeatedly.\
+<https://aclanthology.org/2025.emnlp-main.673>
 
 **Compressed Chain of Thought: Efficient Reasoning through Dense Representations**. Cheng et al. 2024\
 Distill to match interleaved hidden states.\

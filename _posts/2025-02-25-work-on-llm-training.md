@@ -46,13 +46,17 @@ Connecting adapter, prefix-tuning and lora.\
 (3) Perform update by separating magnitude and direction of Lora, to be more stable and mimic full finetuning dynamic.\
 <https://openreview.net/forum?id=3d5CIRG1n2>
 
-**LONGLORA: EFFICIENT FINE-TUNING OF LONG CONTEXT LARGE LANGUAGE MODELS**. Chen et al. 2023\
+**LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models**. Chen et al. ICLR'24\
 Same local window size for each attention head. But, half heads on original local regions, while the other half on shifted local regions with overlapping, to enable communication between locals.\
 Thus, although receiving local k/v at each attention layer, global attention can still be achieved by stacked attention layers.\
-<https://arxiv.org/pdf/2309.12307>
+<https://openreview.net/forum?id=6PmJoRfdaK>
 
 **ReFT: Representation Finetuning for Language Models**. Wu et al. NIPS'24\
 <https://openreview.net/forum?id=fykjplMc0V>
+
+**Understanding LoRA as Knowledge Memory: An Empirical Analysis**. Back et al. 2026\
+Training with more synthetic tasks improve memory.\
+<https://arxiv.org/abs/2603.01097>
 
 
 # RL Training

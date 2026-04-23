@@ -114,6 +114,11 @@ Similar to EvolveR: skill consolidation, retrieval and utilization.\
 Parameterization on procedures to utilize skills.\
 <https://arxiv.org/abs/2602.08234>
 
+**Group-Evolving Agents: Open-Ended Self-Improvement via Experience Sharing**. Weng et al. 2026\
+i) select diverse agents (dissimilar success among tasks); ii) share experience.\
+Essentially: aggregate diverse traces.\
+<https://arxiv.org/abs/2602.04837>
+
 
 ## Other Agent Training
 

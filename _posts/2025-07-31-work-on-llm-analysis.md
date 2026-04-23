@@ -58,6 +58,9 @@ Transformers can only express O(1)-parallel complexity.\
 CoT allows serial (multi-hop) computation. Without CoT, it is then bounded by transformer depth.\
 <https://openreview.net/forum?id=3EWTEy9MTM>
 
+**The Expressive Power of Transformers with Chain of Thought**. Merrill and Sabharwal. ICLR'24\
+<https://openreview.net/forum?id=NjNGlPh8Wh>
+
 **Auto-Regressive Next-Token Predictors are Universal Learners**. Malach. ICML'24\
 CoT can approximate any function efficiently computed by a Turing machine.\
 Length complexity: the number of intermediate tokens in a CoT sequence required to approximate some target function.\
