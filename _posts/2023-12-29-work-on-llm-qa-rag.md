@@ -146,6 +146,9 @@ Use LLM: one leader for decision making and several members for discussion.\
 **KBQA-o1: Agentic Knowledge Base Question Answering with Monte Carlo Tree Search**. Luo et al. ICML'25\
 <https://openreview.net/forum?id=QuecSemZIy>
 
+**Coding Agents are Effective Long-Context Processors**. Cao et al. 2026\
+<https://arxiv.org/abs/2603.20432>
+
 # Method: Explicit In-Context Retrieval
 
 **Rank1: Test-Time Compute for Reranking in Information Retrieval**. Weller et al. 2025\

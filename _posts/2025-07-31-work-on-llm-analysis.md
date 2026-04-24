@@ -153,6 +153,11 @@ Hidden state transferred to another prompt can yield the same results, thus curr
 Similar to Future Lens: move hidden state to another prompt to derive the meaning of hidden state.\
 <https://openreview.net/forum?id=5uwBzcn885>
 
+**Hopping Too Late: Exploring the Limitations of Large Language Models on Multi-Hop Queries**. Brian et al. EMNLP'24\
+Hidden representation from a later layer is patched back to an earlier layer.\
+Many incorrect cases exist a back-patch that results in the correct generation.\
+<https://aclanthology.org/2024.emnlp-main.781/>
+
 **The Internal State of an LLM Knows When It’s Lying**. Azaria and Mitchell. EMNLP Finding'23\
 Probing on the last input hidden state by binary label (truthfulness).\
 Prober gives more accuracy estimation compared to rollout probability.\
@@ -192,6 +197,11 @@ Attention blocking.\
 **Unlocking the Future: Exploring Look-Ahead Planning Mechanistic Interpretability in Large Language Models**. Men et al. EMNLP'24\
 Probe and attention blocking.\
 <https://aclanthology.org/2024.emnlp-main.440>
+
+**Do Large Language Models Latently Perform Multi-Hop Reasoning?**. Yang et al. ACL'24\
+Last layer hidden state projection to vocab directly.\
+Multi-hop is only moderate.\
+<https://aclanthology.org/2024.acl-long.550>
 
 **Internal Chain-of-Thought: Empirical Evidence for Layer-wise Subtask Scheduling in LLMs**. Yang et al. EMNLP'25\
 Two-hop across layers. (but did not investigate max hops)\

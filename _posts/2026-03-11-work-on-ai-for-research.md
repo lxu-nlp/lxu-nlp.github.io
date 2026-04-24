@@ -31,6 +31,10 @@ Synthesize literature review tables.\
 **DiscoveryBench: Towards Data-Driven Discovery with Large Language Models**. Majumder et al. ICLR'25\
 <https://openreview.net/forum?id=vyflgpwfJW>
 
+**AI Can Learn Scientific Taste**. Tong et al. 2026\
+SciJudgeBench: impact prediction as pairwise preference, by arxiv citation and ICLR review score.\
+<https://arxiv.org/abs/2603.14473>
+
 ## Code Generation
 
 **ScienceAgentBench: Toward Rigorous Assessment of Language Agents for Data-Driven Scientific Discovery**. Chen et al. ICLR'25\

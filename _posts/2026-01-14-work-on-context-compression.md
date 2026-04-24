@@ -46,6 +46,10 @@ Learn an adaptor to compress into a single token embedding utilized by generatio
 Train model to learn gist token that memorizes the past context to provide approximate clues, serving as a model to bridge the query and full context.\
 <https://dl.acm.org/doi/10.1145/3696410.3714805>
 
+**Long Context Compression with Activation Beacon**. Zhang et al. ICLR'25\
+
+<https://openreview.net/forum?id=1eQT9OzfNQ>
+
 **TokMem: One-Token Procedural Memory for Large Language Models**. Wu et al. ICLR'26\
 Similar to Prompt-tuning: learn tok emb as instruction; can be used interleaved in thinking.\
 <https://openreview.net/forum?id=RWjEf9PdiJ>
@@ -160,3 +164,9 @@ Cache Retrieval vs. Pruning: retrieval is dynamic, as each latest Q obtains diff
 Novel: Q does not directly retrieve well with cluster-based K index, as K index does not see Q distribution\
 Method: regard as few-shot problem, use existing Q distribution as anchor to find the closest K, instead of finding K directly\
 <https://arxiv.org/abs/2409.10516>
+
+## Others
+
+**Language Modeling Is Compression**. Deletang et al. ICLR'24\
+Adapt LLM to compress general data.\
+<https://openreview.net/forum?id=jznbgiynus>
