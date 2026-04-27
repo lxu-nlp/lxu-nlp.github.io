@@ -1,14 +1,15 @@
 ---
 layout: post
-title: "Works on Context Compression and Efficiency"
+title: "Works on LLM Task and Context Compression"
 date: 2026-01-14
 categories: [LLM]
 tags: [nlp, LLM, compression]
 math: true
 ---
 
+## Supervised Compression
 
-## Context Compression
+##### Task/Prompt Compression: task-specific training
 
 **Prefix-Tuning: Optimizing Continuous Prompts for Generation**. Li and Liang. ACL'21\
 Prefix-tuning: optimize a continuous prompt prefix per task, instead of discrete task prompt.\
@@ -29,31 +30,47 @@ Compress **instructions** within LLM (**objective: specific tasks**): instructio
 Training: simply mask out instruction after GIST.\
 <https://arxiv.org/abs/2304.08467>
 
+**LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression**. Pan et al. ACL Findings'24\
+Use GPT annotation to train a small token classifier on whether to retain.\
+<https://aclanthology.org/2024.findings-acl.57>
+
+**Fewer is More: Boosting Math Reasoning with Reinforced Context Pruning**. Huang et al. EMNLP'24\
+RL to select and prune few-shot prompts.\
+<https://aclanthology.org/2024.emnlp-main.758/>
+
+**TokMem: One-Token Procedural Memory for Large Language Models**. Wu et al. ICLR'26\
+Similar to Prompt-tuning: learn tok emb as instruction; can be used interleaved in thinking.\
+<https://openreview.net/forum?id=RWjEf9PdiJ>
+
+##### Context Compression: preserving general LM context
+
 **Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
 Compress **input context** (**objective: general LM**).\
 Next prediction: current text segment + past vectors.\
 <https://aclanthology.org/2023.emnlp-main.232/>
 
 **In-context Autoencoder for Context Compression in a Large Language Model**. Ge et al. ICLR'24\
-Compress **input context** (**objectives: (reconstruction + general LM as pretraining) + specific tasks**).\
+Learn to encode context to k memory tokens.\
+Pretraining (reconstruction + LM) + finetuning.\
 <https://openreview.net/forum?id=uREj4ZuGJE>
 
 **xRAG: Extreme Context Compression for Retrieval-augmented Generation with One Token**. Cheng et al. NIPS'24\
-Learn an adaptor to compress into a single token embedding utilized by generation.\
+Modality alignment: embedding -> LM. Learn to utilize given embedding for generation.\
+Pretraining (reconstruction) + finetuning.\
 <https://openreview.net/forum?id=6pTlXqrO0p>
 
 **MemoRAG: Moving towards Next-Gen RAG Via Memory-Inspired Knowledge Discovery**. Qian et al. WWW'25\
 Train model to learn gist token that memorizes the past context to provide approximate clues, serving as a model to bridge the query and full context.\
+Pretraining (LM) + finetuning.\
 <https://dl.acm.org/doi/10.1145/3696410.3714805>
 
 **Long Context Compression with Activation Beacon**. Zhang et al. ICLR'25\
 Online, interleaved gist token compression (new QKV).\
+Pretraining (LM) + finetuning.\
 <https://openreview.net/forum?id=1eQT9OzfNQ>
 
-**TokMem: One-Token Procedural Memory for Large Language Models**. Wu et al. ICLR'26\
-Similar to Prompt-tuning: learn tok emb as instruction; can be used interleaved in thinking.\
-<https://openreview.net/forum?id=RWjEf9PdiJ>
 
+## Unsupervised Compression
 
 ## Test-time Context Pruning: Hard Drop Non-Salient Tokens
 
@@ -65,15 +82,6 @@ Finding: dropping tokens with high likelihood (less informative) could obtain si
 **Not All Tokens Are What You Need for Pretraining**. Lin et al. NIPS'24\
 Use a pretrained model to get token likelihood to: 1) filter out noisy corpus; 2) enable loss only on hard tokens for more pretraining.\
 <https://openreview.net/forum?id=0NMzBwqaAJ>
-
-**LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression**. Pan et al. ACL Findings'24\
-Use GPT annotation to train a small token classifier on whether to retain.\
-<https://aclanthology.org/2024.findings-acl.57>
-
-**Fewer is More: Boosting LLM Reasoning with Reinforced Context Pruning**. Huang et al. 2024\
-RL to select and prune few-shot prompts.\
-<https://arxiv.org/abs/2312.08901>
-
 
 ## Test-time Cache Pruning: Drop Cache per Head/Layer
 
