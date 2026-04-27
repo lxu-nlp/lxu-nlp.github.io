@@ -7,7 +7,7 @@ tags: [nlp, LLM, cot]
 math: true
 ---
 
-Also see the [post](https://lxu-nlp.github.io/posts/work-on-latent-training/) on latent thinking.
+Also see the [post](https://lxu-nlp.github.io/posts/work-on-latent-thinking/) on latent thinking.
 
 
 ## CoT Early Exit
