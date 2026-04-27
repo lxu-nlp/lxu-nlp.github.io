@@ -134,3 +134,8 @@ RL agent with web search, with a keep-appending short-term memory repository.\
 
 **Search Self-Play: Pushing the Frontier of Agent Capability without Supervision**. Lu et al. ICLR'26\
 <https://openreview.net/forum?id=ZmGirmNJqE>
+
+**R-Zero: Self-Evolving Reasoning LLM from Zero Data**. Huang et al. ICLR'26\
+Similar to GAN: 1) one LLM is trained to generate questions uncertain to the other one; 2) the other is trained to learn these questions.\
+Two LLMs are separately updated.\
+<https://openreview.net/forum?id=96apU6YzSO>

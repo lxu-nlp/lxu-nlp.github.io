@@ -167,13 +167,9 @@ LLM cannot perfectly generalize three simple reasoning tasks of any inputs: copy
 Introduce prompting that encodes the exact algorithm (strict action sequence) to teach specific reasoning generalization.\
 <https://arxiv.org/abs/2208.05051>
 
-**SELF-CONSISTENCY IMPROVES CHAIN OF THOUGHT REASONING IN LANGUAGE MODELS**. Wang et al. ICLR'23\
-Give CoT prompt, generate multiple paths and aggregate the final answers (e.g. majority vote).\
-<https://openreview.net/forum?id=1PL1NIMMrw>
-
-**A Multitask, Multilingual, Multimodal Evaluation of ChatGPT on Reasoning, Hallucination, and Interactivity**. Bang et al. 2023\
+**A Multitask, Multilingual, Multimodal Evaluation of ChatGPT on Reasoning, Hallucination, and Interactivity**. Bang et al. IJCNLP'23\
 A systematic evaluation ChatGPT on various types of tasks, including reasoning, multimodality, factuality/hallucination.\
-<https://arxiv.org/abs/2302.04023>
+<https://aclanthology.org/2023.ijcnlp-main.45/>
 
 **Least-to-Most Prompting Enables Complex Reasoning in Large Language Models**. Zhou et al. 2022\
 In-context few-shot CoT for compositional tasks. Similar to above.\

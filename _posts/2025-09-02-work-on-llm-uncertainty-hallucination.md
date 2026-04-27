@@ -35,7 +35,23 @@ QA-based verification for detecting non-factual query response.\
 
 ## Uncertainty
 
-### via Hidden/Attention
+**Self-Consistency Improves Chain of Thought Reasoning in Language Models**. Wang et al. ICLR'23\
+Sole-sampling based: majority vote.\
+<https://openreview.net/forum?id=1PL1NIMMrw>
+
+**Self-Evaluation Guided Beam Search for Reasoning**. Xie et al. NIPS'23\
+Use LLM prompting to score confidence directly.\
+<https://openreview.net/forum?id=Bw82hwg5Q3>
+
+**Language Models (Mostly) Know What They Know**. Kadavath et al. 2022\
+Self-evaluation by prompting is no good for zero-shot evaluation.\
+Training a probe: partially generalized.\
+<https://arxiv.org/abs/2207.05221>
+
+**Large Language Models Must Be Taught to Know What They Don’t Know**. Kapoor et al. NIPS'24\
+Comparing methods: 1) unsupervised: sampling; 2) supervised: probing & lora & prompting.\
+lora+prompting > other supervised (i.e., probing) > unsupervised sampling.\
+<https://openreview.net/forum?id=QzvWyggrYB>
 
 **INSIDE: LLMs' Internal States Retain the Power of Hallucination Detection**. Chen et al. ICLR'24\
 Metric: covariance det of averaged token hidden states of multiple sampled responses.\

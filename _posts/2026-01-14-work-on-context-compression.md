@@ -47,7 +47,7 @@ Train model to learn gist token that memorizes the past context to provide appro
 <https://dl.acm.org/doi/10.1145/3696410.3714805>
 
 **Long Context Compression with Activation Beacon**. Zhang et al. ICLR'25\
-
+Online, interleaved gist token compression (new QKV).\
 <https://openreview.net/forum?id=1eQT9OzfNQ>
 
 **TokMem: One-Token Procedural Memory for Large Language Models**. Wu et al. ICLR'26\
@@ -126,6 +126,11 @@ Thus, able to prune attention heads adaptively (per head per layer).\
 **Free(): Learning to Forget in Malloc-Only Reasoning Models**. Zheng et al. 2026\
 Iteratively switching between reasoning and cleaning modes, Free()LM dynamically identifies and prunes useless context chunks.\
 <https://arxiv.org/abs/2602.08030>
+
+**Neural Garbage Collection: Learning to Forget while Learning to Reason**. Li et al. 2026\
+Scoring: attention weight; selection by top.\
+Make key cache selection learnable in grpo (same reward).\
+<https://arxiv.org/abs/2604.18002>
 
 **The Spike, the Sparse and the Sink: Anatomy of Massive Activations and Attention Sinks**. Sun et al. 2026\
 <https://arxiv.org/abs/2603.05498>
