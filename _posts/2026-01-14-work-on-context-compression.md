@@ -85,12 +85,6 @@ Use a pretrained model to get token likelihood to: 1) filter out noisy corpus; 2
 
 ## Test-time Cache Pruning: Drop Cache per Head/Layer
 
-**Dynamic Context Pruning for Efficient and Interpretable Autoregressive Transformers**. Anagnostidis et al. NIPS'23\
-Each layer drops kv cache independently.\
-(not dropping entire tokens/positions, as each layer can have different patterns.)\
-Train with sparse sigmoid on attention.\
-<https://arxiv.org/abs/2305.15805>
-
 **Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned**. Voita et al. ACL'19\
 Hard-gate on attention heads, regularizing to closing gate.\
 <https://aclanthology.org/P19-1580/>
@@ -103,27 +97,38 @@ Define sensitivity by loss on heads and prune greedily and sequentially (after s
 User-specified number of pruned heads.\
 <https://arxiv.org/abs/2108.04657>
 
+**Dynamic Context Pruning for Efficient and Interpretable Autoregressive Transformers**. Anagnostidis et al. NIPS'23\
+Train with sparse sigmoid on attention.\
+<https://arxiv.org/abs/2305.15805>
+
 **Scissorhands: Exploiting the Persistence of Importance Hypothesis for LLM KV Cache Compression at Test Time**. Liu et al. NIPS'23\
-Critical tokens always receive high attention; prune non-critical tokens.\
+High attention scores are persistent/consistent across steps; prior highly attended positions are likely important for future.\
+Persist top cache entries by: 1) low-score (by a threshold) ratio across recent steps; 2) recent entries are always kept due to lack of information.\
 <https://openreview.net/forum?id=JZfg6wGi6g>
 
+**SnapKV: LLM Knows What You are Looking for Before Generation**. Li et al. NIPS'24\
+Similar to Scissorhands: aggregate attention scores across recent steps, then select top.\
+To prevent info loss: use pooling on raw positions to identify important areas, rather than individual positions.\
+<https://openreview.net/forum?id=poE54GOq2l>
+
 **H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models**. Zhang et al. NIPS'23\
-Prune based on accumulated attention scores.\
+Similar to Scissorhands: aggregate attention scores across all history steps, then evict.\
 <https://openreview.net/forum?id=RkRrPp7GKO>
 
-**D2O : Dynamic Discriminative Operations for Efficient Generative Inference of Large Language Models**. Wan et al. 2024\
-<https://arxiv.org/abs/2406.13035>
-
 **Efficient Streaming Language Models with Attention Sinks**. Xiao et al. ICLR'24\
+Initial positions are attention sink.\
+Retaining KV: initial positions + sliding window. Deal with position encoding.\
 <https://openreview.net/forum?id=NG7sS51zVF>
+
+**D2O : Dynamic Discriminative Operations for Efficient Generative Inference of Large Language Models**. Wan et al. ICLR'25\
+KV pruning: Scissorhands + reserve attention sink.\
+KV merging: cosine similarity by key vectors.\
+<https://openreview.net/forum?id=HzBfoUdjHt>
 
 **Model Tells You What to Discard: Adaptive KV Cache Compression for LLMs**. Ge et al. ICLR'24\
 Attention head possesses different distribution patterns, which is also consistent across positions.\
 Thus, able to prune attention heads adaptively (per head per layer).\
 <https://openreview.net/forum?id=uNrFpDPMyo>
-
-**SnapKV: LLM Knows What You are Looking for Before Generation**. Li et al. NIPS'24\
-<https://openreview.net/forum?id=poE54GOq2l>
 
 **PyramidKV: Dynamic KV Cache Compression based on Pyramidal Information Funneling**. Cai et al. COLM'25\
 <https://openreview.net/forum?id=ayi7qezU87>
