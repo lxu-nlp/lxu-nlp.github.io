@@ -44,30 +44,55 @@ Similar to Prompt-tuning: learn tok emb as instruction; can be used interleaved 
 
 ##### Context Compression: preserving general LM context
 
+Also see the [post](https://lxu-nlp.github.io/posts/work-on-agent-memory/#latent-organization-w-training) on latent agentic memory.
+
 **Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
-Compress **input context** (**objective: general LM**).\
+AutoCompressor: compress **input context** recursively (**objective: general LM**).\
 Next prediction: current text segment + past vectors.\
 <https://aclanthology.org/2023.emnlp-main.232/>
 
 **In-context Autoencoder for Context Compression in a Large Language Model**. Ge et al. ICLR'24\
-Learn to encode context to k memory tokens.\
+ICAE: learn to encode context to k memory tokens. More than 4x compression is challenging.\
 Pretraining (reconstruction + LM) + finetuning.\
 <https://openreview.net/forum?id=uREj4ZuGJE>
 
+**Context Embeddings for Efficient Answer Generation in Retrieval-Augmented Generation**. Rau et al. WSDM'25\
+COCOM: same as ICAE.\
+<https://dl.acm.org/doi/10.1145/3701551.3703527>
+
+**500xCompressor: Generalized Prompt Compression for Large Language Models**. Li et al. ACL'25\
+Same as ICAE, but using KV cache instead of hidden states.\
+<https://aclanthology.org/2025.acl-long.1219>
+
 **xRAG: Extreme Context Compression for Retrieval-augmented Generation with One Token**. Cheng et al. NIPS'24\
 Modality alignment: embedding -> LM. Learn to utilize given embedding for generation.\
-Pretraining (reconstruction) + finetuning.\
+Pretraining (reconstruction for alignment) + distillation + task finetuning.  But reconstruction < finetuning (including self-distillation).\
 <https://openreview.net/forum?id=6pTlXqrO0p>
+
+**PISCO: Pretty Simple Compression for Retrieval-Augmented Generation**. Louis et al. ACL Findings'25\
+Similar to ICAE.\
+Only do distillation training. Clear presentation.\
+<https://aclanthology.org/2025.findings-acl.800>
+
+**Pretraining Context Compressor for Large Language Models with Embedding-Based Memory**. Dai et al. ACL'25\
+Similar to ICAE. Bad presentation.\
+<https://aclanthology.org/2025.acl-long.1394>
 
 **MemoRAG: Moving towards Next-Gen RAG Via Memory-Inspired Knowledge Discovery**. Qian et al. WWW'25\
 Train model to learn gist token that memorizes the past context to provide approximate clues, serving as a model to bridge the query and full context.\
 Pretraining (LM) + finetuning.\
 <https://dl.acm.org/doi/10.1145/3696410.3714805>
 
+**Enhancing RAG Efficiency with Adaptive Context Compression**. Guo et al. EMNLP Findings'25\
+<https://aclanthology.org/2025.findings-emnlp.1307>
+
 **Long Context Compression with Activation Beacon**. Zhang et al. ICLR'25\
 Online, interleaved gist token compression (new QKV).\
 Pretraining (LM) + finetuning.\
 <https://openreview.net/forum?id=1eQT9OzfNQ>
+
+**CLaRa: Bridging Retrieval and Generation with Continuous Latent Reasoning**. He et al. 2026\
+<https://arxiv.org/abs/2511.18659>
 
 
 ## Unsupervised Compression
