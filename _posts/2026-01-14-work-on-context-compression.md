@@ -84,6 +84,7 @@ Pretraining (LM) + finetuning.\
 <https://dl.acm.org/doi/10.1145/3696410.3714805>
 
 **Enhancing RAG Efficiency with Adaptive Context Compression**. Guo et al. EMNLP Findings'25\
+Similar to ICAE, trained with multiple granularity? (unclear written)\
 <https://aclanthology.org/2025.findings-emnlp.1307>
 
 **Long Context Compression with Activation Beacon**. Zhang et al. ICLR'25\
@@ -92,6 +93,8 @@ Pretraining (LM) + finetuning.\
 <https://openreview.net/forum?id=1eQT9OzfNQ>
 
 **CLaRa: Bridging Retrieval and Generation with Continuous Latent Reasoning**. He et al. 2026\
+Stage 1: similar to PISCO.\
+Stage 2: frozen document compressor; learn a query compressor and generator, jointly train top-k retrieval and generation.\
 <https://arxiv.org/abs/2511.18659>
 
 
