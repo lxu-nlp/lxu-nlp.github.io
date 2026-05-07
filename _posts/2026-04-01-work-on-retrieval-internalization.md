@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Works on Internalization"
+title: "Works on Retrieval Internalization"
 date: 2026-04-01
-categories: [llm]
+categories: [nlp]
 tags: [nlp, LLM, retrieval]
 math: true
 ---
