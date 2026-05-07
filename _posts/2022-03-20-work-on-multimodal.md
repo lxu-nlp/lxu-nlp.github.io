@@ -63,10 +63,6 @@ BEIT-3: Similar to BEIT that auto-denoises image tokens, with modification: (1) 
 One MLM pretraining objective.
 <https://arxiv.org/abs/2106.08254>
 
-**LISA: Reasoning Segmentation via Large Language Model**. Lai et al. CVPR'24\
-Align VLM hidden state <-> VAE, to enable segmentation.\
-<https://www.computer.org/csdl/proceedings-article/cvpr/2024/530000j579/20hSQPNTFCM>
-
 ## Same Space (Generation-Based)
 
 **Unifying Vision-and-Language Tasks via Text Generation**. Cho et al. ICML'21\

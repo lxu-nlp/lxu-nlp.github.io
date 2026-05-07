@@ -9,7 +9,7 @@ math: true
 
 ## Supervised Compression
 
-##### Task/Prompt Compression: task-specific training
+#### Task/Prompt Compression: task-specific training
 
 **Prefix-Tuning: Optimizing Continuous Prompts for Generation**. Li and Liang. ACL'21\
 Prefix-tuning: optimize a continuous prompt prefix per task, instead of discrete task prompt.\
@@ -42,7 +42,7 @@ RL to select and prune few-shot prompts.\
 Similar to Prompt-tuning: learn tok emb as instruction; can be used interleaved in thinking.\
 <https://openreview.net/forum?id=RWjEf9PdiJ>
 
-##### Context Compression: preserving general LM context
+#### Context Compression: preserving general LM context
 
 Also see the [post](https://lxu-nlp.github.io/posts/work-on-agent-memory/#latent-organization-w-training) on latent agentic memory.
 
@@ -98,9 +98,9 @@ Stage 2: frozen document compressor; learn a query compressor and generator, joi
 <https://arxiv.org/abs/2511.18659>
 
 
-## Unsupervised Compression
+## Unsupervised KV-Based Compression
 
-## Test-time Context Pruning: Hard Drop Non-Salient Tokens
+#### Test-time Context Pruning: Hard Drop Non-Salient Tokens
 
 **Compressing Context to Enhance Inference Efficiency of Large Language Models**. Li et al. EMNLP'23\
 Finding: dropping tokens with high likelihood (less informative) could obtain similar generation quality.\
@@ -111,7 +111,7 @@ Finding: dropping tokens with high likelihood (less informative) could obtain si
 Use a pretrained model to get token likelihood to: 1) filter out noisy corpus; 2) enable loss only on hard tokens for more pretraining.\
 <https://openreview.net/forum?id=0NMzBwqaAJ>
 
-## Test-time Cache Pruning: Drop Cache per Head/Layer
+#### Test-time Cache Pruning: Drop Cache per Head/Layer
 
 **Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned**. Voita et al. ACL'19\
 Hard-gate on attention heads, regularizing to closing gate.\
@@ -176,7 +176,7 @@ Make key cache selection learnable in grpo (same reward).\
 **The Spike, the Sparse and the Sink: Anatomy of Massive Activations and Attention Sinks**. Sun et al. 2026\
 <https://arxiv.org/abs/2603.05498>
 
-## Cache Merging
+#### Cache Merging
 
 **MiniCache: KV Cache Compression in Depth Dimension for Large Language Models**. Liu et al. 2024\
 <https://arxiv.org/abs/2405.14366>
@@ -188,7 +188,16 @@ Sublinear KV cache: whether to append the current key and value representations 
 **COMI: Coarse-to-fine Context Compression via Marginal Information Gain**. Tang et al. ICLR'26\
 <https://openreview.net/forum?id=OGDIXDfaN4>
 
-## Efficient Cache
+## KV-Cache Reuse
+
+Utilize independent KV cache blocks (e.g. each document) in one context, resolving dependency.
+
+**KVLink: Accelerating Large Language Models via Efficient KV Cache Reuse**. Yang et al. NIPS'25\
+Append special tokens for each doc, which encodes all preceding context (anchor of cross-dependency).\
+A small forward pass is needed for special tokens with custom attention.\
+<https://openreview.net/forum?id=oDcAGSXZZP>
+
+## Efficient Cache/Attention
 
 **Augmenting Language Models with Long-Term Memory**. Wang et al. NIPS'23\
 <https://arxiv.org/pdf/2306.07174>
