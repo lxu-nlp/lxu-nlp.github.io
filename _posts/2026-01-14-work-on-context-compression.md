@@ -30,14 +30,6 @@ Compress **instructions** within LLM (**objective: specific tasks**): instructio
 Training: simply mask out instruction after GIST.\
 <https://arxiv.org/abs/2304.08467>
 
-**LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression**. Pan et al. ACL Findings'24\
-Use GPT annotation to train a small token classifier on whether to retain.\
-<https://aclanthology.org/2024.findings-acl.57>
-
-**Fewer is More: Boosting Math Reasoning with Reinforced Context Pruning**. Huang et al. EMNLP'24\
-RL to select and prune few-shot prompts.\
-<https://aclanthology.org/2024.emnlp-main.758/>
-
 **TokMem: One-Token Procedural Memory for Large Language Models**. Wu et al. ICLR'26\
 Similar to Prompt-tuning: learn tok emb as instruction; can be used interleaved in thinking.\
 <https://openreview.net/forum?id=RWjEf9PdiJ>
@@ -87,16 +79,25 @@ Pretraining (LM) + finetuning.\
 Similar to ICAE, trained with multiple granularity? (unclear written)\
 <https://aclanthology.org/2025.findings-emnlp.1307>
 
-**Long Context Compression with Activation Beacon**. Zhang et al. ICLR'25\
-Online, interleaved gist token compression (new QKV).\
-Pretraining (LM) + finetuning.\
-<https://openreview.net/forum?id=1eQT9OzfNQ>
+**Autoencoding-Free Context Compression for LLMs via Contextual Semantic Anchors**. Liu et al. ICLR'26\
+Similar to 500xCompressor, but use interleaved position for compression rather than new tokens.\
+<https://openreview.net/forum?id=8Pi6Du0n7F>
 
 **CLaRa: Bridging Retrieval and Generation with Continuous Latent Reasoning**. He et al. 2026\
 Stage 1: similar to PISCO.\
 Stage 2: frozen document compressor; learn a query compressor and generator, jointly train top-k retrieval and generation.\
 <https://arxiv.org/abs/2511.18659>
 
+#### Online Context Compression
+
+**Long Context Compression with Activation Beacon**. Zhang et al. ICLR'25\
+Online, interleaved gist token compression (new QKV).\
+Pretraining (LM) + finetuning.\
+<https://openreview.net/forum?id=1eQT9OzfNQ>
+
+**OSCAR: Online Soft Compression for RAG**. Louis et al. ICLR'26\
+Online query-dependent compression using small model. Train similar to PISCO, adding a reranking objective as well.\
+<https://openreview.net/forum?id=ideKAUWvFE>
 
 ## Unsupervised KV-Based Compression
 
@@ -106,6 +107,14 @@ Stage 2: frozen document compressor; learn a query compressor and generator, joi
 Finding: dropping tokens with high likelihood (less informative) could obtain similar generation quality.\
 (no training; need full forward once)\
 <https://aclanthology.org/2023.emnlp-main.391>
+
+**LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression**. Pan et al. ACL Findings'24\
+Use GPT annotation to train a small token classifier on whether to retain.\
+<https://aclanthology.org/2024.findings-acl.57>
+
+**Fewer is More: Boosting Math Reasoning with Reinforced Context Pruning**. Huang et al. EMNLP'24\
+RL to select and prune few-shot prompts.\
+<https://aclanthology.org/2024.emnlp-main.758/>
 
 **Not All Tokens Are What You Need for Pretraining**. Lin et al. NIPS'24\
 Use a pretrained model to get token likelihood to: 1) filter out noisy corpus; 2) enable loss only on hard tokens for more pretraining.\
@@ -173,6 +182,9 @@ Scoring: attention weight; selection by top.\
 Make key cache selection learnable in grpo (same reward).\
 <https://arxiv.org/abs/2604.18002>
 
+**Attention Sinks and Compression Valleys in LLMs are Two Sides of the Same Coin**. Enrique  et al. ICLR'26\
+<https://openreview.net/forum?id=c5TFhCJ6fs>
+
 **The Spike, the Sparse and the Sink: Anatomy of Massive Activations and Attention Sinks**. Sun et al. 2026\
 <https://arxiv.org/abs/2603.05498>
 
@@ -192,8 +204,12 @@ Sublinear KV cache: whether to append the current key and value representations 
 
 Utilize independent KV cache blocks (e.g. each document) in one context, resolving dependency.
 
+**TurboRAG: Accelerating Retrieval-Augmented Generation with Precomputed KV Caches for Chunked Text**. Lu et al. EMNLP'25\
+(i) re-order position embedding in KV; (ii) finetune with the same format as test (independent attention blocks), without addressing cross-dependency.\
+<https://aclanthology.org/2025.emnlp-main.334>
+
 **KVLink: Accelerating Large Language Models via Efficient KV Cache Reuse**. Yang et al. NIPS'25\
-Append special tokens for each doc, which encodes all preceding context (anchor of cross-dependency).\
+Append special tokens for each doc, which encodes all preceding context (anchor to address cross-dependency). Also re-order position embedding.\
 A small forward pass is needed for special tokens with custom attention.\
 <https://openreview.net/forum?id=oDcAGSXZZP>
 

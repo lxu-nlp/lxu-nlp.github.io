@@ -117,13 +117,21 @@ Expected: 20\% tokens are high entropy, which usually decide reasoning path and 
 Quantify the information gain at each reasoning step.\
 <https://openreview.net/forum?id=IjOWms0hrf>
 
-**Forking Paths in Neural Text Generation**. Bigelow et al. ICLR'25\
-Identify critical tokens that significantly impact subsequent generation.\
-<https://openreview.net/forum?id=8RCmNLeeXx>
+**Label Words are Anchors: An Information Flow Perspective for Understanding In-Context Learning**. Wang et al. EMNLP'24\
+Analysis by attention-based saliency: labels are anchors in ICL.\
+<https://aclanthology.org/2023.emnlp-main.609>
 
 **Enhancing Chain-of-Thought Reasoning with Critical Representation Fine-tuning**. Huang et al. ACL'25\
 Use information flow to identify critical positions to finetune.\
 <https://aclanthology.org/2025.acl-long.1129>
+
+**Revisiting Long-context Modeling from Context Denoising Perspective**. Tang et al. ICLR'26\
+Use information flow to identify critical positions; denoise irrelevant token in training.\
+<https://openreview.net/forum?id=xvGyyh6MG7>
+
+**Forking Paths in Neural Text Generation**. Bigelow et al. ICLR'25\
+Identify critical tokens that significantly impact subsequent generation.\
+<https://openreview.net/forum?id=8RCmNLeeXx>
 
 **Do LLMs Encode Functional Importance of Reasoning Tokens?**. Singh and Hakkani. 2025\
 Token-level sequential pruning that preserves reasoning likelihood.\
@@ -250,10 +258,6 @@ Theoretical: larger model learns more features but is more prone to noises.\
 Good related work.\
 <https://openreview.net/forum?id=WOa96EG26M>
 
-**Label Words are Anchors: An Information Flow Perspective for Understanding In-Context Learning**. Wang et al. EMNLP'24\
-Analysis by attention-based saliency: labels are anchors in ICL.\
-<https://aclanthology.org/2023.emnlp-main.609>
-
 **Why In-Context Learning Models are Good Few-Shot Learners?**. Wu et al. ICLR'25\
 Theoretical: ICL functions as a new learning algorithm.\
 <https://openreview.net/forum?id=iLUcsecZJp>
@@ -328,6 +332,14 @@ Othello GPT: probe board state.\
 
 **From Tokens to Thoughts: How LLMs and Humans Trade Compression for Meaning**. Shani et al. 2025\
 <https://arxiv.org/abs/2505.17117>
+
+
+## Model Compression
+
+**When Reasoning Meets Compression: Understanding the Effects of LLMs Compression on Large Reasoning Models**. Zhang et al. ICLR'26\
+Comparing: 1) quantization; 2) distillation; 3) pruning.\
+(1) Weight count impacts knowledge memorization more than reasoning, revealing the risks of pruning and distillation; (2) final-layer MLP up projection is critical in distilled LRMs; (3) current quantization over-compress final-layer modules and MLP gate projections.\
+<https://openreview.net/forum?id=2za3iNkwXn>
 
 
 ## Others

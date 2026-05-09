@@ -257,6 +257,10 @@ Evaluate representation by different dimensions, e.g. information compression, s
 Intermediate layers can encode even richer representation, balancing these two aspects.\
 <https://openreview.net/forum?id=WGXb7UdvTX>
 
+**From Tokens to Thoughts: How LLMs and Humans Trade Compression for Meaning**. Chen et al. ICLR'26\
+Higher layers encode sparsely for efficiency, but loses fine-grained semantics.\
+<https://openreview.net/forum?id=rkthPeHvAX>
+
 **Ditto: A Simple and Efficient Approach to Improve Sentence Embeddings**. Chen et al. EMNLP'23\
 Weighted token hidden state by pooling attention scores of different layers.\
 <https://aclanthology.org/2023.emnlp-main.359>
