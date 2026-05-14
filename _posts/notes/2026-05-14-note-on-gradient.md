@@ -25,17 +25,17 @@ math: true
 
 如果：
 
-\[
+$$
 y = f(x), \quad L = g(y)
-\]
+$$
 
 那么：
 
-\[
+$$
 \frac{dL}{dx}
 =
 \frac{dL}{dy}\frac{dy}{dx}
-\]
+$$
 
 也就是：**上游梯度 upstream gradient** 乘以当前函数的 **局部导数 local derivative**。
 
@@ -43,18 +43,18 @@ y = f(x), \quad L = g(y)
 
 如果：
 
-\[
+$$
 y = f(x_1, x_2, \ldots, x_n), \quad L = g(y)
-\]
+$$
 
 那么每个输入变量都有自己的梯度：
 
-\[
+$$
 \frac{\partial L}{\partial x_i}
 =
 \frac{\partial L}{\partial y}
 \frac{\partial y}{\partial x_i}
-\]
+$$
 
 如果 `x` 和 `y` 都是向量，严格写法会涉及 Jacobian。实际 deep learning 框架一般不会显式构造完整 Jacobian，而是直接计算 **vector-Jacobian product (VJP)**：给定上游梯度 `dy`，直接算出 `dx`。
 
@@ -66,9 +66,9 @@ y = f(x_1, x_2, \ldots, x_n), \quad L = g(y)
 
 考虑一个通用 module：
 
-\[
+$$
 y = f(x, \theta)
-\]
+$$
 
 其中：
 
@@ -78,21 +78,21 @@ y = f(x, \theta)
 
 当 backward 到达这个 module 时，后面的 module 已经传来了：
 
-\[
+$$
 dy = \frac{\partial L}{\partial y}
-\]
+$$
 
 当前 module backward 通常会产生两类梯度：
 
-\[
+$$
 d\theta = \frac{\partial L}{\partial \theta}
-\]
+$$
 
 和：
 
-\[
+$$
 dx = \frac{\partial L}{\partial x}
-\]
+$$
 
 它们是两条不同目的的路径。
 
@@ -104,23 +104,23 @@ dx = \frac{\partial L}{\partial x}
 
 如果 `theta` trainable，则需要：
 
-\[
+$$
 d\theta
-\]
+$$
 
 如果 `theta` frozen，则不需要。
 
 例如 linear：
 
-\[
+$$
 y = xW
-\]
+$$
 
 如果 `W` trainable：
 
-\[
+$$
 dW = x^\top dy
-\]
+$$
 
 这个 `dW` 才会交给 optimizer。
 
@@ -138,19 +138,19 @@ dW = x^\top dy
 
 如果 `x` 前面还有 trainable 参数，就必须计算：
 
-\[
+$$
 dx = \frac{\partial L}{\partial x}
-\]
+$$
 
 否则梯度链断掉，前面的参数收不到学习信号。
 
 对当前 module 来说，`dx` 是 input gradient；对前一个 module 来说，这个同一个 `dx` 就是它收到的 upstream gradient。
 
-\[
+$$
 \text{current module input gradient}
 =
 \text{previous module upstream gradient}
-\]
+$$
 
 所以 input-gradient path 的直觉是：
 
@@ -172,15 +172,15 @@ dx = \frac{\partial L}{\partial x}
 
 对于 pure linear：
 
-\[
+$$
 y = xW
-\]
+$$
 
 input-gradient backward 是：
 
-\[
+$$
 dx = dy W^\top
-\]
+$$
 
 这一步主要用：
 
@@ -191,9 +191,9 @@ dx = dy W^\top
 
 所以如果 `W` frozen，并且不算：
 
-\[
+$$
 dW = x^\top dy
-\]
+$$
 
 那么 `x` 不需要为了这个 frozen linear 被保存。
 
@@ -243,23 +243,23 @@ loss.backward()
 
 PyTorch 从 loss 开始，初始梯度是：
 
-\[
+$$
 \frac{\partial L}{\partial L} = 1
-\]
+$$
 
 然后沿计算图反向传播。每个 node 收到自己的 upstream gradient，执行本地 backward rule，返回它每个输入的 gradient。
 
 对一个 op：
 
-\[
+$$
 y = f(x, \theta)
-\]
+$$
 
 它的 backward 可能返回：
 
-\[
+$$
 dx, d\theta
-\]
+$$
 
 其中：
 
@@ -278,17 +278,17 @@ W.requires_grad_(False)
 
 那么 PyTorch 不会为它累积：
 
-\[
+$$
 dW
-\]
+$$
 
 也不会为 optimizer 保存它的 optimizer states。
 
 但是，如果这个 op 的 input 仍然需要 gradient，例如前面还有 LoRA / embedding / trainable module，那么这个 op 仍然必须参与计算：
 
-\[
+$$
 dx
-\]
+$$
 
 因此 frozen weight 不等于 no backward。
 
@@ -347,45 +347,45 @@ def backward(ctx, grad_output):
 
 先看一个没有 LoRA 的两层 MLP：
 
-\[
+$$
 h_1 = xW_1
-\]
+$$
 
-\[
+$$
 a_1 = \phi(h_1)
-\]
+$$
 
-\[
+$$
 y = a_1W_2
-\]
+$$
 
-\[
+$$
 L = loss(y)
-\]
+$$
 
 假设 `W2` frozen，但 `W1` trainable。Backward 从 loss 开始：
 
-\[
+$$
 dy = \frac{\partial L}{\partial y}
-\]
+$$
 
 ### Step 1: Backward through frozen `W2`
 
-\[
+$$
 y = a_1W_2
-\]
+$$
 
 因为 `W2` frozen，不需要：
 
-\[
+$$
 dW_2 = a_1^\top dy
-\]
+$$
 
 但为了更新前面的 `W1`，必须继续传梯度：
 
-\[
+$$
 da_1 = dy W_2^\top
-\]
+$$
 
 这里的 `da1` 是 activation `a1` 的 input gradient，也是前一个 operation `phi` 收到的 upstream gradient。
 
@@ -393,15 +393,15 @@ da_1 = dy W_2^\top
 
 ### Step 2: Backward through activation
 
-\[
+$$
 a_1 = \phi(h_1)
-\]
+$$
 
 为了得到：
 
-\[
+$$
 dh_1
-\]
+$$
 
 通常需要 forward 的 `h1` 或 activation output，取决于 `phi`。
 
@@ -411,29 +411,29 @@ dh_1
 
 ### Step 3: Backward through trainable `W1`
 
-\[
+$$
 h_1 = xW_1
-\]
+$$
 
 现在 `dh1` 是这个 linear 的 upstream gradient。
 
 因为 `W1` trainable，需要：
 
-\[
+$$
 dW_1 = x^\top dh_1
-\]
+$$
 
 如果还要继续往更早层传，则还需要：
 
-\[
+$$
 dx = dh_1 W_1^\top
-\]
+$$
 
 这个例子说明：
 
-\[
+$$
 dy \rightarrow da_1 \rightarrow dh_1 \rightarrow dW_1
-\]
+$$
 
 其中 `W2` 是否 frozen 只影响 `dW2` 是否计算；只要 `W1` 还要训练，`dy -> da1 -> dh1` 这条 input-gradient chain 仍然必须存在。
 
@@ -445,9 +445,9 @@ dy \rightarrow da_1 \rightarrow dh_1 \rightarrow dW_1
 
 LoRA projection 写成：
 
-\[
+$$
 y = xW_0 + s xAB
-\]
+$$
 
 其中：
 
@@ -457,57 +457,57 @@ y = xW_0 + s xAB
 
 定义 bottleneck：
 
-\[
+$$
 z = xA
-\]
+$$
 
 则：
 
-\[
+$$
 y = xW_0 + s zB
-\]
+$$
 
 给定上游梯度：
 
-\[
+$$
 dy = \frac{\partial L}{\partial y}
-\]
+$$
 
 LoRA backward 需要计算 LoRA 参数梯度：
 
-\[
+$$
 dB = s z^\top dy
-\]
+$$
 
 所以 backward 需要 forward 的：
 
-\[
+$$
 z = xA
-\]
+$$
 
 又因为：
 
-\[
+$$
 dA = s x^\top dy B^\top
-\]
+$$
 
 所以 backward 需要 forward 的：
 
-\[
+$$
 x
-\]
+$$
 
 同时，为了把梯度传给更早的 module，还需要 input gradient：
 
-\[
+$$
 dx = dy W_0^\top + s dy B^\top A^\top
-\]
+$$
 
 这个 `dx` 不是为了更新 `W0`，而是为了让更早层的 LoRA / embedding / trainable module 收到梯度。
 
 在后面的第 `k` 层 walkthrough 中，它对应这条链：
 
-\[
+$$
 dK_k,dV_k
 \rightarrow
  dx_k^K,dx_k^V
@@ -517,15 +517,15 @@ dK_k,dV_k
  dh_{k-1}
 \rightarrow
  \text{lower-layer LoRA gradients}
-\]
+$$
 
 > **Key insight: in LoRA finetuning, `dx` is the bridge that lets an upper layer's loss signal reach lower-layer LoRA adapters. Without input gradients through frozen blocks, only the topmost trainable modules could learn.**
 
 对 frozen base weight：
 
-\[
+$$
 dW_0 = x^\top dy
-\]
+$$
 
 不需要计算。
 
@@ -539,67 +539,67 @@ dW_0 = x^\top dy
 
 设第 `k` 层 attention 输入为：
 
-\[
+$$
 h_{k-1}
-\]
+$$
 
 Attention norm 后：
 
-\[
+$$
 x_k = LN^{attn}_k(h_{k-1})
-\]
+$$
 
 Q 是 frozen projection：
 
-\[
+$$
 Q_k = x_k W^Q_k
-\]
+$$
 
 K/V 是 LoRA projection：
 
-\[
+$$
 K_k = x_k W^K_{0,k} + s x_k A^K_k B^K_k
-\]
+$$
 
-\[
+$$
 V_k = x_k W^V_{0,k} + s x_k A^V_k B^V_k
-\]
+$$
 
 定义：
 
-\[
+$$
 Z^K_k = x_k A^K_k
-\]
+$$
 
-\[
+$$
 Z^V_k = x_k A^V_k
-\]
+$$
 
 Attention：
 
-\[
+$$
 S_k = Q_k K_k^\top / \sqrt{d_h}
-\]
+$$
 
-\[
+$$
 P_k = softmax(S_k)
-\]
+$$
 
-\[
+$$
 C_k = P_k V_k
-\]
+$$
 
 Output projection frozen：
 
-\[
+$$
 O_k = C_k W^O_k
-\]
+$$
 
 然后经过 residual、MLP，得到：
 
-\[
+$$
 h_k
-\]
+$$
 
 下面从 backward 开始推。
 
@@ -609,9 +609,9 @@ h_k
 
 假设从第 `k+1` 层或 loss 传来了：
 
-\[
+$$
 dh_k
-\]
+$$
 
 目标是：
 
@@ -624,19 +624,19 @@ dh_k
 
 如果：
 
-\[
+$$
 h_k = u_k + f_k
-\]
+$$
 
 Backward：
 
-\[
+$$
 du_k \mathrel{+}= dh_k
-\]
+$$
 
-\[
+$$
 df_k = dh_k
-\]
+$$
 
 Residual add 只是分流梯度，不需要额外大 activation。
 
@@ -646,39 +646,39 @@ Residual add 只是分流梯度，不需要额外大 activation。
 
 MLP 参数 frozen，但 backward 仍要从：
 
-\[
+$$
 df_k
-\]
+$$
 
 得到：
 
-\[
+$$
 dm_k
-\]
+$$
 
 因为还要继续往前产生：
 
-\[
+$$
 dh_{k-1}
-\]
+$$
 
 如果 MLP 是 SwiGLU：
 
-\[
+$$
 a_k = m_k W^{up}_k
-\]
+$$
 
-\[
+$$
 g_k = m_k W^{gate}_k
-\]
+$$
 
-\[
+$$
 r_k = silu(g_k) \odot a_k
-\]
+$$
 
-\[
+$$
 f_k = r_k W^{down}_k
-\]
+$$
 
 Backward 中：
 
@@ -699,21 +699,21 @@ Backward 中：
 
 若：
 
-\[
+$$
 m_k = LN^{mlp}_k(u_k)
-\]
+$$
 
 Backward 要从：
 
-\[
+$$
 dm_k
-\]
+$$
 
 得到：
 
-\[
+$$
 du_k^{mlp}
-\]
+$$
 
 LayerNorm / RMSNorm 的 input-gradient 依赖 forward stats，例如 mean/variance/rms 或 normalized output。
 
@@ -728,19 +728,19 @@ LayerNorm / RMSNorm 的 input-gradient 依赖 forward stats，例如 mean/varian
 
 若：
 
-\[
+$$
 u_k = h_{k-1} + O_k
-\]
+$$
 
 Backward：
 
-\[
+$$
 dh_{k-1}^{residual} \mathrel{+}= du_k
-\]
+$$
 
-\[
+$$
 dO_k = du_k
-\]
+$$
 
 Residual add 不需要额外 cache。
 
@@ -748,23 +748,23 @@ Residual add 不需要额外 cache。
 
 ### Step 5: Frozen output projection
 
-\[
+$$
 O_k = C_k W^O_k
-\]
+$$
 
 Backward 为了继续传梯度，只需要：
 
-\[
+$$
 dC_k = dO_k (W^O_k)^\top
-\]
+$$
 
 这一步不需要 forward 的 `C_k`。
 
 只有要算：
 
-\[
+$$
 dW^O_k = C_k^\top dO_k
-\]
+$$
 
 才需要 `C_k`。
 
@@ -779,19 +779,19 @@ dW^O_k = C_k^\top dO_k
 
 ### Step 6: Attention output
 
-\[
+$$
 C_k = P_k V_k
-\]
+$$
 
 Backward：
 
-\[
+$$
 dP_k = dC_k V_k^\top
-\]
+$$
 
-\[
+$$
 dV_k^{attn} = P_k^\top dC_k
-\]
+$$
 
 因此反推出：
 
@@ -800,9 +800,9 @@ dV_k^{attn} = P_k^\top dC_k
 
 如果是 naive attention，可能保留完整：
 
-\[
+$$
 P_k \in \mathbb{R}^{B \times n_h \times T \times T}
-\]
+$$
 
 如果是 FlashAttention，则通常保留 compact stats，并在 backward 中重算局部 attention probabilities。
 
@@ -810,9 +810,9 @@ P_k \in \mathbb{R}^{B \times n_h \times T \times T}
 
 ### Step 7: Softmax
 
-\[
+$$
 P_k = softmax(S_k)
-\]
+$$
 
 Softmax backward 需要 `P_k` 或等价统计量。
 
@@ -825,19 +825,19 @@ Softmax backward 需要 `P_k` 或等价统计量。
 
 ### Step 8: Attention score
 
-\[
+$$
 S_k = Q_k K_k^\top / \sqrt{d_h}
-\]
+$$
 
 Backward：
 
-\[
+$$
 dQ_k = dS_k K_k / \sqrt{d_h}
-\]
+$$
 
-\[
+$$
 dK_k^{attn} = dS_k^\top Q_k / \sqrt{d_h}
-\]
+$$
 
 因此反推出：
 
@@ -850,21 +850,21 @@ dK_k^{attn} = dS_k^\top Q_k / \sqrt{d_h}
 
 ### Step 9: Frozen Q projection
 
-\[
+$$
 Q_k = x_k W^Q_k
-\]
+$$
 
 Backward：
 
-\[
+$$
 dx_k^Q = dQ_k (W^Q_k)^\top
-\]
+$$
 
 因为 `W^Q_k` frozen，不算：
 
-\[
+$$
 dW^Q_k = x_k^\top dQ_k
-\]
+$$
 
 因此反推出：
 
@@ -878,31 +878,31 @@ dW^Q_k = x_k^\top dQ_k
 
 ### Step 10: K-LoRA
 
-\[
+$$
 K_k = x_k W^K_{0,k} + s Z^K_k B^K_k
-\]
+$$
 
-\[
+$$
 Z^K_k = x_k A^K_k
-\]
+$$
 
 从 attention backward 得到：
 
-\[
+$$
 dK_k
-\]
+$$
 
 #### 10.1 Gradient for `B_K`
 
-\[
+$$
 dB^K_k = s (Z^K_k)^\top dK_k
-\]
+$$
 
 这个公式需要：
 
-\[
+$$
 Z^K_k
-\]
+$$
 
 因此反推出：
 
@@ -913,33 +913,33 @@ Z^K_k
 
 先有：
 
-\[
+$$
 dZ^K_k = s dK_k (B^K_k)^\top
-\]
+$$
 
 又因为：
 
-\[
+$$
 Z^K_k = x_k A^K_k
-\]
+$$
 
 所以：
 
-\[
+$$
 dA^K_k = x_k^\top dZ^K_k
-\]
+$$
 
 即：
 
-\[
+$$
 dA^K_k = s x_k^\top dK_k (B^K_k)^\top
-\]
+$$
 
 这个公式需要：
 
-\[
+$$
 x_k
-\]
+$$
 
 因此反推出：
 
@@ -948,15 +948,15 @@ x_k
 
 #### 10.3 Input gradient through K path
 
-\[
+$$
 dx_k^K = dK_k (W^K_{0,k})^\top + dZ^K_k (A^K_k)^\top
-\]
+$$
 
 这里需要的是参数：
 
-\[
+$$
 W^K_{0,k}, A^K_k, B^K_k
-\]
+$$
 
 不额外需要 forward activation。
 
@@ -964,31 +964,31 @@ W^K_{0,k}, A^K_k, B^K_k
 
 ### Step 11: V-LoRA
 
-\[
+$$
 V_k = x_k W^V_{0,k} + s Z^V_k B^V_k
-\]
+$$
 
-\[
+$$
 Z^V_k = x_k A^V_k
-\]
+$$
 
 从 attention backward 得到：
 
-\[
+$$
 dV_k
-\]
+$$
 
 #### 11.1 Gradient for `B_V`
 
-\[
+$$
 dB^V_k = s (Z^V_k)^\top dV_k
-\]
+$$
 
 需要：
 
-\[
+$$
 Z^V_k
-\]
+$$
 
 因此反推出：
 
@@ -996,15 +996,15 @@ Z^V_k
 
 #### 11.2 Gradient for `A_V`
 
-\[
+$$
 dA^V_k = s x_k^\top dV_k (B^V_k)^\top
-\]
+$$
 
 需要：
 
-\[
+$$
 x_k
-\]
+$$
 
 因此反推出：
 
@@ -1012,9 +1012,9 @@ x_k
 
 #### 11.3 Input gradient through V path
 
-\[
+$$
 dx_k^V = dV_k (W^V_{0,k})^\top + s dV_k (B^V_k)^\top (A^V_k)^\top
-\]
+$$
 
 需要的是参数，不额外需要 forward activation。
 
@@ -1024,9 +1024,9 @@ dx_k^V = dV_k (W^V_{0,k})^\top + s dV_k (B^V_k)^\top (A^V_k)^\top
 
 现在有三路：
 
-\[
+$$
 dx_k = dx_k^Q + dx_k^K + dx_k^V
-\]
+$$
 
 这个 `dx_k` 是 attention norm 的 upstream gradient。
 
@@ -1036,21 +1036,21 @@ dx_k = dx_k^Q + dx_k^K + dx_k^V
 
 ### Step 13: Attention norm
 
-\[
+$$
 x_k = LN^{attn}_k(h_{k-1})
-\]
+$$
 
 Backward 要从：
 
-\[
+$$
 dx_k
-\]
+$$
 
 得到：
 
-\[
+$$
 dh_{k-1}^{attn}
-\]
+$$
 
 LayerNorm input-gradient 需要 forward stats / input 等价信息。
 
@@ -1061,13 +1061,13 @@ LayerNorm input-gradient 需要 forward stats / input 等价信息。
 
 最终：
 
-\[
+$$
 dh_{k-1}
 =
  dh_{k-1}^{residual}
 +
  dh_{k-1}^{attn}
-\]
+$$
 
 第 `k` 层 backward 完成。这个 `dh_{k-1}` 会成为第 `k-1` 层 backward 的 upstream gradient。
 
@@ -1079,53 +1079,53 @@ dh_{k-1}
 
 K-LoRA：
 
-\[
+$$
 dA^K_k = s x_k^\top dK_k (B^K_k)^\top
-\]
+$$
 
 requires:
 
-\[
+$$
 x_k
-\]
+$$
 
-\[
+$$
 dB^K_k = s (Z^K_k)^\top dK_k
-\]
+$$
 
 requires:
 
-\[
+$$
 Z^K_k
-\]
+$$
 
 V-LoRA 同理，需要：
 
-\[
+$$
 x_k, Z^V_k
-\]
+$$
 
 因此 K/V LoRA 至少要求 forward 保留：
 
-\[
+$$
 x_k, Z^K_k, Z^V_k
-\]
+$$
 
 ### 7.2 Kept for attention input gradients
 
 Attention backward 需要：
 
-\[
+$$
 V_k, P_k, Q_k, K_k
-\]
+$$
 
 或 FlashAttention-style compact stats + recomputation。
 
 这些是为了从 `dC_k` 得到：
 
-\[
+$$
 dQ_k,dK_k,dV_k
-\]
+$$
 
 再继续传到 LoRA 和更低层。
 
@@ -1137,9 +1137,9 @@ GELU / SwiGLU backward 需要 pre-activation 或等价 activation。
 
 这些不是为了更新 frozen 参数，而是为了继续传：
 
-\[
+$$
 dh_k \rightarrow dh_{k-1}
-\]
+$$
 
 ### 7.4 Can be skipped
 
@@ -1147,15 +1147,15 @@ Frozen linear 的 weight-gradient input cache 可以省。
 
 例如：
 
-\[
+$$
 dW^Q_k = x_k^\top dQ_k
-\]
+$$
 
 不需要算，因为 `W_Q` frozen。
 
-\[
+$$
 dW^O_k = C_k^\top dO_k
-\]
+$$
 
 不需要算，因为 `W_O` frozen。
 
