@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Optimization Basics"
+title: "Notes on Optimization"
 date: 2023-06-29
-categories: [Basics]
+categories: [Notes]
 tags: [optimization, ML]
 math: true
 ---

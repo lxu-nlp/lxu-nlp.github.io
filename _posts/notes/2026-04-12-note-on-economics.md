@@ -2,15 +2,15 @@
 layout: post
 title: "Notes on Economics"
 date: 2026-04-12
-categories: [economics]
+categories: [Notes]
 tags: [economics]
 math: true
-published: false
+hidden: true
 ---
 
 # 投资与宏观底层原理整理
 
-> 这版只保留主线，不追求铺满细节。目标是先把最重要的因果关系钉住：**价格如何形成、资产如何定价、宏观变量如何传导。**
+> 把最重要的因果关系钉住：**价格如何形成、资产如何定价、宏观变量如何传导。**
 
 ---
 

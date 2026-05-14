@@ -2,7 +2,7 @@
 layout: post
 title: "Notes on Uncertainty Estimation"
 date: 2022-03-09
-categories: [Basics]
+categories: [ML]
 tags: [uncertainty, bayes]
 math: true
 ---

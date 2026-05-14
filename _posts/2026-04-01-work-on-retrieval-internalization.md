@@ -2,7 +2,7 @@
 layout: post
 title: "Works on Retrieval Internalization"
 date: 2026-04-01
-categories: [nlp]
+categories: [NLP]
 tags: [nlp, LLM, retrieval]
 math: true
 ---

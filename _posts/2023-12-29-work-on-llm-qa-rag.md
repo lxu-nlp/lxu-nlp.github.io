@@ -129,7 +129,7 @@ Graph-based + page rank for related node/edge expansion.\
 
 # Method: Agent
 
-Also see the separate Agent and Memory post.
+Also see the [post](https://lxu-nlp.github.io/posts/work-on-agent-memory/) on agent memory.
 
 **A Human-Inspired Reading Agent with Gist Memory of Very Long Contexts**. Lee et al. 2024\
 Use LLM to select which segments to read and when to stop (on linear segment summaries).\
@@ -148,6 +148,10 @@ Use LLM: one leader for decision making and several members for discussion.\
 
 **Coding Agents are Effective Long-Context Processors**. Cao et al. 2026\
 <https://arxiv.org/abs/2603.20432>
+
+**MemAgent: Reshaping Long-Context LLM with Multi-Conv RL-based Memory Agent**. Yu et al. ICLR'26\
+Read long context by maintaining fixed-length memory (RL-trained).\
+<https://openreview.net/forum?id=k5nIOvYGCL>
 
 # Method: Explicit In-Context Retrieval
 

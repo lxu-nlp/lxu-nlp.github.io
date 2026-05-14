@@ -83,6 +83,13 @@ Similar to ICAE, trained with multiple granularity? (unclear written)\
 Similar to 500xCompressor, but use interleaved position for compression rather than new tokens.\
 <https://openreview.net/forum?id=8Pi6Du0n7F>
 
+**R3Mem: Bridging Memory Retention and Retrieval via Reversible Compression**. Wang et al. ACL Findings'25\
+<https://aclanthology.org/2025.findings-acl.235>
+
+**M+: Extending MemoryLLM with Scalable Long-Term Memory**. Wang et al. ICML'25\
+ICAE setup + making memory hidden states retrievable by similarity.\
+<https://openreview.net/forum?id=OcqbkROe8J>
+
 **CLaRa: Bridging Retrieval and Generation with Continuous Latent Reasoning**. He et al. 2026\
 Stage 1: similar to PISCO.\
 Stage 2: frozen document compressor; learn a query compressor and generator, jointly train top-k retrieval and generation.\

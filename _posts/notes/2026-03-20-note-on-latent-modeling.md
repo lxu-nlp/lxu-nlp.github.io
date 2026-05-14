@@ -2,7 +2,7 @@
 layout: post
 title: "Notes on Latent Modeling, EM and VAE"
 date: 2026-03-20
-categories: [Basics]
+categories: [Notes]
 tags: [bayes, latent]
 math: true
 ---

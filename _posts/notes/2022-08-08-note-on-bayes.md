@@ -2,7 +2,7 @@
 layout: post
 title: "Notes on Bayes Basics"
 date: 2022-08-08
-categories: [Basics]
+categories: [Notes]
 tags: [bayes]
 math: true
 ---

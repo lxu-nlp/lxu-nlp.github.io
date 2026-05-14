@@ -2,10 +2,10 @@
 layout: post
 title: "Notes on Stock Options"
 date: 2026-05-11
-categories: [economics]
+categories: [Notes]
 tags: [economics, finance, stock]
 math: true
-published: false
+hidden: true
 ---
 
 # 金融策略 Study Notes：从期权基础（Options Basics）到市场场景玩法（Market Regime Playbook）

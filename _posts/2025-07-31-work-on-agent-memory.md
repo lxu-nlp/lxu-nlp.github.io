@@ -53,12 +53,16 @@ Link across notes: select top-k notes to generate relations.\
 ### Explicit Organization (w/ Training)
 
 **The Pensieve Paradigm: Stateful Language Models Mastering Their Own Context**. Liu et al. ICLR'26\
-Learn tool-use regarding context management (build index, take notes), along with learning context pruning.\
+StateLM: learn tool-use regarding context management (build index, take notes), along with learning context pruning.\
 <https://openreview.net/forum?id=GymjF88oGQ>
 
 **Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning**. Yan et al. 2025\
 Similar to StateLM.\
 <https://arxiv.org/abs/2508.19828>
+
+**MemAgent: Reshaping Long-Context LLM with Multi-Conv RL-based Memory Agent**. Yu et al. ICLR'26\
+Read long context by maintaining fixed-length memory (RL-trained).\
+<https://openreview.net/forum?id=k5nIOvYGCL>
 
 ### Latent Organization (w/ Training)
 
