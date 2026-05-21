@@ -9,7 +9,7 @@ math: true
 
 ## Supervised Compression
 
-#### Task/Prompt Compression: task-specific training
+### Task/Prompt Compression: task-specific training
 
 **Prefix-Tuning: Optimizing Continuous Prompts for Generation**. Li and Liang. ACL'21\
 Prefix-tuning: optimize a continuous prompt prefix per task, instead of discrete task prompt.\
@@ -34,9 +34,11 @@ Training: simply mask out instruction after GIST.\
 Similar to Prompt-tuning: learn tok emb as instruction; can be used interleaved in thinking.\
 <https://openreview.net/forum?id=RWjEf9PdiJ>
 
-#### Context Compression: preserving general LM context
+### Context Compression: preserving general LM context
 
 Also see the [post](https://lxu-nlp.github.io/posts/work-on-agent-memory/#latent-organization-w-training) on latent agentic memory.
+
+#### Hidden States as Memory (Appending Gist)
 
 **Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
 AutoCompressor: compress **input context** recursively (**objective: general LM**).\
@@ -51,15 +53,6 @@ Pretraining (reconstruction + LM) + finetuning.\
 **Context Embeddings for Efficient Answer Generation in Retrieval-Augmented Generation**. Rau et al. WSDM'25\
 COCOM: same as ICAE.\
 <https://dl.acm.org/doi/10.1145/3701551.3703527>
-
-**500xCompressor: Generalized Prompt Compression for Large Language Models**. Li et al. ACL'25\
-Same as ICAE, but using KV cache instead of hidden states.\
-<https://aclanthology.org/2025.acl-long.1219>
-
-**xRAG: Extreme Context Compression for Retrieval-augmented Generation with One Token**. Cheng et al. NIPS'24\
-Modality alignment: embedding -> LM. Learn to utilize given embedding for generation.\
-Pretraining (reconstruction for alignment) + distillation + task finetuning.  But reconstruction < finetuning (including self-distillation).\
-<https://openreview.net/forum?id=6pTlXqrO0p>
 
 **PISCO: Pretty Simple Compression for Retrieval-Augmented Generation**. Louis et al. ACL Findings'25\
 Similar to ICAE.\
@@ -79,10 +72,6 @@ Pretraining (LM) + finetuning.\
 Similar to ICAE, trained with multiple granularity? (unclear written)\
 <https://aclanthology.org/2025.findings-emnlp.1307>
 
-**Autoencoding-Free Context Compression for LLMs via Contextual Semantic Anchors**. Liu et al. ICLR'26\
-Similar to 500xCompressor, but use interleaved position for compression rather than new tokens.\
-<https://openreview.net/forum?id=8Pi6Du0n7F>
-
 **R3Mem: Bridging Memory Retention and Retrieval via Reversible Compression**. Wang et al. ACL Findings'25\
 <https://aclanthology.org/2025.findings-acl.235>
 
@@ -90,25 +79,62 @@ Similar to 500xCompressor, but use interleaved position for compression rather t
 ICAE setup + making memory hidden states retrievable by similarity.\
 <https://openreview.net/forum?id=OcqbkROe8J>
 
-**CLaRa: Bridging Retrieval and Generation with Continuous Latent Reasoning**. He et al. 2026\
-Stage 1: similar to PISCO.\
-Stage 2: frozen document compressor; learn a query compressor and generator, jointly train top-k retrieval and generation.\
-<https://arxiv.org/abs/2511.18659>
+#### KV-Cache as Memory (Appending Gist)
 
-#### Online Context Compression
+**500xCompressor: Generalized Prompt Compression for Large Language Models**. Li et al. ACL'25\
+Same as ICAE, but using KV cache instead of hidden states.\
+<https://aclanthology.org/2025.acl-long.1219>
+
+#### Hidden States as Memory (Interleaved Gist)
+
+**Autoencoding-Free Context Compression for LLMs via Contextual Semantic Anchors**. Liu et al. ICLR'26\
+SAC: similar to 500xCompressor, but use interleaved position for compression rather than new tokens.\
+<https://openreview.net/forum?id=8Pi6Du0n7F>
+
+#### KV-Cache as Memory (Interleaved Gist)
+
+**UniGist: Towards General and Hardware-aligned Sequence-level Long Context Compression**. Deng et al. NIPS'25\
+Finding: weak cross-chunk attention interaction for gist tokens (mostly attending to local chunk).\
+Remedy: adjust attention to boost cross-chunk.\
+<https://openreview.net/forum?id=1C4mXyh31p>
+
+**A Silver Bullet or a Compromise for Full Attention? A Comprehensive Study of Gist Token-based Context Compression**. Deng et al. ACL'25\
+(1) gist compression is no good for long reasoning\
+(2) fine-grained gist position (interleaved) is more effective than placing all at the end\
+(3) KV-cache based is more effective than hidden state based\
+(4) compression is shown fuzzy, not precise\
+Remedy: 1) add auto-encoding as aux loss; 2) weighted gist loss by its segment importance (PPL ratio)\
+<https://aclanthology.org/2025.acl-long.241>
+
+### Online Memory (Interleaved Gist)
+
+Interleaved gists support both encoding-only and generation.
 
 **Long Context Compression with Activation Beacon**. Zhang et al. ICLR'25\
 Online, interleaved gist token compression (new QKV).\
 Pretraining (LM) + finetuning.\
+Optimize the generation quality conditioned on the mixture of the compressed context and the local context.\
 <https://openreview.net/forum?id=1eQT9OzfNQ>
 
 **OSCAR: Online Soft Compression for RAG**. Louis et al. ICLR'26\
 Online query-dependent compression using small model. Train similar to PISCO, adding a reranking objective as well.\
 <https://openreview.net/forum?id=ideKAUWvFE>
 
+#### Embedding as Memory (Modality alignment)
+
+**xRAG: Extreme Context Compression for Retrieval-augmented Generation with One Token**. Cheng et al. NIPS'24\
+Modality alignment: embedding -> LM. Learn to utilize given embedding for generation.\
+Pretraining (reconstruction for alignment) + distillation + task finetuning.  But reconstruction < finetuning (including self-distillation).\
+<https://openreview.net/forum?id=6pTlXqrO0p>
+
+**CLaRa: Bridging Retrieval and Generation with Continuous Latent Reasoning**. He et al. 2026\
+Stage 1: similar to PISCO.\
+Stage 2: frozen document compressor; learn a query compressor and generator, jointly train top-k retrieval and generation.\
+<https://arxiv.org/abs/2511.18659>
+
 ## Unsupervised KV-Based Compression
 
-#### Test-time Context Pruning: Hard Drop Non-Salient Tokens
+### Test-time Context Pruning: Hard Drop Non-Salient Tokens
 
 **Compressing Context to Enhance Inference Efficiency of Large Language Models**. Li et al. EMNLP'23\
 Finding: dropping tokens with high likelihood (less informative) could obtain similar generation quality.\
@@ -127,7 +153,7 @@ RL to select and prune few-shot prompts.\
 Use a pretrained model to get token likelihood to: 1) filter out noisy corpus; 2) enable loss only on hard tokens for more pretraining.\
 <https://openreview.net/forum?id=0NMzBwqaAJ>
 
-#### Test-time Cache Pruning: Drop Cache per Head/Layer
+### Test-time Cache Pruning: Drop Cache per Head/Layer
 
 **Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned**. Voita et al. ACL'19\
 Hard-gate on attention heads, regularizing to closing gate.\
@@ -195,7 +221,7 @@ Make key cache selection learnable in grpo (same reward).\
 **The Spike, the Sparse and the Sink: Anatomy of Massive Activations and Attention Sinks**. Sun et al. 2026\
 <https://arxiv.org/abs/2603.05498>
 
-#### Cache Merging
+### Cache Merging
 
 **MiniCache: KV Cache Compression in Depth Dimension for Large Language Models**. Liu et al. 2024\
 <https://arxiv.org/abs/2405.14366>

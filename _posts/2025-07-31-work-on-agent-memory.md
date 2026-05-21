@@ -72,12 +72,16 @@ Separate long and short-term memory models to hold memory tokens; load into cont
 <https://openreview.net/forum?id=OcqbkROe8J>
 
 **MemGen: Weaving Generative Latent Memory for Self-Evolving Agents**. Zhang et al. ICLR'26\
-RL trained lora: interleave latent hidden states as experiential memory.\
+Interleave latent hidden states as experiential memory: learned trigger to determine where to insert latent memory.\
 <https://openreview.net/forum?id=vI56m4Iu4e>
 
 **Agentic Memory: Learning Unified Long-Term and Short-Term Memory Management for Large Language Model Agents**. Yu et al. 2026\
 <https://arxiv.org/abs/2601.01885>
 
+**Dynamic Long Context Reasoning over Compressed Memory via End-to-End Reinforcement Learning**. Chen et al. 2026\
+Similar to MemAgent (maintain textual working memory), but using compressed latent long term memory (interleaved gists).\
+Long term memory gist can be selected (by a binary classifier) by current state (query and working memory), and utilized in generation.\
+<https://arxiv.org/abs/2602.08382>
 
 ## Self-Evolving with Experiential Memory
 
