@@ -7,6 +7,20 @@ tags: [optimization, ML]
 math: true
 ---
 
+
+[Optimizer](https://www.cnblogs.com/guoyaohua/p/8542554.html):
+* Momentum: add previous direction to reduce oscillation
+* Adagrad/RMSprop: normalize by previous norm per parameter, to achieve adaptive LR per parameter (less frequent has higher weight, good for sparse)
+* Adam: combine Adagrad & Momentum
+
+LayerNorm & BatchNorm
+* BatchNorm: normalize on each feature across batch; normalization is sample-dependent, prone to outliners for small batch size; harder for distributed models
+* LayerNorm: normalize on single-input features; each normalization is independent
+
+[Weight decay](https://benihime91.github.io/blog/machinelearning/deeplearning/python3.x/tensorflow2.x/2020/10/08/adamW.html):
+* Instead of modify loss (e.g. L2 reg), modify update step: w = w - learning_rate * gradients - learning_rate * lamdba * w
+* Weight decay != L2 Reg; only equivalent under SGD, and become different when adding momentum etc.
+
 Optimization with normal Adam:
 * Model state (FIXED): 
   * Optimizer state: 8p bytes (momentum, norm/variance)

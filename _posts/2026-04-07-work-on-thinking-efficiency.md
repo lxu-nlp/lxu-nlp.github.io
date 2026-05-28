@@ -17,7 +17,11 @@ Quantify overthinking on math.\
 <https://openreview.net/forum?id=MSbU3L7V00>
 
 **Think or Not? Exploring Thinking Efficiency in Large Reasoning Models via an Information-Theoretic Lens**. Yong et al. NIPS'25\
+Halt by confidence.\
 <https://openreview.net/forum?id=DpOSndSOZz>
+
+**Reasoning Models Know When They’re Right**. Zhang et al. COLM'25\
+<https://openreview.net/forum?id=O6I0Av7683>
 
 **Dynamic Early Exit in Reasoning Models**. Yang et al. ICLR'26\
 <https://openreview.net/forum?id=NpU7ZXafRi>

@@ -36,8 +36,6 @@ Similar to Prompt-tuning: learn tok emb as instruction; can be used interleaved 
 
 ### Context Compression: preserving general LM context
 
-Also see the [post](https://lxu-nlp.github.io/posts/work-on-agent-memory/#latent-organization-w-training) on latent agentic memory.
-
 #### Hidden States as Memory (Appending Gist)
 
 **Adapting Language Models to Compress Contexts**. Chevalier et al. EMNLP'23\
@@ -110,6 +108,8 @@ Remedy: 1) add auto-encoding as aux loss; 2) weighted gist loss by its segment i
 
 Interleaved gists support both encoding-only and generation.
 
+Also see the [post](https://lxu-nlp.github.io/posts/work-on-agent-memory/#latent-organization-w-training) on latent agentic memory.
+
 **Long Context Compression with Activation Beacon**. Zhang et al. ICLR'25\
 Online, interleaved gist token compression (new QKV).\
 Pretraining (LM) + finetuning.\
@@ -117,7 +117,7 @@ Optimize the generation quality conditioned on the mixture of the compressed con
 <https://openreview.net/forum?id=1eQT9OzfNQ>
 
 **OSCAR: Online Soft Compression for RAG**. Louis et al. ICLR'26\
-Online query-dependent compression using small model. Train similar to PISCO, adding a reranking objective as well.\
+Online query-dependent compression using small model, but plain generation. Train similar to PISCO, adding a reranking objective as well.\
 <https://openreview.net/forum?id=ideKAUWvFE>
 
 #### Embedding as Memory (Modality alignment)
@@ -194,6 +194,10 @@ Retaining KV: initial positions + sliding window. Deal with position encoding.\
 KV pruning: Scissorhands + reserve attention sink.\
 KV merging: cosine similarity by key vectors.\
 <https://openreview.net/forum?id=HzBfoUdjHt>
+
+**A Simple and Effective L_2 Norm-Based Strategy for KV Cache Compression**. Devoto et al. EMNLP'24\
+Low L2 norm K hidden states usually leads to high attention score during decoding. Hence strategy: keeping in memory only with lowest L2 K, and the corresponding V.\
+<https://aclanthology.org/2024.emnlp-main.1027/>
 
 **Model Tells You What to Discard: Adaptive KV Cache Compression for LLMs**. Ge et al. ICLR'24\
 Attention head possesses different distribution patterns, which is also consistent across positions.\
