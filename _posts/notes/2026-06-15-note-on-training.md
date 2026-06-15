@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Notes on Optimization"
-date: 2023-06-29
+title: "Notes on Training"
+date: 2026-06-15
 categories: [Notes]
 tags: [optimization, ML]
 math: true
