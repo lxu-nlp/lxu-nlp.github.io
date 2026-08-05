@@ -32,7 +32,7 @@ hidden: true
 
 ### 3. 三大核心难题（贯穿下面所有论文）
 1. **Routing collapse（路由坍缩）**：router 可能"偷懒"，把所有 token 都送进同一两个专家 → 其余专家永远不被激活、参数浪费。这是 MoE 的头号病，解法叫 **load balancing（负载均衡）**。
-2. **负载均衡的代价**：早期用 auxiliary loss（往梯度里加一项鼓励专家使用均匀），但它会**污染主任务的梯度、拖累质量**。现代主流改成 **aux-loss-free（无辅助损失）**方案（见 V3）。
+2. ** Loading balancing (负载均衡)**：早期用 auxiliary loss（往梯度里加一项鼓励专家使用均匀），但它会**污染主任务的梯度、拖累质量**。早期代表即 DeepSeekMoE 的 **Expert-Level + Device-Level Balance Loss**（见基础工作）；现代主流改成 **aux-loss-free（无辅助损失）**方案（见 V3）。
 3. **通信瓶颈**：专家通常分布在不同 GPU / 节点上，token 要先 all-to-all 发到对应专家、算完再收回 → 通信开销巨大。衍生出 expert parallelism、node-limited routing、DualPipe 等工程手段。
 - （附带）**训练稳定性**：router 的 logit 可能数值爆炸 → **router z-loss**（见 ST-MoE）。
 
@@ -48,6 +48,11 @@ hidden: true
 
 - **Fine-grained expert segmentation**: split each original FFN expert into *m* smaller experts (same total parameter budget, but more, narrower experts). With top-k routing over this finer granularity, the **combinatorial space of expert combinations grows exponentially**, so a token can be expressed as a much richer mixture → more flexible, disentangled knowledge allocation. Intuition: "many narrow specialists" beats "few broad generalists" under a fixed active-parameter budget.
 - **Shared expert isolation**: reserve a small set of *shared experts* that are activated for **every** token (carrying common, token-agnostic knowledge such as syntax/formatting), while the remaining *routed experts* are selected per-token (carrying specialized knowledge). This separates "what everyone needs" from "what this specific token needs", preventing the routed experts from having to re-learn the common part.
+- **Gating & MoE layer output**: routed experts are scored by a sigmoid affinity `s_{i,t}`; a token selects the top-`(mK − Ks)` routed experts (others get gate 0) while all `Ks` shared experts are always on. Layer output: `h_t = Σ_shared FFN_i(u_t) + Σ_routed-topk s_{i,t}·FFN_i(u_t) + u_t`.
+- **Load balancing — Expert-Level & Device-Level Balance Loss** (the *original auxiliary-loss* scheme; V3 later replaces it with aux-loss-free): to stop routing collapse, DeepSeekMoE adds two gradient-affecting losses:
+  - **Expert-Level Balance Loss**: `L_ExpBal = α₁ · (1/N′) · Σ_i f_i·P_i`, where N′ = #routed experts, `f_i` = normalized selection frequency of expert i, `P_i` = its average routing affinity. Minimizing `f_i·P_i` steers tokens toward under-used experts.
+  - **Device-Level Balance Loss**: `L_DevBal = α₂ · (1/D) · Σ_d f′_d·P′_d`, where D = #devices, `f′_d` = mean `f_i` over experts on device d, `P′_d` = sum of `P_i` over those experts. Balances **compute per device** (what drives all-to-all comms), even if individual experts aren't perfectly balanced.
+  - Practice: a **small** α₁ (expert-level, to avoid hurting quality) + a **larger** α₂ (device-level, to balance compute). (DeepSeek-V2 later adds a third *Communication Balance Loss* for balanced per-device traffic.)
 - **Canonical config**: paper's 16.4B variant = **64 routed experts + 2 shared, top-6 routed**; 236B variant scales to **160 routed + 2 shared**。The "fine-grained + shared" coupling is the **direct ancestor** of DeepSeek-V3 / Kimi K2 / GLM-4.5 / DeepSeek-V4.
 
 ### DeepSeek-V3 — arXiv:2412.19437（完整工程配方，把模板训出来）
@@ -57,7 +62,9 @@ hidden: true
 - **Scale**: **671B total / 37B active**。Per MoE layer: **256 routed experts + 1 shared expert**, **top-8** of the routed ones activated per token.
 - **Gating**: **sigmoid gating with selected-expert normalization** — compute a sigmoid score per expert, pick top-k, then **renormalize only among the chosen k** (replacing the classic softmax-over-all-experts). This keeps scores well-behaved and makes the active set comparable across tokens.
 - **Load balancing — aux-loss-free** (arXiv:2408.15664): maintain a per-expert **bias term bᵢ outside the gradient path**. Every few steps: if expert *i*'s token count < batch mean → bᵢ += γ; else bᵢ -= γ. The bias is added to the router logits at routing time, steering tokens toward under-used experts **without polluting the main-task gradient**. A small complementary **sequence-level auxiliary loss** is kept as a safety net.
-- **Decoding & infra**: **1 MTP (Multi-Token Prediction) layer** — the model also predicts the next-next token, enabling **speculative decoding** at inference for higher throughput. **FP8 mixed-precision training** + **DualPipe** (a pipeline schedule that overlaps forward and backward chunks to hide communication) + **node-limited routing** (constrain each token to experts within a fixed node group, slashing cross-node all-to-all traffic).
+- **Decoding & infra**: **1 MTP (Multi-Token Prediction) layer** (depth D=1, predicts one extra token; loss weight λ=0.3 for first 10T tokens then 0.1) — enables **speculative decoding** at inference.
+- **Bias-update schedule (aux-loss-free)**: the bias `bᵢ` updates with γ=0.001 for the first 14.3T tokens, then **γ=0** for the final 500B — balancing is frozen late once experts have specialized.
+- **Training footprint**: **14.8T tokens**, 2048× H800, ~2.788M GPU-hours (~$5.6M).
 - **Value**: the most complete "how to actually train a trillion-parameter MoE" manual; its skeleton (fine-grained + shared + sigmoid + loss-free + MTP + FP8/DualPipe) is what later open models copy.
 
 ---
@@ -75,6 +82,7 @@ hidden: true
 
 - Per layer **128 routed experts, top-8, no shared expert** (caveat: **Qwen3-Next** re-adds a shared expert + 3:1 Gated DeltaNet, so the family is not uniform).
 - Sigmoid gating; **global-batch load balancing** — a loss-free variant that aggregates balancing statistics across the **entire global batch** (not per-microbatch), giving a more stable load signal at large scale.
+- **No auxiliary routing loss at all**: balancing is *purely* the global-batch statistics trick — there is **no gradient-affecting aux term**, and (unlike DeepSeekMoE) **no shared expert**. This is the clearest departure from the DeepSeekMoE template among major open models.
 - Differentiation moved to attention: mixes a **gated delta rule (linear attention)** branch alongside standard softmax attention.
 
 ### Kimi K2 / K3（Moonshot，2025 / 2026）
@@ -82,17 +90,16 @@ hidden: true
 **Motivation**：Kimi 这条线把"更多专家 + 更高激活"的稀疏 scaling 推到极致（K2 384 专家 → K3 896 专家），并为此配套了专门的优化器（MuonClip）和均衡算法（Quantile Balancing），因为专家越多，固定步长的偏置更新越容易震荡。
 
 - **K2**: **1T total / 32B active**; **384 routed + 1 shared, top-8**; **MuonClip** optimizer (Muon with a Clip term to prevent attention-logit explosion during the aggressive update); explicitly favors a "more experts + higher activation" sparsity regime.
-- **K3 (2026)**: scales to **896 routed experts** (finer granularity still). Key new pieces:
-  - **SiTU-GLU** — a *bounded soft-truncation* activation (soft-in-the-middle, truncated at the tails) that exists primarily to keep activations stable under **MXFP4 low-precision training**.
+- **K3 (2026)**: **≈2.8T total**, built on **Stable LatentMoE** — **896 routed + 2 shared, top-16** per token → **~56× routed-expert sparsity**. The key trick: the hidden state is **compressed 7168 → 3584 dim** before the routed experts compute, then projected back, so you can grow expert count *and* activation count without communication scaling with the full hidden dim. Key new pieces:
   - **Quantile Balancing** — instead of the fixed-step bias update (which oscillates at 896-expert scale), it frames balancing as a **dual linear program** and derives an **analytical solution** that drives each expert's load toward a target quantile.
-  - **KDA hybrid linear attention at 3:1** (KDA : Gated MLA) — continues the "attention is the new battleground" trend.
+  - **KDA hybrid linear attention at 3:1** (KDA : Gated MLA) + **AttnRes** (block-level cross-layer residual that lets each layer retrieve past-layer representations) — the "attention is the new battleground" trend, paired with the **Moon Clip** second-order optimizer.
   - Weights stored / trained in **MXFP4** (from SFT onward via QAT).
 
 ### LongCat-Flash — arXiv:2509.01322（美团，零计算专家）
 
 **Motivation**：前面所有模型都是"固定激活 k 个专家"。LongCat 想更进一步——让激活量**随 token 难度自适应**：简单 token 直接短路跳过专家计算，难 token 才用满。它往专家池里塞"什么都不算"的恒等专家来实现这一点。
 
-- **560B total**, **dynamic per-token activation of 18.6B–31.3B** (mean ~27B) — *not* a fixed active count, but a **token-difficulty-adaptive range**. The mechanism is **adaptive expert count via zero-computation experts**:
+- **560B total** (Shortcut-connected MoE, **ScMoE** framework), **dynamic per-token activation of 18.6B–31.3B** (mean ~27B) — *not* a fixed active count, but a **token-difficulty-adaptive range**. The mechanism is **adaptive expert count via zero-computation experts**:
   - The routed expert pool is augmented with **shortcut / identity experts** that perform **no FFN compute** — they return the input unchanged (a pass-through residual). The router's top-k selection is drawn from this **combined** pool (real experts + shortcut experts).
   - Because a token may be routed to *shortcut* experts instead of *real* ones, the number of **computing** experts varies per token even when the selected-set size is fixed: an **easy** token gets high weight on shortcut experts → few (or zero) real experts fire → near-zero added FLOPs; a **hard** token selects mostly real experts → full compute. The effective active-parameter count therefore **slides across the 18.6B–31.3B window** instead of being pinned at one value.
   - Intuition: the model learns a **difficulty-aware gate** — simple tokens self-route to the "do nothing" experts, so compute tracks token hardness rather than a constant k.
@@ -106,7 +113,7 @@ hidden: true
 - Real innovations are in attention: **CSA (Compressed Sparse Attention)** for compressing KV context + **HCA (Hierarchical Cache Attention)** for long-context retrieval efficiency.
 - **mHC (modified Hyper-Connections)**: constrains the residual **B-matrix on the Birkhoff doubly-stochastic manifold** (sum-to-one rows & cols) to **prevent spectral-norm explosion** in the hyper-connection pathway — a stability trick for very deep/wide models.
 - Expert weights in **FP4**; training uses **Muon**.
-- **Value**: marks the field's center of gravity moving **entirely off the MoE layer** and onto attention architecture + low-precision.
+- **Value**: marks the field's center of gravity moving **entirely off the MoE layer** and onto attention architecture + low-precision. Two released sizes: **V4-Pro (1.6T / 49B active)** and **V4-Flash (284B / 13B active)**, trained on 32T tokens with 1M context.
 
 ---
 
