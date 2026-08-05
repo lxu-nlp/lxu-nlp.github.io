@@ -28,6 +28,11 @@ const resource = [
 
 /* The request url with below domain will be cached */
 const allowedDomains = [
+  {% if site.google_analytics.id != empty and site.google_analytics.id %}
+    'www.googletagmanager.com',
+    'www.google-analytics.com',
+  {% endif %}
+
   '{{ site.url | split: "//" | last }}',
 
   {% if site.img_cdn contains '//' and site.img_cdn %}
