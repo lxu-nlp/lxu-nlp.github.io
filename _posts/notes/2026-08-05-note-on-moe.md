@@ -5,15 +5,6 @@ date: 2026-08-05
 categories: [Notes]
 tags: [llm]
 math: true
-hidden: true
----
-
-# MoE 重点论文清单（精读版）
-
-> **适用读者**：有 Transformer / LLM 基础（知道 attention、FFN、pretraining、scaling law），但没系统学过 Mixture-of-Experts。
-> **读法**：先看「前置知识」建立术语和直觉；再读「基础工作」把 DeepSeekMoE 的结构模板与 DeepSeek-V3 的训练配方打通；接着看「新主流 setup」了解近两年开源模型如何演化；最后用「专题：Routing Collapse」补全负载均衡方法的全貌。
-> **语言约定**：整体介绍、动机、直觉用**中文**；具体机制、公式、配置用**英文**展开。
-
 ---
 
 ## 前置知识：从 dense Transformer 到 MoE
