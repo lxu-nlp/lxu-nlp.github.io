@@ -18,12 +18,12 @@ math: true
 - **Expert（专家）**：一份独立的 FFN 权重。MoE 层里通常有 N 个专家并行存在。
 - **Router / Gating（门控）**：一个小线性层，输入 token 的隐藏向量，输出对每个专家的打分，再据此选出 top-k 个专家。
 - **Top-k routing**：每个 token 只激活 k 个专家（k 通常远小于 N，例如 8/256）。**粒度说明**：在 decoder-only LLM 中，路由决策是 **per-token** 的——每个 token 的隐藏向量独立过 router 选 top-k；所谓 global-batch / sequence-level 只是「均衡校正」的统计粒度，不改变「路由本身是逐 token」这一事实。唯一反例是 Expert Choice（专家选 token，见背景补充）。
-- **Total params vs Active params**：总参数是所有专家之和（巨大）；激活参数是单 token 实际用到的那 k 个专家 + 其他固定层（很小）。模型卡上常写成 `671B / 37B`。
+- **Total params vs Active params**：总参数是所有专家之和（巨大）；激活参数是单 token 实际用到的那 k 个专家 + 其他固定层（很小）。模型卡上常写成 $671B / 37B$。
 - **Capacity factor（容量因子）**：每个专家单步最多能接收多少 token；超出的 token 会被 **dropping（丢弃）**或走残差。
 
 ### 3. 三大核心难题（贯穿下面所有论文）
 1. **Routing collapse（路由坍缩）**：router 可能"偷懒"，把所有 token 都送进同一两个专家 → 其余专家永远不被激活、参数浪费。这是 MoE 的头号病，解法叫 **load balancing（负载均衡）**。
-2. ** Loading balancing (负载均衡)**：早期用 auxiliary loss（往梯度里加一项鼓励专家使用均匀），但它会**污染主任务的梯度、拖累质量**。早期代表即 DeepSeekMoE 的 **Expert-Level + Device-Level Balance Loss**（见基础工作）；现代主流改成 **aux-loss-free（无辅助损失）**方案（见 V3）。
+2. **负载均衡的代价**：早期用 auxiliary loss（往梯度里加一项鼓励专家使用均匀），但它会**污染主任务的梯度、拖累质量**。早期代表即 DeepSeekMoE 的 **Expert-Level + Device-Level Balance Loss**（见基础工作）；现代主流改成 **aux-loss-free（无辅助损失）**方案（见 V3）。
 3. **通信瓶颈**：专家通常分布在不同 GPU / 节点上，token 要先 all-to-all 发到对应专家、算完再收回 → 通信开销巨大。衍生出 expert parallelism、node-limited routing、DualPipe 等工程手段。
 - （附带）**训练稳定性**：router 的 logit 可能数值爆炸 → **router z-loss**（见 ST-MoE）。
 
@@ -39,22 +39,23 @@ math: true
 
 - **Fine-grained expert segmentation**: split each original FFN expert into *m* smaller experts (same total parameter budget, but more, narrower experts). With top-k routing over this finer granularity, the **combinatorial space of expert combinations grows exponentially**, so a token can be expressed as a much richer mixture → more flexible, disentangled knowledge allocation. Intuition: "many narrow specialists" beats "few broad generalists" under a fixed active-parameter budget.
 - **Shared expert isolation**: reserve a small set of *shared experts* that are activated for **every** token (carrying common, token-agnostic knowledge such as syntax/formatting), while the remaining *routed experts* are selected per-token (carrying specialized knowledge). This separates "what everyone needs" from "what this specific token needs", preventing the routed experts from having to re-learn the common part.
-- **Gating & MoE layer output**: routed experts are scored by a sigmoid affinity `s_{i,t}`; a token selects the top-`(mK − Ks)` routed experts (others get gate 0) while all `Ks` shared experts are always on. Layer output: `h_t = Σ_shared FFN_i(u_t) + Σ_routed-topk s_{i,t}·FFN_i(u_t) + u_t`.
+- **Gating & MoE layer output**: routed experts are scored by a sigmoid affinity $s_{i,t}$; a token selects the top-$(mK - Ks)$ routed experts (others get gate 0) while all $K_s$ shared experts are always on. Layer output: $h_t = \sum_{\text{shared}} \text{FFN}_i(u_t) + \sum_{\text{routed-topk}} s_{i,t}\cdot \text{FFN}_i(u_t) + u_t$.
 - **Load balancing — Expert-Level & Device-Level Balance Loss** (the *original auxiliary-loss* scheme; V3 later replaces it with aux-loss-free): to stop routing collapse, DeepSeekMoE adds two gradient-affecting losses:
-  - **Expert-Level Balance Loss**: `L_ExpBal = α₁ · (1/N′) · Σ_i f_i·P_i`, where N′ = #routed experts, `f_i` = normalized selection frequency of expert i, `P_i` = its average routing affinity. Minimizing `f_i·P_i` steers tokens toward under-used experts.
-  - **Device-Level Balance Loss**: `L_DevBal = α₂ · (1/D) · Σ_d f′_d·P′_d`, where D = #devices, `f′_d` = mean `f_i` over experts on device d, `P′_d` = sum of `P_i` over those experts. Balances **compute per device** (what drives all-to-all comms), even if individual experts aren't perfectly balanced.
-  - Practice: a **small** α₁ (expert-level, to avoid hurting quality) + a **larger** α₂ (device-level, to balance compute). (DeepSeek-V2 later adds a third *Communication Balance Loss* for balanced per-device traffic.)
-- **Canonical config**: paper's 16.4B variant = **64 routed experts + 2 shared, top-6 routed**; 236B variant scales to **160 routed + 2 shared**。The "fine-grained + shared" coupling is the **direct ancestor** of DeepSeek-V3 / Kimi K2 / GLM-4.5 / DeepSeek-V4.
+  - **Expert-Level Balance Loss**: $L_{\text{ExpBal}} = \alpha_1 \cdot (1/N') \cdot \sum_i f_i \cdot P_i$, where $N'$ = #routed experts, $f_i$ = normalized selection frequency of expert i, $P_i$ = its average routing affinity. Minimizing $f_i \cdot P_i$ steers tokens toward under-used experts.
+  - **Device-Level Balance Loss**: $L_{\text{DevBal}} = \alpha_2 \cdot (1/D) \cdot \sum_d f'_d \cdot P'_d$, where $D$ = #devices, $f'_d$ = mean $f_i$ over experts on device d, $P'_d$ = sum of $P_i$ over those experts. Balances **compute per device** (what drives all-to-all comms), even if individual experts aren't perfectly balanced.
+  - Practice: a **small** $\alpha_1$ (expert-level, to avoid hurting quality) + a **larger** $\alpha_2$ (device-level, to balance compute). (DeepSeek-V2 later adds a third *Communication Balance Loss* for balanced per-device traffic.)
+- **Canonical config**: paper's 16.4B variant = **64 routed experts + 2 shared, top-6 routed**; 236B variant scales to **160 routed + 2 shared**. The "fine-grained + shared" coupling is the **direct ancestor** of DeepSeek-V3 / Kimi K2 / GLM-4.5 / DeepSeek-V4.
 
 ### DeepSeek-V3 — arXiv:2412.19437（完整工程配方，把模板训出来）
 
 **Motivation**：有了好的层结构，还要解决三件工程实事——(a) 怎么均衡而不伤质量；(b) 怎么在万卡上把 all-to-all 通信藏起来；(c) 怎么用低精度把训练成本压下来。V3 给出了当时最完整的答案，后续开源模型基本照抄它的骨架。
 
-- **Scale**: **671B total / 37B active**。Per MoE layer: **256 routed experts + 1 shared expert**, **top-8** of the routed ones activated per token.
+- **Scale**: **671B total / 37B active**. Per MoE layer: **256 routed experts + 1 shared expert**, **top-8** of the routed ones activated per token.
 - **Gating**: **sigmoid gating with selected-expert normalization** — compute a sigmoid score per expert, pick top-k, then **renormalize only among the chosen k** (replacing the classic softmax-over-all-experts). This keeps scores well-behaved and makes the active set comparable across tokens.
-- **Load balancing — aux-loss-free** (arXiv:2408.15664): maintain a per-expert **bias term bᵢ outside the gradient path**. Every few steps: if expert *i*'s token count < batch mean → bᵢ += γ; else bᵢ -= γ. The bias is added to the router logits at routing time, steering tokens toward under-used experts **without polluting the main-task gradient**. A small complementary **sequence-level auxiliary loss** is kept as a safety net.
-- **Decoding & infra**: **1 MTP (Multi-Token Prediction) layer** (depth D=1, predicts one extra token; loss weight λ=0.3 for first 10T tokens then 0.1) — enables **speculative decoding** at inference.
-- **Bias-update schedule (aux-loss-free)**: the bias `bᵢ` updates with γ=0.001 for the first 14.3T tokens, then **γ=0** for the final 500B — balancing is frozen late once experts have specialized.
+- **Load balancing — aux-loss-free** (arXiv:2408.15664): maintain a per-expert **bias term $b_i$ outside the gradient path**. Every few steps: if expert *i*'s token count < batch mean $\rightarrow b_i \mathrel{+}= \gamma$; else $b_i \mathrel{-}= \gamma$. The bias is added to the router logits at routing time, steering tokens toward under-used experts **without polluting the main-task gradient**. A small complementary **sequence-level auxiliary loss** is kept as a safety net.
+- **Decoding & infra**: **1 MTP (Multi-Token Prediction) layer** (depth D=1, predicts one extra token; loss weight $\lambda=0.3$ for first 10T tokens then 0.1) — enables **speculative decoding** at inference. **FP8 mixed-precision training** + **DualPipe** (overlaps forward/backward chunks to hide all-to-all comms) + **node-limited routing**: each token is sent to at most **M=4 nodes** (routed experts uniformly deployed on 64 GPUs across 8 nodes), slashing cross-node traffic; **no token dropping** (all tokens kept).
+- **Long-context extension (YaRN)**: after pretraining, two 1000-step phases extend the window **4K → 32K → 128K** (YaRN applied to the decoupled shared RoPE key).
+- **Bias-update schedule (aux-loss-free)**: the bias $b_i$ updates with $\gamma=0.001$ for the first 14.3T tokens, then **$\gamma=0$** for the final 500B — balancing is frozen late once experts have specialized.
 - **Training footprint**: **14.8T tokens**, 2048× H800, ~2.788M GPU-hours (~$5.6M).
 - **Value**: the most complete "how to actually train a trillion-parameter MoE" manual; its skeleton (fine-grained + shared + sigmoid + loss-free + MTP + FP8/DualPipe) is what later open models copy.
 
@@ -82,6 +83,7 @@ math: true
 
 - **K2**: **1T total / 32B active**; **384 routed + 1 shared, top-8**; **MuonClip** optimizer (Muon with a Clip term to prevent attention-logit explosion during the aggressive update); explicitly favors a "more experts + higher activation" sparsity regime.
 - **K3 (2026)**: **≈2.8T total**, built on **Stable LatentMoE** — **896 routed + 2 shared, top-16** per token → **~56× routed-expert sparsity**. The key trick: the hidden state is **compressed 7168 → 3584 dim** before the routed experts compute, then projected back, so you can grow expert count *and* activation count without communication scaling with the full hidden dim. Key new pieces:
+  - **SiTU-GLU** — a *bounded soft-truncation* activation (soft-in-the-middle, truncated at the tails) that exists primarily to keep activations stable under **MXFP4 low-precision training** (paired with a post-expert RMSNorm).
   - **Quantile Balancing** — instead of the fixed-step bias update (which oscillates at 896-expert scale), it frames balancing as a **dual linear program** and derives an **analytical solution** that drives each expert's load toward a target quantile.
   - **KDA hybrid linear attention at 3:1** (KDA : Gated MLA) + **AttnRes** (block-level cross-layer residual that lets each layer retrieve past-layer representations) — the "attention is the new battleground" trend, paired with the **Moon Clip** second-order optimizer.
   - Weights stored / trained in **MXFP4** (from SFT onward via QAT).
@@ -114,22 +116,22 @@ math: true
 
 ### 1. 早期：梯度内辅助损失 + 容量截断（Auxiliary loss + Capacity）
 - **Auxiliary load-balancing loss** (GShard / Switch): add a loss term that encourages **uniform expert assignment**. Typically combines (a) per-expert *importance* = mean router probability over tokens, and (b) a *balance* term (e.g. coefficient of variation / entropy) pushing all experts toward equal usage. Minimizing it forces the router to spread tokens.
-- **Expert capacity + token dropping**: cap each expert at `capacity = (tokens_per_batch / N) × α`; tokens exceeding capacity are **dropped** (bypass the MoE via the residual). Caps the damage of collapse but doesn't prevent it; also loses information on dropped tokens.
+- **Expert capacity + token dropping**: cap each expert at $capacity = (tokens\_per\_batch / N) \times \alpha$; tokens exceeding capacity are **dropped** (bypass the MoE via the residual). Caps the damage of collapse but doesn't prevent it; also loses information on dropped tokens.
 - **Why it fell out of favor**: the auxiliary loss enters the **main-task gradient**, acting as a regularizer that **hurts final quality** (the very thing DeepSeekMoE/V3 moved away from). This motivates all "loss-free" methods below.
 
 ### 2. 现代主流：无梯度均衡（Loss-free balancing）
 The key insight (DeepSeek, 2408.15664): keep the balancing signal **out of the gradient** — adjust the router *logits* with a separate, gradient-free controller, so the expert distribution stays balanced without polluting representations.
-- **Bias-term adjustment (DeepSeek-V3, the de-facto standard)**: maintain a per-expert bias `bᵢ` added to router logits at routing time. Every few steps: if expert *i*'s token count < batch mean → `bᵢ += γ`; else `bᵢ -= γ`. The bias steers tokens toward under-used experts but **never backprops into the model weights**. V3 also keeps a tiny complementary sequence-level aux loss as a safety net.
+- **Bias-term adjustment (DeepSeek-V3, the de-facto standard)**: maintain a per-expert bias $b_i$ added to router logits at routing time. Every few steps: if expert *i*'s token count < batch mean $\rightarrow b_i \mathrel{+}= \gamma$; else $b_i \mathrel{-}= \gamma$. The bias steers tokens toward under-used experts but **never backprops into the model weights**. V3 also keeps a tiny complementary sequence-level aux loss as a safety net.
 - **Global-batch balancing (Qwen3)**: same loss-free spirit, but aggregate the load statistics across the **entire global batch** (not per-microbatch) for a more stable signal at large scale; no shared expert, 128 routed / top-8.
 - **EP-group balancing (Step 3.5 Flash)**: balance within each **expert-parallel group** (a subset of experts co-located on a device/group), trading a little global balance for lower communication.
-- **Quantile Balancing (Kimi K3, 896 experts)**: at very large expert counts, the fixed-step bias (`±γ`) **oscillates** (overshoots experts). K3 frames balancing as a **dual linear program** and solves it **analytically**, driving each expert's load toward a target quantile — stable even at 896 experts.
+- **Quantile Balancing (Kimi K3, 896 experts)**: at very large expert counts, the fixed-step bias ($\pm\gamma$) **oscillates** (overshoots experts). K3 frames balancing as a **dual linear program** and solves it **analytically**, driving each expert's load toward a target quantile — stable even at 896 experts.
 
 ### 3. 结构性去坍缩（免训练 / 确定性，不走梯度）
 - **Expert Choice routing** (arXiv:2202.09368): flip the direction — *each expert picks its top-k tokens* (instead of each token picking experts). Balanced **by construction** (every expert gets exactly k tokens), no aux loss needed. Why it lost: in decoder-only generation an expert would need to see *future* tokens to choose → **causal leakage**, so it can't be used for autoregressive inference. A clean idea defeated by a deployment constraint.
 - **Hash routing** (deterministic, V4 shallow layers): map token (or its hash) to a fixed expert via a **content hash** → no learned router, therefore **no collapse possible** (assignment is predetermined). Zero routing comms. Why it's limited: inflexible / can't specialize; DeepSeek-V4 uses it only on the **first few layers** where routing mistakes are cheap.
 
 ### 4. 稳定性补充：Router z-loss（ST-MoE）
-- Even with balancing, router logits can grow unbounded and **saturate** the gate, indirectly worsening collapse-like behavior. **Router z-loss** (arXiv:2202.08906) adds `z_loss = c · log²(mean(exp(logits)))` to penalize logit magnitude, keeping the gate numerically stable. Present in most modern MoE training recipes alongside the methods above.
+- Even with balancing, router logits can grow unbounded and **saturate** the gate, indirectly worsening collapse-like behavior. **Router z-loss** (arXiv:2202.08906) adds $z_{\text{loss}} = c \cdot \log^2(\text{mean}(\exp(\text{logits})))$ to penalize logit magnitude, keeping the gate numerically stable. Present in most modern MoE training recipes alongside the methods above.
 
 **小结（演进主线）**：
 auxiliary loss (gradient-hurting) → capacity/dropping (damage-cap) → **loss-free bias (DeepSeek, mainstream)** → global-batch / EP-group / quantile (scale-aware variants) ; plus structural routes (**Expert Choice, Hash**) that avoid collapse by design ; **z-loss** for stability.
