@@ -2,6 +2,11 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <!-- Content Security Policy: limits which origins can serve scripts / frames.
+       Blocks the polyfill.io class of supply-chain injection (any unknown external
+       script domain). Inline scripts and the site's legit CDNs are allowed. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net www.googletagmanager.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' cdn.jsdelivr.net www.google-analytics.com www.googletagmanager.com; frame-src 'self' www.youtube.com player.twitch.tv; object-src 'none'; base-uri 'self'">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
   <meta name="apple-mobile-web-app-capable" content="yes">
