@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Notes on Retrieval"
-date: 2026-08-06
+date: 2026-08-16
 categories: [Notes]
 tags: [retrieval]
 math: true
