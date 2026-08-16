@@ -166,7 +166,7 @@ $$
 
 ---
 
-### 2.3 What forward activation does input-gradient actually need?
+### 2.3 What forward activations does the input-gradient path need?
 
 这里要区分 linear 和 nonlinear。
 
@@ -438,6 +438,129 @@ $$
 其中 `W2` 是否 frozen 只影响 `dW2` 是否计算；只要 `W1` 还要训练，`dy -> da1 -> dh1` 这条 input-gradient chain 仍然必须存在。
 
 > **Key insight: freezing a downstream weight does not stop gradient propagation through it. It only stops computing that weight's own parameter gradient.**
+
+### 4.1 NumPy forward / backward
+
+把上面的推导落到可运行的 NumPy 上。每一行 backward 都对应一节公式；`saved` 里存的就是下一步 backward 会用到的 forward tensor。
+
+$$
+\begin{aligned}
+h_1 &= xW_1, & a_1 &= \phi(h_1), & y &= a_1W_2 \\
+dy &= \frac{\partial L}{\partial y}, &
+da_1 &= dy\,W_2^\top, &
+dh_1 &= da_1 \odot \phi'(h_1) \\
+dx &= dh_1 W_1^\top, &
+dW_1 &= x^\top dh_1, &
+dW_2 &= a_1^\top dy
+\end{aligned}
+$$
+
+```python
+import numpy as np
+
+def gelu(x):
+    c = np.sqrt(2.0 / np.pi)
+    return 0.5 * x * (1.0 + np.tanh(c * (x + 0.044715 * x**3)))
+
+def gelu_local_grad(x):                # d gelu / d(pre-activation h1)
+    c = np.sqrt(2.0 / np.pi)
+    t = c * (x + 0.044715 * x**3)
+    return 0.5 * (1.0 + np.tanh(t)) + 0.5 * x * (1.0 - np.tanh(t)**2) * c * (1.0 + 3 * 0.044715 * x**2)
+
+# forward:  h1 = x W1,  a1 = gelu(h1),  y = a1 W2
+def forward(x, W1, W2):
+    h1 = x @ W1
+    a1 = gelu(h1)
+    y  = a1 @ W2
+    return y, {"x": x, "h1": h1, "a1": a1}   # save tensors that backward needs
+
+# backward (VJP): upstream dy(=δ² = ∂L/∂y) -> dx, dW1, dW2
+def backward(saved, dy, W1, W2, train_W1=True, train_W2=False):
+    # y = a1 W2  ->  da1 = dy W2^T   (needs only dy and W2; a1 not needed here)
+    da1 = dy @ W2.T
+    dW2 = saved["a1"].T @ dy if train_W2 else None     # dW = a1^T dy
+    # a1 = gelu(h1) -> dh1 = da1 * gelu'(h1)  (needs forward h1)
+    dh1 = da1 * gelu_local_grad(saved["h1"])     # dh1 即 δ¹ = ∂L/∂h1
+    # h1 = x W1  ->  dx = dh1 W1^T,  dW1 = x^T dh1
+    dx  = dh1 @ W1.T
+    dW1 = saved["x"].T @ dh1 if train_W1 else None     # dW = x^T dh1
+    return dx, dW1, dW2
+
+# for L = 0.5 ||y - target||^2, the upstream gradient is simply:
+#   dy = y - target
+# then call: dx, dW1, dW2 = backward(saved, dy, W1, W2)
+
+# SGD update — apply only to trainable params; skip None (frozen weights)
+def sgd_step(params, grads, lr):
+    for p, g in zip(params, grads):
+        if g is not None:
+            p -= lr * g          # W <- W - lr * dW
+
+# usage:  sgd_step([W1, W2], [dW1, dW2], lr=1e-3)
+```
+
+对应正文的三条要点：
+
+- 线性层 input-gradient `da1 = dy W2^T` 只依赖 `dy` 和权重，不依赖 `a1` —— 这正是 frozen 线性层不必为 `dW` 保存其输入 activation 的原因。
+- 非线性层 backward 需要 forward 的 `h1`（pre-activation），所以 `h1` 必须 save。
+- parameter-gradient `dW1 = x^T dh1` 需要 forward 的 `x`。
+
+默认 `train_W1=True, train_W2=False` 即第 4 节场景：`W2` frozen 时 `a1` 无需为了 `dW2` 保留，但 `h1`、`x` 仍因 input-gradient / `dW1` 必须保留。
+
+### 4.2 Delta 递推：一个信号驱动整段 backward
+
+4.1 已经逐 op 算过 `dy -> da1 -> dh1 -> dW1`。其实整段 backward 可以只用一个信号串起来，这个信号就是 **delta**。
+
+**delta 就是 backward 时「在两层之间流动的那个梯度」** —— 本层收到的 upstream gradient（也就是 forward 时上一层拿到的 input gradient，只是方向相反）。它不神秘：落到本文两层 MLP，就是 4.1 里的 `dy`（输出层）和 `dh1`（隐藏层）自己：
+
+- 输出层 delta = `dy`
+- 隐藏层 delta = `dh1`（= `dy @ W2.T ⊙ gelu'(h1)`）
+
+（严格说 delta = ∂L/∂z⁽ˡ⁾，即本层 pre-activation 的梯度；但把它想成「层间流动的 upstream / input gradient」就够用了，不引入新字母。）
+
+> **Key insight: backprop = one backward signal that, at every layer, simultaneously (a) produces that layer's weight gradient and (b) becomes the upstream gradient for the layer below — exactly the parameter-gradient vs input-gradient split of §2.**
+
+这个信号在每层只干两件事：
+
+① **算本层权重梯度**（`dW = 本层 forward 输入ᵀ · delta`）：
+
+$$
+\boxed{dW_2 = a_1^\top\,dy},\qquad \boxed{dW_1 = x^\top\,dh_1}
+$$
+
+② **变成上一层的信号，继续往回传**（乘权重转置 + 激活导数）：
+
+$$
+\boxed{dh_1 = (dy\,W_2^\top)\odot \text{gelu}'(h_1)},\qquad \boxed{dx = dh_1\,W_1^\top}
+$$
+
+于是「一条 delta 从 y 流回 x」就生成了全部梯度：`dy → dh1 → dx`，并在每个站顺手取走 `dW2, dW1`。这四行和 4.1 的逐 op 代码逐行对应，只是换了个「统一信号」的讲法，没有用到 `z`。
+
+> **Key insight: delta 形式只是把「先算 da1 再算 dh1」压成一条递推，更紧凑，但一点也不改变要缓存哪些 forward activation —— `x, h1, a1` 照样必须保留，结论与第 8 节一致。**
+
+**推广到任意 L 层。** 前面两层那四行可以直接写成 L 层版本。先写 forward（每层：输入激活 $a^{(l-1)}$ 过权重 $W^{(l)}$ 得 pre-activation $z^{(l)}$，再过激活 $\phi$ 得输出 $a^{(l)}$；其中 $a^{(0)} = x$）：
+
+$$
+z^{(l)} = a^{(l-1)} W^{(l)},\qquad a^{(l)} = \phi(z^{(l)})
+$$
+
+这里的 $z^{(l)}$ 就是两层情形里的 pre-activation：第 1 层 $z^{(1)} = h_1$，最后一层若是线性头则 $z^{(L)} = y$（无激活）。backward 仍然只靠一条 δ 信号从输出层一路传回输入层：
+
+$$
+\boxed{\delta^{(L)} = \text{输出层的 upstream gradient}\quad(\text{线性头时 }\delta^{(L)} = dy)}
+$$
+
+$$
+\boxed{\delta^{(l)} = \big(\delta^{(l+1)} (W^{(l+1)})^\top\big) \odot \phi'(z^{(l)})}\qquad\text{(从 }l+1\text{ 层往回传一层)}
+$$
+
+每层拿到 $\delta^{(l)}$ 后照样干两件事：
+
+$$
+\boxed{dW^{(l)} = (a^{(l-1)})^\top \delta^{(l)}},\qquad \boxed{\frac{\partial\mathcal{L}}{\partial a^{(l-1)}} = \delta^{(l)} (W^{(l)})^\top}
+$$
+
+把 $L=2$ 时代入 $z^{(1)}\!\to\!h_1,\; a^{(1)}\!\to\!a_1,\; z^{(2)}\!\to\!y,\; W^{(1)}\!\to\!W_1,\; W^{(2)}\!\to\!W_2$，上面这套就退化成前面的四行——所以两层公式是 L 层递推在 $L=2$ 时的特例。
 
 ---
 
@@ -1075,7 +1198,7 @@ $$
 
 ## 8. What is kept, derived from backward
 
-### 7.1 Kept for LoRA parameter gradients
+### 8.1 Kept for LoRA parameter gradients
 
 K-LoRA：
 
@@ -1111,7 +1234,7 @@ $$
 x_k, Z^K_k, Z^V_k
 $$
 
-### 7.2 Kept for attention input gradients
+### 8.2 Kept for attention input gradients
 
 Attention backward 需要：
 
@@ -1129,7 +1252,7 @@ $$
 
 再继续传到 LoRA 和更低层。
 
-### 7.3 Kept for norm / nonlinearity input gradients
+### 8.3 Kept for norm / nonlinearity input gradients
 
 LayerNorm / RMSNorm backward 需要 stats。
 
@@ -1141,7 +1264,7 @@ $$
 dh_k \rightarrow dh_{k-1}
 $$
 
-### 7.4 Can be skipped
+### 8.4 Can be skipped
 
 Frozen linear 的 weight-gradient input cache 可以省。
 
