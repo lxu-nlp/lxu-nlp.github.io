@@ -7,17 +7,7 @@ tags: [nlp, LLM, retrieval]
 math: true
 ---
 
-
-# Internalize to Adapter
-
-**Doc-to-LoRA: Learning to Instantly Internalize Contexts**. Charakorn et al. 2026\
-Learn: input context -> lora weight, without actual lora training.\
-Training: for each context, use LLM-generated queries.\
-(since the meta model is shared across contexts and their queries, it mitigates query coverage?)\
-<https://arxiv.org/abs/2602.15902>
-
-
-# Generative Retrieval
+## Generative Retrieval
 
 Keys: 1) how to choose meaningful doc identifier; 2) how to generalize to unseen doc; 3) generalize to unseen query
 

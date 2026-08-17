@@ -104,7 +104,7 @@ Remedy: adjust attention to boost cross-chunk.\
 Remedy: 1) add auto-encoding as aux loss; 2) weighted gist loss by its segment importance (PPL ratio)\
 <https://aclanthology.org/2025.acl-long.241>
 
-### Online Memory (Interleaved Gist)
+#### Online Memory (Interleaved Gist)
 
 Interleaved gists support both encoding-only and generation.
 
@@ -131,6 +131,25 @@ Pretraining (reconstruction for alignment) + distillation + task finetuning.  Bu
 Stage 1: similar to PISCO.\
 Stage 2: frozen document compressor; learn a query compressor and generator, jointly train top-k retrieval and generation.\
 <https://arxiv.org/abs/2511.18659>
+
+#### Model Weight as Memory
+
+**Doc-to-LoRA: Learning to Instantly Internalize Contexts**. Charakorn et al. 2026\
+Learn: input context -> lora weight, without actual lora training.\
+Training: for each context, use LLM-generated queries.\
+(since the meta model is shared across contexts and their queries, it mitigates query coverage?)\
+<https://arxiv.org/abs/2602.15902>
+
+**From Content to Knowledge: Lightning Fast Long-Video Understanding with Neural Knowledge Representations**. Guan et al. ICML'26\
+Each video --> lora weight.\
+Training: teacher QA text generation (target task is QA).\
+<https://openreview.net/forum?id=Apmd6IStO6>
+
+**Compression as Adaptation: Implicit Visual Representation with Diffusion Foundation Models**. Guo et al. ICML'26\
+Each video --> lora weight.\
+Training: reconstruction (target task is similar generation objective).\
+<https://openreview.net/forum?id=eYICUJ62hg>
+
 
 ## Unsupervised KV-Based Compression
 
