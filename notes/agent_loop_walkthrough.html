@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nanobot Agent Loop 深度剖析 — 从 AgentLoop.run() 到一次 Turn 的完整生命周期</title>
+<style>
+  :root {
+    --bg: #f5f3ee;
+    --surface: #fffdf8;
+    --card: #fffdf9;
+    --ink: #203d3a;
+    --ink-soft: #42564f;
+    --ink-faint: #6b7772;
+    --accent: #167569;
+    --deep: #204d46;
+    --accent-soft: #e5ede5;
+    --accent-border: #cfdcd4;
+    --green: #49755d;
+    --green-soft: #e5ede5;
+    --amber: #b5622f;
+    --amber-soft: #f6e9df;
+    --red: #8f2f2f;
+    --red-soft: #efdcdc;
+    --blue: #3f6655;
+    --blue-soft: #e9eee7;
+    --border: #dbe1d6;
+    --border2: #d9dfd5;
+    --mono: 'SF Mono', 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.75; font-size: 15px; }
+
+  .layout { display: block; }
+  .sidebar { display: none; }
+  .content { max-width: 1180px; margin: 0 auto; padding: 48px 26px 80px; }
+
+  /* 文档头部（对应参考报告的 header 顶部粗色条 + eyebrow） */
+  .doc-header { border-top: 5px solid #204d46; padding-top: 28px; margin-bottom: 6px; }
+  .eyebrow { letter-spacing: 2px; font-size: 12px; font-weight: 700; color: var(--accent); }
+
+  /* 顶部 pill 导航：sticky，对应参考报告的 .filters 质感 */
+  .toc-inline {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; flex-wrap: wrap; gap: 7px;
+    background: rgba(245, 243, 238, .96); padding: 13px 0; margin: 0 0 26px;
+    border-bottom: 1px solid #d4dccf;
+  }
+  .toc-inline a {
+    font-size: 12.5px; padding: 3px 11px; border-radius: 20px;
+    background: #e9eee7; color: #4b6658; text-decoration: none; white-space: nowrap;
+  }
+  .toc-inline a:hover { background: #dde7e0; color: var(--deep); }
+  .toc-inline a.on { background: var(--deep); color: #fff; }
+
+  h1 { font-size: 42px; font-weight: 800; line-height: 1.25; margin: 10px 0; letter-spacing: -1.5px; }
+  h2 { font-size: 24px; font-weight: 800; margin: 44px 0 12px; letter-spacing: -0.3px; }
+  h2 .step-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--deep); color: #fff; border-radius: 6px;
+    width: 30px; height: 30px; font-size: 14px; margin-right: 10px; vertical-align: -3px;
+  }
+  h3 { font-size: 19px; font-weight: 700; margin: 28px 0 10px; color: var(--ink); }
+  h3 .chip { font-size: 12px; font-family: var(--mono); font-weight: 600; color: #3f6655; background: #e9eee7; border-radius: 20px; padding: 2px 10px; margin-left: 8px; vertical-align: 2px; }
+  .subtitle { font-size: 16px; color: var(--ink-soft); margin-bottom: 12px; max-width: 780px; }
+  p { margin: 12px 0; color: var(--ink-soft); }
+  strong { color: var(--ink); }
+  ul, ol { margin: 10px 0 10px 24px; color: var(--ink-soft); }
+  li { margin: 5px 0; }
+  li strong { color: var(--ink); }
+  code:not(pre code) {
+    font-family: var(--mono); font-size: .88em; background: #e9eeea;
+    border-radius: 3px; padding: 2px 5px; color: #2f5a52; white-space: nowrap;
+  }
+
+  /* 左色条 notice，对应参考报告 .notice / .notice.ok */
+  .callout { border-radius: 4px; padding: 18px 22px; margin: 18px 0; font-size: 14.5px; border-left: 4px solid; }
+  .callout .callout-title { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+  .callout p { margin: 4px 0; }
+  .callout.key  { background: #e5ede5; border-left-color: var(--deep); }
+  .callout.key .callout-title { color: var(--deep); }
+  .callout.warn { background: var(--amber-soft); border-left-color: #b5622f; }
+  .callout.warn .callout-title { color: #9a4b2d; }
+  .callout.tip  { background: #e5ede5; border-left-color: var(--green); }
+  .callout.tip .callout-title { color: var(--green); }
+
+  /* 浅色代码卡，对应参考报告 pre 的纸感 */
+  .code-card { margin: 20px 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #eef1ed; }
+  .code-head {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #e2e6da; padding: 8px 16px; font-size: 12.5px; border-bottom: 1px solid #d6dbce;
+  }
+  .code-file { font-family: var(--mono); color: #3f6655; font-weight: 600; }
+  .code-tag { font-family: var(--mono); font-size: 11px; color: #6b7762; background: #d8dccd; border-radius: 20px; padding: 2px 10px; }
+  .code-card pre {
+    background: #eef1ed; color: #263f3a; padding: 16px 18px;
+    overflow-x: auto; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; tab-size: 4;
+  }
+  .code-card pre::-webkit-scrollbar { height: 8px; }
+  .code-card pre::-webkit-scrollbar-thumb { background: #c8cfbf; border-radius: 4px; }
+  pre code { font-family: inherit; }
+
+  .flow { margin: 26px 0; }
+  .flow-box {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 13px 18px; margin: 0 auto; max-width: 560px; text-align: center;
+  }
+  .flow-box .fb-title { font-weight: 700; font-size: 14.5px; font-family: var(--mono); }
+  .flow-box .fb-desc { font-size: 12.5px; color: var(--ink-faint); margin-top: 2px; }
+  .flow-box.primary { border-color: #477761; background: #e5ede5; }
+  .flow-box.primary .fb-title { color: var(--deep); }
+  .flow-box.runner { border-color: #b5622f; background: #f6e9df; }
+  .flow-box.runner .fb-title { color: #9a4b2d; }
+  .flow-arrow {
+    text-align: center; color: var(--ink-faint); font-size: 18px; line-height: 1;
+    padding: 6px 0; margin: 0 auto; max-width: 560px;
+  }
+  .flow-arrow .fa-label { font-size: 11.5px; font-family: var(--mono); display: block; margin-bottom: 2px; color: #8a948b; }
+
+  .pipeline { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+  .pipe-step {
+    flex: 1 1 120px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; text-align: center; min-width: 118px;
+  }
+  .pipe-step:hover { border-color: #477761; }
+  .pipe-step .ps-name { font-weight: 700; font-family: var(--mono); font-size: 13.5px; color: var(--accent); }
+  .pipe-step .ps-method { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); margin-top: 2px; }
+  .pipe-step .ps-desc { font-size: 11.5px; color: var(--ink-soft); margin-top: 5px; line-height: 1.5; }
+
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; display: block; overflow-x: auto; }
+  th { text-align: left; padding: 9px 14px; font-weight: 700; color: #5e726b; font-size: 13px; border-bottom: 2px solid #d4dccf; }
+  td { padding: 9px 14px; border-bottom: 1px solid #dce1d8; color: var(--ink-soft); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td code, th code { white-space: nowrap; }
+  td:first-child code { color: #2f5a52; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin: 22px 0; }
+  .card { background: var(--card); border: 1px solid var(--border2); border-radius: 12px; padding: 23px; }
+  .card .card-tag { font-size: 12px; font-weight: 600; border-radius: 20px; display: inline-block; padding: 3px 9px; margin-bottom: 8px; background: #e9eee7; color: #4b6658; }
+  .card .card-tag.t-blue { color: #3f6655; background: #e9eee7; }
+  .card .card-tag.t-green { color: #49755d; background: #e5ede5; }
+  .card .card-tag.t-amber { color: #9a4b2d; background: #f6e9df; }
+  .card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .card p { font-size: 13.5px; margin: 4px 0; line-height: 1.65; }
+  .card code { font-size: 12px; }
+
+  .hr { border: none; border-top: 1px solid #d4dccf; margin: 48px 0; }
+  .footer { margin-top: 40px; border-top: 1px solid #d4dccf; padding-top: 20px; font-size: 12px; color: #6c776e; }
+
+  .meta-row { display: flex; flex-wrap: wrap; gap: 9px; margin: 20px 0 8px; }
+  .meta-pill {
+    font-size: 12px; font-family: var(--mono); color: #5e726b;
+    background: #e6ece8; border-radius: 20px; padding: 3px 12px;
+  }
+  .meta-pill b { color: var(--deep); }
+
+  details { margin: 12px 0; }
+  summary { cursor: pointer; color: #3f6655; font-weight: 600; }
+
+  @media (max-width: 800px) {
+    .content { padding: 25px 16px 60px; }
+    h1 { font-size: 30px; }
+    .callout, .card { padding: 17px; }
+  }
+  @media print { .toc-inline { display: none; } }
+</style>
+</head>
+<body>
+<div class="layout">
+
+
+<main class="content">
+
+<header class="doc-header">
+<div class="eyebrow">SOURCE WALKTHROUGH · NANOBOT/AGENT</div>
+<h1>nanobot Agent Loop 深度剖析</h1>
+<p class="subtitle">从 <code>AgentLoop.run()</code> 消费第一条消息开始，到一次 Turn 的完整生命周期结束 —— 调度层（loop.py）与执行层（runner.py）的逐段级 Walkthrough。</p>
+<div class="meta-row">
+  <span class="meta-pill">调度层 <b>nanobot/agent/loop.py</b> · 2389 行</span>
+  <span class="meta-pill">执行层 <b>nanobot/agent/runner.py</b> · ~1400 行</span>
+</div>
+</header>
+<div class="toc-inline">
+  <a href="#overview">0. 全景鸟瞰</a>
+  <a href="#run">1. AgentLoop.run() 主循环</a>
+  <a href="#dispatch">2. _dispatch()：从 task 到 Turn</a>
+  <a href="#turnctx">3. TurnContext：Turn 的状态载体</a>
+  <a href="#stages">4. Turn 七阶段流水线</a>
+  <a href="#build">5. build 阶段：上下文组装</a>
+  <a href="#runner-run">6. AgentRunner 生命周期</a>
+  <a href="#core">7. _run_core：LLM↔工具迭代循环</a>
+  <a href="#example">工具调用例子 ★</a>
+  <a href="#governance">8. 上下文治理与压缩</a>
+  <a href="#example-compact">压缩例子 ★</a>
+  <a href="#final-paths">9. 终止与恢复路径</a>
+  <a href="#details">10. 细节速查表</a>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="overview"><span class="step-badge">0</span>全景鸟瞰：一条消息的一生</h2>
+<p>先建立整体图景。nanobot 的核心是一个<strong>异步消息驱动</strong>的 agent：<strong>Channel</strong>（Telegram / Discord / WebSocket…）把外部消息发布到 <strong>MessageBus</strong>，<strong>AgentLoop</strong> 从总线消费消息并为每条消息创建独立 task，每个 task 内部走一条固定的<strong>Turn 流水线</strong>，流水线的核心阶段把实际对话交给 <strong>AgentRunner</strong> —— 一个「调 LLM → 执行工具 → 再调 LLM」的迭代循环。</p>
+
+<div class="flow">
+  <div class="flow-box"><div class="fb-title">Channel (Telegram / Discord / WS / API …)</div><div class="fb-desc">接收外部消息，包装成 InboundMessage</div></div>
+  <div class="flow-arrow">▼ <span class="fa-label">publish InboundMessage</span></div>
+  <div class="flow-box"><div class="fb-title">MessageBus</div><div class="fb-desc">异步队列，解耦 channel 与 agent 核心 (bus/queue.py)</div></div>
+  <div class="flow-arrow">▼ <span class="fa-label">consume_inbound() · 1s 超时轮询</span></div>
+  <div class="flow-box primary"><div class="fb-title">AgentLoop.run()</div><div class="fb-desc">消费消息 → 分流（运行时控制 / 命令 / 普通消息）<br>→ asyncio.create_task(_dispatch(msg))</div></div>
+  <div class="flow-arrow">▼ <span class="fa-label">每消息一个 task · per-session 锁串行</span></div>
+  <div class="flow-box primary"><div class="fb-title">_dispatch() → _process_message()</div><div class="fb-desc">Turn 七阶段状态机：restore → compact → command → build → run → save → respond</div></div>
+  <div class="flow-arrow">▼ <span class="fa-label">run 阶段 · _run_agent_loop()</span></div>
+  <div class="flow-box runner"><div class="fb-title">AgentRunner._run_core()</div><div class="fb-desc">for iteration in range(max_iterations):<br>&nbsp;&nbsp;请求 LLM → 有 tool calls？→ 执行工具 → continue<br>&nbsp;&nbsp;→ 无 tool calls → 落定 final_content → break</div></div>
+  <div class="flow-arrow">▼ <span class="fa-label">AgentRunResult</span></div>
+  <div class="flow-box"><div class="fb-title">save → respond → delivery.complete()</div><div class="fb-desc">持久化 session · 组装 OutboundMessage · 发回 channel</div></div>
+</div>
+
+<div class="callout key">
+  <div class="callout-title">贯穿全文的例子（先记住这个场景）</div>
+  <p>用户<strong>阿川</strong>在 Telegram 里对 bot 说：「<em>看看 /workspace/todo.txt 里有什么，再告诉我一共有几行</em>」。他的会话 key 是 <code>telegram:8848</code>，此前已经和 bot 聊过 10 条历史（这一点在讲 compaction 时会再次用到）。接下来每一节都用<strong>同一个例子</strong>往下推：<code>run()</code> 怎么接住这条消息（§1）→ restore/build 怎么准备会话和上下文（§4）→ 工具怎么循环（§6）→ 上下文超预算了怎么压缩（§8）→ 最终回复怎么发回 Telegram（§4 save/respond）。</p>
+</div>
+
+<div class="callout key">
+  <div class="callout-title">一图记忆法</div>
+  <p><strong>run() 负责「接」</strong>（从总线拿消息、分流、建 task），<strong>_process_message() 负责「排」</strong>（七个固定阶段的状态机），<strong>_run_core() 负责「转」</strong>（LLM 与工具之间的迭代循环）。三层各自独立演化，通过 <code>TurnContext</code> / <code>AgentRunResult</code> 两个数据结构衔接。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="architecture"><span class="step-badge">0</span>两文件分工</h2>
+<table>
+  <tr><th style="width:130px">文件</th><th style="width:110px">角色</th><th>职责</th></tr>
+  <tr>
+    <td><code>loop.py</code></td><td><strong>调度层</strong></td>
+    <td>消息消费与分流、会话（Session）管理、Turn 生命周期状态机、命令路由、响应回传（delivery）、流式事件转发、cron/子代理协调。</td>
+  </tr>
+  <tr>
+    <td><code>runner.py</code></td><td><strong>执行层</strong></td>
+    <td>单次运行内的 LLM 对话循环：构造请求（含上下文治理 / 压缩）、流式解析、工具调用执行、错误与截断恢复、max_iterations 兜底、usage 统计、hook 生命周期。</td>
+  </tr>
+</table>
+
+<p>两个关键的<strong>数据契约</strong>：</p>
+<table>
+  <tr><th style="width:170px">结构</th><th>定义处</th><th>承载内容</th></tr>
+  <tr><td><code>TurnContext</code></td><td>loop.py:133</td><td>一个 Turn 的全部状态：<code>msg / session / runtime / history / transcript_input / provider_state / events / delivery / usage / stop_reason …</code>（约 45 个字段，流水线各阶段共享读写）</td></tr>
+  <tr><td><code>AgentRunResult</code></td><td>runner.py:119</td><td>Runner 的输出：<code>final_content / messages / tools_used / usage / round_usages / stop_reason / summary_checkpoint / provider_state …</code></td></tr>
+</table>
+
+<hr class="hr">
+
+<!-- ============================================================ -->
+<h2 id="run"><span class="step-badge">1</span>AgentLoop.run()：主循环与消息分流</h2>
+<p><code>run()</code> 是整个 agent 的入口，本质是一个带 1 秒超时的消息泵。<strong>每条消息处理成独立 task</strong>是刻意设计：主循环永远不被长任务阻塞，<code>/stop</code> 命令因此始终能得到响应。</p>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">nanobot/agent/loop.py : 1261-1377</span><span class="code-tag">真实源码（节选）</span></div>
+<pre><code>async def run(self) -&gt; None:
+    """Run the agent loop, dispatching messages as tasks to stay responsive to /stop."""
+    self._running = True
+    try:
+        logger.info("Agent loop started")
+        while self._running:
+            try:
+                msg = await asyncio.wait_for(self.bus.consume_inbound(), timeout=1.0)
+            except asyncio.TimeoutError:
+                self._check_expired_sessions_if_due()   # 空闲期顺带做过期会话清理
+                continue
+            ...
+            raw = msg.content.strip()
+            effective_key = self._effective_session_key(msg)   # 归一化会话 key
+
+            if await agent_context.handle_runtime_control(self, msg, self.tools):
+                continue                                    # ① 运行时控制指令，不进 LLM
+            if msg.require_existing_session and self.sessions.get_cached(effective_key) is None:
+                continue                                    # ② 要求已存在会话但会话不在 → 丢弃
+            if msg.is_user_input:
+                await self.runtime_event_publisher.user_input_accepted(msg, effective_key)
+            if msg.channel != "system" and self.commands.is_priority(raw):
+                await self._dispatch_command_inline(...)   # ③ 优先级命令（如 /stop）内联执行
+                continue
+            ...
+            # ④ cron / local trigger 等自动化 turn：会话忙则推迟（deferred）
+            for label, coordinator in self._automation_turn_coordinators:
+                if coordinator.defer_if_active(msg, ...):
+                    deferred = True; break
+            if deferred:
+                continue
+            ...
+            # （省略：pending queue 注入路由 —— 本篇不展开）
+            task = asyncio.create_task(self._dispatch(msg))  # ⑤ 每条消息一个独立 task
+            self._track_active_task(effective_key, task)
+    finally:
+        await self.aclose()
+</code></pre>
+</div>
+
+<p>整理成更 readable 的伪代码：</p>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">run() 分流逻辑</span><span class="code-tag">伪代码</span></div>
+<pre><code>LOOP FOREVER:
+    msg = bus.consume_inbound()          # 最多等 1s；超时就检查过期会话再回来
+    key  = effective_session_key(msg)     # channel:chat_id，可被统一会话覆盖
+
+    IF 消息是运行时控制指令（切模型等）:  HANDLE_INLINE; CONTINUE
+    IF 消息要求已有会话但不存在:        DROP;           CONTINUE
+    IF 是优先级命令（/stop 等）:          内联执行命令;    CONTINUE
+    IF 是自动化 turn 且会话忙:           推迟（deferred）; CONTINUE
+
+    SPAWN TASK _dispatch(msg)             # 每条消息一个 task → 并发处理不同会话
+    REGISTER active_task[key]             # /stop 可凭 key 精确取消
+</code></pre>
+</div>
+
+<div class="callout warn">
+  <div class="callout-title">为什么 timeout=1.0？</div>
+  <p>不是为了限流，而是给主循环一个<strong>周期性回控制权的机会</strong>：空闲时执行 <code>_check_expired_sessions_if_due()</code>（TTL 过期会话归档），同时保证 <code>/stop</code> 之类管理命令的最坏等待不超过 1 秒。</p>
+</div>
+
+<div class="callout key">
+  <div class="callout-title">分流优先级（记忆顺序）</div>
+  <p>运行时控制 &gt; 会话存在性检查 &gt; 优先级命令 &gt; 自动化 turn 延迟 &gt;（pending queue 注入，本篇略）&gt; <code>create_task(_dispatch)</code>。核心思想：<strong>凡是能不进 LLM 就不进 LLM</strong>，把宝贵的 Turn 流水线留给真正需要模型的请求。</p>
+</div>
+
+<div class="callout warn">
+  <div class="callout-title">例子 · run()</div>
+  <p>阿川的消息从 Telegram channel 发布进总线；<code>run()</code> 消费后 <code>effective_key = "telegram:8848"</code>；内容不是命令、不要求已有会话、也没有自动化触发 → 一路落到最后一步 <code>create_task(_dispatch(msg))</code>。<strong>此时模型还没被调用过</strong> —— 一切 LLM 相关的事都发生在 Turn 流水线里。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="dispatch"><span class="step-badge">2</span>_dispatch()：从 task 到 Turn</h2>
+<p><code>run()</code> 创建的每个 task 都执行 <code>_dispatch(msg)</code>，它是一个薄壳：<strong>把消息交给 Turn 流水线，拿到响应后回发</strong>。真正干活的是它调用的 <code>_process_message()</code>。</p>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">nanobot/agent/loop.py : 1391-1441</span><span class="code-tag">真实源码（骨架）</span></div>
+<pre><code>async def _dispatch(self, msg: InboundMessage) -&gt; None:
+    session_key = self._effective_session_key(msg)
+    ...
+    delivery = self.turn_delivery_factory.create(msg, session_key, enable_stream=True)
+    response = await self._process_message(msg, pending_queue=pending, delivery=delivery)
+    await delivery.complete(response, ...)        # ← 响应发回 channel
+</code></pre>
+</div>
+
+<p>两点了解即可：同一会话的并发由 <code>_get_session_lock</code> 保证串行（不同会话天然并行）；响应回传统一走 <code>TurnDelivery</code> 抽象（turn_delivery.py），封装 started / running / complete / 流式转发，不同 channel 的投递差异都被它吸收。本篇不再展开并发与取消细节。</p>
+
+<div class="callout warn">
+  <div class="callout-title">例子 · _dispatch()</div>
+  <p>阿川的 task 拿着 <code>session_key = "telegram:8848"</code> 进入这里：<code>turn_delivery_factory.create(...)</code> 创建绑定 Telegram 回信通道的 delivery → 调 <code>_process_message(msg, ...)</code> 开始 Turn 流水线。拿到响应后 <code>delivery.complete(response)</code> 才会真正把回复发到 Telegram（见 §4 save/respond）。</p>
+</div>
+
+<hr class="hr">
+
+<!-- ============================================================ -->
+<h2 id="turnctx"><span class="step-badge">3</span>TurnContext：一个 Turn 的状态载体</h2>
+<p>在进入流水线之前，<code>_process_message</code> 先构造 <code>TurnContext</code>（loop.py:133）—— 后续所有阶段都围绕它读写。理解它就理解了 Turn 的全部状态：</p>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">nanobot/agent/loop.py : 133-190</span><span class="code-tag">字段分组解读（节选）</span></div>
+<pre><code>@dataclass
+class TurnContext:
+    msg: InboundMessage               # 原始入站消息（restore 阶段可能被替换：附件引用改写）
+    session: Session | None           # 会话（restore 阶段 get_or_create）
+    session_key: str                  # 归一化后的会话 key
+    turn_id: str                      # "{session_key}:{time_ns()}"
+    runtime: LLMRuntime | None        # 模型运行时（build 阶段解析：provider+model+参数）
+    kind: TurnKind                    # USER | SYSTEM（SYSTEM = cron/子代理等内部触发）
+    delivery: TurnDelivery            # 响应回传通道
+    original_user_text: str | None   # 原始用户文本
+    history: list[dict] | None        # session 历史（build 阶段取出）
+    transcript_input / provider_state # 发给 runner 的两种对话形态（见 build 阶段）
+    final_content: str | None         # 最终回复（run 阶段落定）
+    stop_reason / failure_error_kind  # "completed" / "error" / "max_iterations" ...
+    usage / streamed_content / suppress_response
+    events: EventSink                 # 流式事件管道（StreamDeltaEvent / StreamEndEvent...）
+    ephemeral: bool                   # 不持久化的临时 turn（如摘要生成）
+    hooks / hook_factories / turn_scopes
+</code></pre>
+</div>
+
+<div class="callout key">
+  <div class="callout-title">TurnKind.USER vs TurnKind.SYSTEM</div>
+  <p>用户消息是 USER；cron 触发、子代理（subagent）结果回注、Dream 记忆整理等内部消息是 SYSTEM。二者走同一条流水线，但细节不同：SYSTEM 不更新 <code>original_user_text</code>、不写 runtime context blocks、响应走 <code>background_response</code> 而非普通 outbound。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="stages"><span class="step-badge">4</span>Turn 七阶段流水线：_process_message()</h2>
+<p>这是理解架构最重要的一段。整个 Turn 是一条<strong>固定顺序的阶段流水线</strong>，每个阶段由 <code>_run_turn_stage()</code> 包裹（统一打点：阶段名 + 耗时，DEBUG 日志可观察）：</p>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">nanobot/agent/loop.py : 1679-1687</span><span class="code-tag">流水线主体</span></div>
+<pre><code>await self._run_turn_stage(ctx, "restore", self._restore_turn)
+await self._run_turn_stage(ctx, "compact", self._compact_session)
+if await self._run_turn_stage(ctx, "command", self._dispatch_command):
+    return ctx.outbound                                    # 命令命中 → 提前结束
+await self._run_turn_stage(ctx, "build",   self._build_turn)
+await self._run_turn_stage(ctx, "run",     self._run_turn)
+await self._run_turn_stage(ctx, "save",    self._persist_turn)
+await self._run_turn_stage(ctx, "respond", self._prepare_outbound)
+return ctx.outbound
+</code></pre>
+</div>
+
+<div class="pipeline">
+  <div class="pipe-step"><div class="ps-name">restore</div><div class="ps-method">_restore_turn:1748</div><div class="ps-desc">取会话、工具过滤</div></div>
+  <div class="pipe-step"><div class="ps-name">compact</div><div class="ps-method">_compact_session:1805</div><div class="ps-desc">TTL / 会话级压缩准备</div></div>
+  <div class="pipe-step"><div class="ps-name">command</div><div class="ps-method">_dispatch_command:1813</div><div class="ps-desc">slash 命令路由（可短路）</div></div>
+  <div class="pipe-step"><div class="ps-name">build</div><div class="ps-method">_build_turn:1865</div><div class="ps-desc">模型运行时、历史、上下文组装</div></div>
+  <div class="pipe-step"><div class="ps-name">run</div><div class="ps-method">_run_turn:1974</div><div class="ps-desc">调 AgentRunner 执行 LLM 循环</div></div>
+  <div class="pipe-step"><div class="ps-name">save</div><div class="ps-method">_persist_turn:2014</div><div class="ps-desc">原子写 session</div></div>
+  <div class="pipe-step"><div class="ps-name">respond</div><div class="ps-method">_prepare_outbound:2063</div><div class="ps-desc">组装 OutboundMessage</div></div>
+</div>
+
+<!-- ----------------------------------------------------------- -->
+<h3 id="restore">阶段 1 · restore —— 准备会话与工具集<span class="chip">loop.py:1748</span></h3>
+<ul>
+  <li><strong>附件改写</strong>：非图片附件（文件等）替换为引用文本，只保留图片 media 供多模态输入。</li>
+  <li><strong>会话获取</strong>：<code>get_or_create(session_key)</code>；<code>ephemeral |= not session.policy.persist</code>（策略声明不落盘的会话按临时处理）。</li>
+  <li><strong>工具过滤</strong>：按 <code>session.policy.disabled_tools</code> 克隆出受限 <code>ToolRegistry</code> —— 会话级工具禁用在这里生效。</li>
+  <li><strong>路由记忆</strong>：<code>_remember_session_route</code> 记住这个会话最近从哪个 channel/chat 来（后续 SYSTEM 消息能找到回信地址）。</li>
+  <li><strong>投递启动</strong>：<code>await ctx.delivery.started()</code>，channel 侧可以显示「正在思考」。</li>
+</ul>
+
+<div class="callout warn">
+  <div class="callout-title">例子 · restore</div>
+  <p>阿川的消息进入本阶段：<code>get_or_create("telegram:8848")</code> 取回已有会话（10 条历史在里面）；他的 session policy 里禁用了 <code>image_generation</code> → <code>ctx.tools</code> 变成去掉该工具后的受限注册表；<code>delivery.started()</code> 让 Telegram 端先把「正在输入…」亮起来。</p>
+</div>
+
+<!-- ----------------------------------------------------------- -->
+<h3 id="compact">阶段 2 · compact —— 会话级压缩准备<span class="chip">loop.py:1805</span></h3>
+<div class="code-card">
+  <div class="code-head"><span class="code-file">nanobot/agent/loop.py : 1805-1811</span><span class="code-tag">真实源码</span></div>
+<pre><code>async def _compact_session(self, ctx: TurnContext) -&gt; None:
+    session = ctx.require_session()
+    ctx.session, pending = self.auto_compact.prepare_session(session, ctx.session_key)
+    ctx.pending_summary = pending
+</code></pre>
+</div>
+<p>调用 <code>AutoCompact.prepare_session</code>（autocompact.py:116）：按 <strong>TTL 阈值</strong>判断是否需要把旧历史摘要成 <code>SessionSummary</code>，产出的 <code>pending_summary</code> 会在 build 阶段注入 transcript。注意这只是「turn 开始前」的一层；<strong>turn 运行中</strong>的按需压缩发生在 runner 里（见 §8）。</p>
+
+<!-- ----------------------------------------------------------- -->
+<h3 id="command">阶段 3 · command —— 命令路由（可短路）<span class="chip">loop.py:1813</span></h3>
+<p>消息以 <code>/</code> 开头则交给 <code>CommandRouter</code>（command/ 目录，内置命令 + 注册的扩展命令）。命中则执行命令、组装 outbound、<strong>流水线到此为止</strong>（不进 LLM）。优先级命令早在 <code>run()</code> 里就被内联消化了，这里处理的是普通命令。</p>
+
+<!-- ----------------------------------------------------------- -->
+<h3 id="build">阶段 4 · build —— 上下文组装（最重的一步）<span class="chip">loop.py:1865</span></h3>
+<p>把「一条消息」变成「一次可执行的 LLM 请求所需的一切」。真实源码较长，先看精简伪代码：</p>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">_build_turn 逻辑</span><span class="code-tag">伪代码</span></div>
+<pre><code>runtime = ctx.runtime OR self.runtime_for_session(session)   # ① 解析模型运行时
+                                                              #    （会话级 preset 覆盖 → 全局默认）
+ctx.runtime = runtime
+
+IF not ephemeral:                                             # ② 再次 auto_compact
+    session, pending_summary = auto_compact.prepare_session(...)
+
+ctx.history = session.get_history(extend_to_user=is_subagent)  # ③ 取历史
+stored_state = session.provider_state                          #    上次 turn 结束时存下的
+                                                              #    provider 服务端会话状态（如有）
+
+IF is_subagent:                                               # ④ 子代理结果：持久化为
+    persist_subagent_followup(session, msg)                   #    assistant 记录，但作为
+    session.provider_state = None; save(session)              #    新输入呈现给模型
+
+ctx.request_context = ...                                      # ⑤ 构造 RequestContext
+                                                              #    （channel/chat/sender/turn 元数据）
+
+IF kind == USER:
+    ctx.runtime_context_blocks = resolve_runtime_context_for_turn(ctx)
+    # ⑥ 注入运行时上下文块：当前时间、goal 状态、workspace 提示等
+    #    （以 block 形式随首条消息附上）
+
+IF stored_state 可被当前 provider 续接 (can_resume_conversation_state):
+    # ⑦ 有状态 provider：不重发全量历史，而是把本条消息
+    #    append 到服务端会话（with_pending_messages）
+    ctx.provider_state = stored_state + [current_provider_message]
+ELSE IF stored_state 存在:
+    session.provider_state = None                              # 换了模型/provider → 作废
+
+ctx.transcript_input = _build_transcript_input(ctx)
+# ⑧ 打包成 TranscriptInput（历史 + 本轮输入 + 摘要 + builder）交给 runner
+</code></pre>
+</div>
+
+<div class="callout key">
+  <div class="callout-title">一个容易忽略的细节</div>
+  <p><strong>provider_state 双形态</strong>：无状态 provider（Chat Completions）每轮重发全量 <code>transcript</code>；有状态 provider（如 OpenAI Responses API 的服务端上下文）只 append 增量并持有不透明 continuation token。切换点就是 <code>can_resume_conversation_state()</code>（loop.py:1914）。</p>
+</div>
+
+<div class="callout warn">
+  <div class="callout-title">例子 · build</div>
+  <p>为阿川解析 runtime：会话没有设置 model preset → 用全局默认配置；<code>session.get_history()</code> 取回此前的 10 条历史；阿川的 provider 是无状态的 → 走全量 transcript 路径，<code>provider_state</code> 不参与；runtime_context_blocks 注入一个「当前时间：2026-09-17 14:32」的 block，随本轮用户消息一起进入上下文。打包出的 <code>transcript_input</code>，正是 §6 Snapshot 0 里那个 messages 列表的来源。</p>
+</div>
+
+<!-- ----------------------------------------------------------- -->
+<h3 id="runstage">阶段 5 · run —— 交给 Runner<span class="chip">loop.py:1974</span></h3>
+<div class="code-card">
+  <div class="code-head"><span class="code-file">nanobot/agent/loop.py : 1974-2012</span><span class="code-tag">真实源码（节选）</span></div>
+<pre><code>async def _run_turn(self, ctx: TurnContext) -&gt; None:
+    runtime = ctx.require_runtime()
+    await ctx.delivery.running(started_at=...)      # channel 侧标记"运行中"
+    with capture_message_deliveries() as message_sends:
+        result = await self._run_agent_loop(        # → AgentRunner（下一大节）
+            ctx.transcript_input, runtime=runtime, session=ctx.session, ...,
+            provider_state=ctx.provider_state, events=ctx.events,
+        )
+    ctx.final_content = result.final_content
+    ctx.all_messages = result.messages
+    ctx.stop_reason = result.stop_reason
+    ...
+    if (ctx.kind is TurnKind.USER
+        and (ctx.delivery.route.channel, ctx.delivery.route.chat_id) in message_sends
+        and (not result.had_injections or result.stop_reason == "empty_final_response")):
+        ctx.suppress_response = True                # turn 中工具已直接发过消息 → 不再重复发
+    ctx.usage = result.usage
+    await turn_continuation.maybe_continue_turn(ctx)  # 长输出续写（length 续接）
+</code></pre>
+</div>
+<p><code>_run_agent_loop</code>（loop.py:939）是 runner 的薄包装：透传 hooks / events 后调用 <code>AgentRunner.run(spec)</code>。<code>capture_message_deliveries</code> 用于探测「turn 过程中工具是否已经自己向用户发过消息」（比如发送文件的工具），如果是且无后续注入，最终回复就不再重复发送（<code>suppress_response</code>）。</p>
+
+<!-- ----------------------------------------------------------- -->
+<h3 id="save">阶段 6/7 · save 与 respond<span class="chip">loop.py:2014 / 2063</span></h3>
+<div class="code-card">
+  <div class="code-head"><span class="code-file">nanobot/agent/loop.py : 2034-2054 · _persist_turn</span><span class="code-tag">真实源码（节选）</span></div>
+<pre><code>ctx.turn_latency_ms = max(0, int((time.time() - latency_started_at) * 1000))
+if ctx.usage is not None and not ctx.ephemeral:
+    session.metadata["_last_usage"] = ctx.usage.to_dict()       # usage 落进会话元数据
+self._save_turn(session, ctx.all_messages, ctx.save_skip, ...)  # ← 原子写（temp file + fsync + rename）
+if (not ctx.ephemeral and ctx.provider_compaction_applied
+        and ctx.summary_checkpoint is not None):
+    session.provider_state = None   # provider 压缩后：opaque continuation 已失效，
+                                    # 下次必须从可移植的 summary checkpoint 重建
+ctx.delivery.record_latency(ctx.turn_latency_ms)
+self.sessions.save(session)
+</code></pre>
+</div>
+<p><code>_prepare_outbound</code>（2063）收尾：<code>suppress_response → None</code>；SYSTEM turn 走 <code>background_response</code>；USER turn 用 <code>_assemble_outbound</code>（1716）打包 <code>OutboundMessage</code> —— 若内容已经流式推给用户且非错误，附带 <code>StreamedResponseEvent</code>（channel 据此不重复渲染正文），并带上 <code>latency_ms</code> 元数据。最后回到 <code>_dispatch</code> 里的 <code>delivery.complete(response)</code> 真正发回 channel。</p>
+
+<div class="callout warn">
+  <div class="callout-title">例子 · save / respond</div>
+  <p>阿川这一轮的 5 条新消息（2 条带 tool_calls 的 assistant + 2 条 tool + 1 条最终 assistant）原子写进 session，会话历史从 12 条变成 17 条。<code>OutboundMessage</code> 的 content 就是最终 assistant 消息的正文 —— 阿川几秒后在 Telegram 收到：「<em>todo.txt 是你的待办清单：写周报、修复 login bug、部署新版本等。文件一共 200 行。</em>」这一轮 Turn 结束。</p>
+</div>
+
+<hr class="hr">
+
+<!-- ============================================================ -->
+<h2 id="runner-run"><span class="step-badge">5</span>AgentRunner.run()：hook 生命周期外壳<span class="chip">runner.py:308</span></h2>
+<div class="code-card">
+  <div class="code-head"><span class="code-file">nanobot/agent/runner.py : 308-360</span><span class="code-tag">真实源码（骨架）</span></div>
+<pre><code>async def run(self, spec: AgentRunSpec) -&gt; AgentRunResult:
+    hook = spec.hook or AgentHook()
+    messages, compaction = self._initial_transcript_and_compaction(spec)  # ← 见下
+    context = AgentRunHookContext(messages=deepcopy(messages))
+    llm_usage_source_token = bind_llm_usage_source(...)                  # usage 统计归因
+    try:
+        await hook.before_run(context)
+        result = await self._run_core(spec, hook, messages, compaction)  # ← 真正的循环
+    except asyncio.CancelledError:
+        ...; raise                                          # stop_reason = "cancelled"
+    except Exception as exc:
+        ...; await hook.on_error(context); raise
+    else:
+        ...; await hook.after_run(context); return result
+    finally:
+        await hook.on_finally(context)                       # 无论如何都执行
+        reset_llm_usage_source(llm_usage_source_token)
+</code></pre>
+</div>
+<p><code>_initial_transcript_and_compaction</code>（363）是输入的两种形态：传 <code>transcript_input</code>（正常会话路径）会用 <code>ContextCompactionState.from_transcript</code> 建立<strong>压缩状态机</strong> —— 它维护「已接受历史 / 活动摘要 / 增量」的边界，是运行中压缩的基础；传 <code>initial_messages</code>（子代理等简单路径）则没有压缩状态。</p>
+
+<div class="callout key">
+  <div class="callout-title">AgentRunSpec 是什么</div>
+  <p>runner.py:89，一次运行的完整参数：初始消息、工具集、runtime、max_iterations、各类回调（injection / continuation）、<code>finalize_on_max_iterations</code> 开关等。loop 层把它构造好、runner 层只认它 —— 两层之间最干净的解耦点。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="core"><span class="step-badge">6</span>_run_core()：LLM ↔ 工具的迭代循环<span class="chip">runner.py:386</span></h2>
+<p>这是整个 agent 的心脏。先看整体伪代码：</p>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">_run_core 整体结构</span><span class="code-tag">伪代码</span></div>
+<pre><code>SETUP:
+    conversation_state = ProviderConversationStateController(...)  # 有状态 provider 的会话投影
+    request_state      = ModelRequestState(config, conversation, compaction, events)
+    usage / round_usages / tools_used / tool_events / final_content 初始化
+
+FOR iteration IN range(max_iterations):
+    await hook.before_iteration(context)
+
+    # ── 1. 请求 LLM（含上下文治理：超预算就地压缩，见 §8）──
+    request_messages = compaction.request_messages(messages)   # 摘要态下的有效视图
+    response, raw_usage = await self._request_model(spec, request_messages, ...)
+
+    # ── 2. 拆分 reasoning 与正文，合并 usage ──
+    reasoning_text, cleaned = extract_reasoning(...)
+    conversation_state.observe_response(response, messages)
+    compaction.accept_request(...)                              # 推进"已接受"边界
+
+    # ── 3A. 模型要求执行工具 ──
+    IF response.should_execute_tools:
+        messages.append(assistant_message(tool_calls))          # 带 tool_calls 的 assistant 消息
+        results = await execute_tool_calls(tools, tool_calls,   # 并发执行（concurrent_tools 限制）
+                                           concurrent=spec.concurrent_tools, ...)
+        FOR (tool_call, result) IN zip(tool_calls, results):
+            messages.append({
+                "role": "tool", "tool_call_id": ...,
+                "content": context_governor.normalize_tool_result(...)   # 超长 offload/截断
+            })
+        empty_content_retries = 0; length_recovery_parts.clear()
+        drain_injections(phase="after tool execution")          # ③ 排队消息注入（本篇略）
+        await hook.after_iteration(context)
+        CONTINUE                                                # ──→ 下一轮迭代
+
+    # ── 3B. 模型给出最终回复 ──
+    IF clean 为空 AND finish_reason 正常:                       # 空回复 → 最多重试 2 次
+        empty_content_retries += 1
+        IF retries &lt; _MAX_EMPTY_RETRIES: CONTINUE               # 直接再问一次
+        ELSE: response = await _request_finalization_retry(...) # 最后强制让模型收尾
+
+    IF finish_reason == "length":                                # 输出被 max_tokens 截断
+        length_recovery_parts.append(clean)                     # 保存已有段落（最多 3 段）
+        messages.append(build_length_recovery_message(...))      # 注入"请继续"消息
+        CONTINUE                                                # 续写
+
+    IF finish_reason == "error":                                # 模型级错误
+        final_content = 欠费提示 or 错误消息
+        append_model_error_placeholder(messages)                 # 历史留占位，防死循环
+        stop_reason = "error"; BREAK
+
+    messages.append(final_assistant_message)
+    final_content = "".join(length_recovery_parts) + clean       # 拼接续写链
+    BREAK
+
+ELSE:                                                            # for 循环耗尽 → max_iterations
+    stop_reason = "max_iterations"
+    drain_injections(phase="after max_iterations")
+    IF spec.finalize_on_max_iterations:
+        terminal_content = await _try_finalize_after_max_iterations(...)  # 无工具最终请求
+    IF terminal_content IS None:
+        terminal_content = _max_iterations_fallback(spec)        # 兜底文案
+    append_final_message(messages, terminal_content)
+
+RETURN AgentRunResult(final_content, messages, tools_used, usage, round_usages,
+                     stop_reason, error, ..., provider_state=conversation_state.finish(messages),
+                     summary_checkpoint=compaction.summary_checkpoint)
+</code></pre>
+</div>
+
+<h3>工具执行分支的真实代码<span class="chip">runner.py:482-579</span></h3>
+<div class="code-card">
+  <div class="code-head"><span class="code-file">nanobot/agent/runner.py : 487-568</span><span class="code-tag">真实源码（节选）</span></div>
+<pre><code>assistant_message = build_assistant_message(
+    response.content or "",
+    tool_calls=[tc.to_openai_tool_call() for tc in response.tool_calls],
+    reasoning_content=response.reasoning_content,
+    thinking_blocks=response.thinking_blocks,
+)
+assistant_message = conversation_state.project_response_message(assistant_message, response)
+messages.append(assistant_message)
+
+await hook.before_execute_tools(context)
+results, new_events = await execute_tool_calls(       # ← 并发执行工具
+    spec.tools, response.tool_calls,
+    concurrent=spec.concurrent_tools,
+    ...
+)
+for tool_call, result in zip(response.tool_calls, results):
+    tool_message = {
+        "role": "tool", "tool_call_id": tool_call.id, "name": tool_call.name,
+        "content": self.context_governor.normalize_tool_result(
+            governance_config, tool_call.id, tool_call.name, result),  # ← 超长结果治理
+    }
+    messages.append(tool_message)
+
+await hook.after_iteration(context)
+continue
+</code></pre>
+</div>
+
+<h3 id="example">完整例子：一次带工具调用的 Turn，messages 如何一步步变化<span class="chip">示意</span></h3>
+<p>工具调用循环最直观的理解方式，就是盯着 <code>messages</code> 这个列表的演化。场景：用户发来「<em>看看 /workspace/todo.txt 里有什么，再告诉我一共有几行</em>」。</p>
+
+<p><strong>Snapshot 0 —— build 阶段结束后</strong>，runner 拿到的初始 messages（无状态 provider 视角）。注意阿川的 10 条旧历史排在最前面（本节为聚焦工具循环，用省略号折叠，§8 讲 compaction 时会展开）：</p>
+<div class="code-card">
+  <div class="code-head"><span class="code-file">messages · 初始状态（12 条）</span><span class="code-tag">示意</span></div>
+<pre><code>[
+  {"role": "system", "content": "You are nanobot, ...（系统提示：人设/工具规范/workspace 边界）"},
+  ... 此前 10 条历史：阿川前几天和 bot 的问答，原样保留 ...,
+  {"role": "user",   "content": "看看 /workspace/todo.txt 里有什么，再告诉我一共有几行"}
+]
+</code></pre>
+</div>
+
+<p><strong>迭代 1</strong>：模型判断需要先读文件，返回 <code>tool_calls</code>。runner 把<strong>带 tool_calls 的 assistant 消息</strong>和<strong>工具执行结果</strong>依次 append（注意 assistant 的 <code>content</code> 可以为空串，意图全在 tool_calls 里）：</p>
+<div class="code-card">
+  <div class="code-head"><span class="code-file">messages · 迭代 1 执行工具后</span><span class="code-tag">示意</span></div>
+<pre><code>[
+  ... system + 10 条旧历史 + 本轮 user，共 12 条原样保留 ...,
+
+  {"role": "assistant", "content": "",                # ← 模型的"意图"：调用 read_file
+   "tool_calls": [
+     {"id": "call_a1", "type": "function",
+      "function": {"name": "read_file",
+                   "arguments": "{\"path\": \"/workspace/todo.txt\"}"}}
+   ]},
+
+  {"role": "tool", "tool_call_id": "call_a1",          # ← id 必须与上面严格对应
+   "name": "read_file",
+   "content": "1. 写周报\n2. 修复 login bug\n3. 部署新版本\n…（假设共 200 行）"}
+]
+</code></pre>
+</div>
+<p><code>continue</code> 进入<strong>迭代 2</strong>：整个 messages（现在 4 条）作为下一次请求的上下文发给模型 —— <strong>模型在这一轮才"看到"工具结果</strong>。它看完文件内容，决定再跑一条 shell 命令确认行数：</p>
+<div class="code-card">
+  <div class="code-head"><span class="code-file">messages · 迭代 2 执行工具后</span><span class="code-tag">示意</span></div>
+<pre><code>[
+  ... 前面全部原样保留：system + 10 条旧历史 + 本轮 user + 迭代 1 的 2 条（共 14 条）...,
+
+  {"role": "assistant", "content": "",                 # ← 第二个工具调用
+   "tool_calls": [
+     {"id": "call_b2", "type": "function",
+      "function": {"name": "exec",
+                   "arguments": "{\"command\": \"wc -l /workspace/todo.txt\"}"}}
+   ]},
+
+  {"role": "tool", "tool_call_id": "call_b2", "name": "exec",
+   "content": "200 /workspace/todo.txt"}
+]
+</code></pre>
+</div>
+<p><strong>迭代 3</strong>：模型这次不再返回 tool_calls，而是给出最终回答 —— append 最后一条 assistant 消息，循环 <code>break</code>：</p>
+<div class="code-card">
+  <div class="code-head"><span class="code-file">messages · 迭代 3 落定 final_content 后</span><span class="code-tag">示意</span></div>
+<pre><code>[
+  ... 前面全部原样保留（共 16 条）...,
+  {"role": "assistant", "content": "todo.txt 是你的待办清单：写周报、修复 login bug、部署新版本等。文件一共 200 行。"}
+]
+# stop_reason = "completed"，final_content = 这条 assistant 的 content
+# 本 turn 结束：messages 共 17 条，save 阶段整体写入 session
+</code></pre>
+</div>
+
+<div class="cards">
+  <div class="card">
+    <span class="card-tag t-blue">关键点 1</span>
+    <h4>对话历史是"滚雪球"的</h4>
+    <p>每轮迭代<strong>只 append、不删改</strong>。无状态 provider 每次请求都重发整个列表 —— 这就是为什么需要上下文治理（§8）。有状态 provider 则只在服务端 append 增量（provider_state 路径）。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-green">关键点 2</span>
+    <h4>tool_call_id 是缝合线</h4>
+    <p>assistant 的每个 tool_call 和后续 tool 消息靠 <code>tool_call_id</code> 一一配对。孤儿 tool result（配对的 tool_call 丢了）会被 <code>drop_orphan_tool_results</code> 清掉 —— 这是很多 provider 直接 400 的坑。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-amber">关键点 3</span>
+    <h4>并行工具调用</h4>
+    <p>模型可以在一条 assistant 消息里返回多个 tool_calls（比如同时读三个文件）。<code>execute_tool_calls</code> 按 <code>concurrent_tools</code> 并发执行，结果到齐后统一 append，再进入下一轮。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-blue">关键点 4</span>
+    <h4>结果对模型是下一轮才可见</h4>
+    <p>工具结果 append 完 → <code>continue</code> → 下一轮迭代重新请求模型。<em>工具执行期间模型不"在线"</em>；如果执行中用户插了新消息（injection），也会在下一次请求前被注入 messages 一起被模型看到。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-green">关键点 5</span>
+    <h4>超长结果的形态</h4>
+    <p>如果 <code>read_file</code> 读回 500KB，<code>normalize_tool_result</code> 会把它写进工作区文件，tool 消息里只剩 <code>"content": "结果过长，已保存至 .nanobot/tool-results/call_a1.txt"</code> —— 模型需要时可以再调 <code>read_file</code> 分段读。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-amber">关键点 6</span>
+    <h4>模型自己决定循环次数</h4>
+    <p>runner 不编排"先读后数"—— 是模型看完工具定义和上下文后<strong>自己选择</strong>的。<code>max_iterations</code> 只防失控（比如模型陷入反复读同一个文件的循环），兜底时还会发一次无工具的收尾请求逼出总结。</p>
+  </div>
+</div>
+
+<h3>请求层：_request_model 与流式处理<span class="chip">runner.py:865</span></h3>
+<p>每次迭代的 LLM 请求入口。第一步永远是把 messages 交给 <code>context_governor.prepare_request()</code>（见 §8），拿到治理后的请求消息和 provider 上下文，然后构造请求参数并处理<strong>流式</strong>：每个 delta 通过 hook 转发（<code>on_stream</code>），原生 thinking 块有独立的开启/关闭事件对，流中断可恢复（<code>_stream_recover</code>）。工具调用结果里畸形调用（<code>_drop_malformed_tool_calls</code>）和收尾重试（<code>_request_finalization_retry</code>）也都在这一层的保护范围内。</p>
+
+<div class="callout warn">
+  <div class="callout-title">为什么不直接调 provider？</div>
+  <p><code>_request_model</code> 之前隔着 <code>prepare_request</code>（治理/压缩/预算校验），之后隔着流式事件归一化（stream/thinking/tool 事件）、usage 记录（<code>_record_request_usage</code>，provider 没报就估算 <code>_estimate_response_usage</code>）。这一层保证<strong>无论哪个 provider、哪种流式形态，runner 主循环看到的都是统一的 <code>LLMResponse</code></strong>。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="governance"><span class="step-badge">7</span>上下文治理：三层防线<span class="chip">context_governance.py</span></h2>
+<p>「一个 turn 里上下文会不会爆」由三层机制回答，前一层兜不住才轮到下一层：</p>
+
+<div class="cards">
+  <div class="card">
+    <span class="card-tag t-blue">第 1 层 · 单结果</span>
+    <h4>normalize_tool_result</h4>
+    <p>每个工具结果 append 前（runner.py:537）：<code>maybe_persist_tool_result</code> 把超过 <code>max_tool_result_chars</code> 的输出 <strong>offload 到工作区文件</strong>，消息里只留文件路径引用；无 workspace 则硬截断。<code>TOOL_RESULT_OFFLOAD_EXEMPT_TOOLS</code> 豁免。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-green">第 2 层 · 每请求</span>
+    <h4>prepare_request 压力检查</h4>
+    <p>每次调 LLM 前（_request_model 第一步，context_governance.py:593）：估算 tokens vs <code>input_budget</code>（窗口 − max_output − buffer）。超预算：有 <code>ContextCompactionState</code> → <code>_compact_request_history</code>（:521）用 LLM 把已接受历史摘要成 checkpoint，保留增量；否则 → <code>fit_to_budget</code>（:336）尾部保留 + 清孤儿 tool result。仍不行抛 <code>ContextWindowExceededError</code>。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-amber">第 3 层 · 会话级</span>
+    <h4>AutoCompact（turn start）</h4>
+    <p>restore/build 阶段调用 <code>prepare_session</code>（autocompact.py:116）：TTL 驱动的过期归档与历史摘要准备，产出 <code>pending_summary</code> 在 build 阶段注入 transcript。与运行中的压力驱动 compaction 互补。</p>
+  </div>
+</div>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">prepare_request 压缩决策</span><span class="code-tag">伪代码</span></div>
+<pre><code>prepared = prepare_messages_for_model(messages)     # 清理：占位符剥离、孤儿 tool result 等
+
+pressure = request_pressure(prepared, usage, ...)   # 估算 tokens（或用 provider 报的真实值）
+IF pressure IS None:                               # 没超预算 → 直接发
+    RETURN prepared
+
+IF compaction EXISTS:                               # 正常会话路径
+    delta = compaction.delta_after_accepted(messages)
+    summary = await consolidate_history(已接受历史, 旧摘要)      # ← 一次额外的 LLM 调用！
+    prepared = [summary 块, "继续"提示, delta...]                # 摘要 + 增量
+    conversation.replace_transcript(raw_messages)               # 重写 provider 侧基线
+ELSE:                                               # 无压缩状态（如子代理）
+    prepared = fit_to_budget(messages)              # snip 丢最老消息（保 system + 尾部）
+
+ensure_request_fits(prepared)                       # 终检：仍超预算 → 抛 ContextWindowExceededError
+</code></pre>
+</div>
+
+<h3 id="example-compact">例子的续章：三个星期后，同一个会话撞上预算</h3>
+<p>故事继续。阿川一直在 <code>telegram:8848</code> 里让 bot 维护这份 todo：加条目、跑统计脚本、查内容。三个星期后会话历史滚到 <strong>60+ 条、含大量工具结果</strong>。某天他又发来「在 todo 里加上体检预约，然后重新统计」—— 迭代 1 执行完一个 <code>exec</code> 调用后，<code>prepare_request</code> 估算下一次请求要 <strong>190k tokens，超出 input_budget 120k</strong>。压缩发生了：</p>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">messages · 压缩前（62 条，估算 190k &gt; 预算 120k）</span><span class="code-tag">示意</span></div>
+<pre><code>├─ #0        system
+├─ #1–#30    早期：初次配置、第一版 todo 整理、几次小修改…
+│            （旧的 read_file / exec 结果都早已 offload 成文件引用，不是巨石）
+├─ #31–#58   中期：多轮工具调用及其结果、阿川的追加要求…
+├─ #59–#61   本轮：user（加体检预约）+ assistant(tool_calls: exec append…) + tool 结果
+│
+└─ 目标：下一轮请求 = 摘要(1-58) + 最近几条 delta，而不是 62 条全量
+</code></pre>
+</div>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">messages · _compact_request_history 之后（估算 30k ≤ 预算）</span><span class="code-tag">示意</span></div>
+<pre><code>├─ system
+├─ 摘要块（由 consolidate_history 用 LLM 现场生成）：
+│    "此前会话摘要：用户阿川通过 bot 维护 /workspace/todo.txt，
+│     先后完成过：初版整理、login bug 跟踪、部署提醒等条目管理；
+│     上一轮确认文件 200 行；工作区为 /workspace …"
+├─ {"role": "user", "content": "（此前对话已压缩为上述摘要，请基于该背景继续）"}
+│     ↑ SUMMARY_CONTINUATION_TEXT：摘要块不能直接接 assistant，需要一条 user 消息过渡
+├─ delta（原样保留，一条不少）：
+│    user（加体检预约）→ assistant(tool_calls) → tool(结果) → …
+└─ 模型基于「摘要 + 最近几条」继续本 turn，对话无缝衔接
+</code></pre>
+</div>
+
+<div class="cards">
+  <div class="card">
+    <span class="card-tag t-green">摘要会滚动累积</span>
+    <h4>active_summary</h4>
+    <p>下次再撞预算时，<code>consolidate_history(待压缩历史, <strong>旧摘要</strong>)</code> —— 新摘要是把增量合并进旧摘要，<strong>不是从 60 条重摘一遍</strong>。摘要是滚动的、越压越稳定。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-blue">只压「已接受」部分</span>
+    <h4>accept_request 边界</h4>
+    <p>每次请求成功后 <code>compaction.accept_request</code> 推进边界。本 turn 迭代中刚 append 的消息属于 delta，<strong>永远原样保留</strong>，压缩只动确认过的历史。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-amber">两层是配合的</span>
+    <h4>offload × compaction</h4>
+    <p>第 1 层保证单个工具结果进历史前就是「轻」的（500KB → 文件引用）；第 2 层面对的 62 条历史因此都是可摘要的文本。没有第 1 层，摘要调用自己就会先爆。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-blue">turn 结束后生效</span>
+    <h4>summary_checkpoint</h4>
+    <p>压缩产物随 <code>AgentRunResult.summary_checkpoint</code> 返回，save 阶段持久化。阿川下一条消息进来时，build 组装的就是<strong>压缩后的基线</strong>；若 provider 是有状态的，opaque continuation 已作废，必须从可移植的摘要重建。</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="final-paths"><span class="step-badge">8</span>终止与恢复路径详解<span class="chip">runner.py:587-844</span></h2>
+<p>「最终回复」的落定远不止 happy path。_run_core 的 3B 分支里排着一串依次检查的恢复逻辑：</p>
+
+<div class="code-card">
+  <div class="code-head"><span class="code-file">runner.py : 588-789</span><span class="code-tag">真实源码（骨架化）</span></div>
+<pre><code>clean = hook.finalize_content(context, response.content)
+
+# ── 路径 A：空回复重试 ─────────────────────────────────────
+IF finish_reason 正常 AND clean 为空:
+    empty_content_retries += 1
+    IF retries &lt; _MAX_EMPTY_RETRIES(=2):
+        CONTINUE                                # 直接再请求一次
+    ELSE:
+        response = await _request_finalization_retry(...)   # 注入"请给出最终答案"再问
+        clean = hook.finalize_content(...)
+
+# ── 路径 B：输出被截断（finish_reason == "length"）─────────
+IF finish_reason == "length":
+    IF len(length_recovery_parts) &lt; _MAX_LENGTH_RECOVERIES(=3):
+        length_recovery_parts.append(clean)     # 暂存这个片段
+        messages.append(assistant_message(clean))
+        messages.append(build_length_recovery_message(clean))  # "请从中断处继续"
+        CONTINUE                                # 下一轮迭代续写
+
+# ── 路径 C：模型错误 ──────────────────────────────────────
+IF finish_reason == "error":
+    final_content = 欠费提示(_ARREARAGE) or 默认错误消息
+    stop_reason = "error"
+    self._append_model_error_placeholder(messages)   # 历史留占位符，
+    BREAK                                              # 防下一轮反复重试死循环
+
+# ── 路径 D：仍然为空 ─────────────────────────────────────
+IF is_blank_text(clean):
+    final_content = EMPTY_FINAL_RESPONSE_MESSAGE      # "（模型未返回内容）"类占位
+    stop_reason = "empty_final_response"
+    BREAK
+
+# ── 路径 E：正常落定 ────────────────────────────────────
+messages.append(assistant_message)
+final_content = "".join(length_recovery_parts) + clean   # 续写链拼接
+stop_reason = "completed"
+BREAK
+
+# ── 路径 F：for 循环耗尽（max_iterations）────────────────
+ELSE:
+    stop_reason = "max_iterations"
+    IF spec.finalize_on_max_iterations:
+        terminal_content = await _try_finalize_after_max_iterations(...)  # 无工具收尾请求
+    IF terminal_content IS None:
+        terminal_content = _max_iterations_fallback(spec)
+    append_final_message(messages, terminal_content)
+</code></pre>
+</div>
+
+<div class="cards">
+  <div class="card">
+    <span class="card-tag t-amber">空回复</span>
+    <h4>empty_content_retries</h4>
+    <p>上限 <code>_MAX_EMPTY_RETRIES = 2</code>。前两次直接重问；用尽后走 <code>_request_finalization_retry</code>（注入一条要求收尾的消息再请求一次）。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-amber">截断续写</span>
+    <h4>length_recovery_parts</h4>
+    <p>上限 <code>_MAX_LENGTH_RECOVERIES = 3</code> 段。每段 append「请继续」消息驱动模型续写，最终把整链 <code>"".join(parts) + clean</code> 拼成完整回复。工具执行或用户注入会清空链条（新逻辑答案开始）。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-green">迭代兜底</span>
+    <h4>max_iterations finalize</h4>
+    <p>工具循环耗尽时，如果 spec 允许，发一次<strong>不带工具</strong>的收尾请求（<code>_request_no_tools</code> + budget 内的收尾消息），逼模型给出总结性回复；不行就用 <code>_max_iterations_fallback</code> 的兜底文案。</p>
+  </div>
+  <div class="card">
+    <span class="card-tag t-blue">错误占位</span>
+    <h4>_append_model_error_placeholder</h4>
+    <p>模型错误也要在历史里留一条占位 assistant 消息 —— 否则下一轮请求的历史里 tool_calls 悬空，某些 provider 会直接拒绝整个请求（会话永久卡死）。</p>
+  </div>
+</div>
+
+<hr class="hr">
+
+<!-- ============================================================ -->
+<h2 id="details"><span class="step-badge">9</span>细节速查表</h2>
+
+<h3>stop_reason 全集</h3>
+<table>
+  <tr><th style="width:220px">值</th><th>含义</th><th>典型来源</th></tr>
+  <tr><td><code>"completed"</code></td><td>正常拿到最终回复</td><td>runner.py:399 初始化，788 落定</td></tr>
+  <tr><td><code>"max_iterations"</code></td><td>迭代配额耗尽（工具循环停不下来）</td><td>runner.py:791</td></tr>
+  <tr><td><code>"error"</code></td><td>模型级错误（含欠费 <code>_ARREARAGE</code> 特判）</td><td>runner.py:720</td></tr>
+  <tr><td><code>"empty_final_response"</code></td><td>重试后仍无内容</td><td>runner.py:739</td></tr>
+  <tr><td><code>"cancelled"</code></td><td>用户 /stop 或 shutdown 取消</td><td>runner.py:321</td></tr>
+</table>
+
+<h3>工具结果的三种归宿</h3>
+<table>
+  <tr><th style="width:230px">情况</th><th>tool 消息里最终是什么</th></tr>
+  <tr><td>结果 ≤ <code>max_tool_result_chars</code></td><td>原始内容原样进入 messages</td></tr>
+  <tr><td>结果超长（如 shell 输出 500KB）</td><td>offload 到工作区文件，content 替换为「已保存至 <code>.nanobot/tool-results/&lt;call_id&gt;.txt</code>」的引用 —— 模型可再调 <code>read_file</code> 分段读</td></tr>
+  <tr><td>无 workspace / persist 失败</td><td><code>truncate_text</code> 硬截断，前后留省略标记</td></tr>
+</table>
+
+<h3>关键常量</h3>
+<table>
+  <tr><th style="width:260px">常量</th><th style="width:100px">值</th><th>作用</th></tr>
+  <tr><td><code>_MAX_EMPTY_RETRIES</code></td><td>2</td><td>空回复直接重问的次数</td></tr>
+  <tr><td><code>_MAX_LENGTH_RECOVERIES</code></td><td>3</td><td>截断续写链最大段数</td></tr>
+  <tr><td><code>_MAX_INJECTIONS_PER_TURN</code></td><td>3</td><td>单次 drain 注入的消息数上限</td></tr>
+  <tr><td><code>_MAX_INJECTION_CYCLES</code></td><td>5</td><td>单个 turn 的注入周期上限</td></tr>
+  <tr><td><code>consume timeout</code></td><td>1.0s</td><td>主循环消息泵超时</td></tr>
+  <tr><td><code>SNIP_SAFETY_BUFFER</code></td><td>—</td><td>token 预算的安全余量</td></tr>
+</table>
+
+<h3>容易踩坑的细节</h3>
+<ul>
+  <li><strong>会话内串行</strong>：同一 session 的两条消息永远不会并发跑 turn（<code>_get_session_lock</code>），但不同会话完全并发。</li>
+  <li><strong>ephemeral turn</strong>：不写 session 历史、不存 checkpoint、usage 不落 <code>_last_usage</code> —— 摘要生成、Dream 等内部任务用它，避免污染用户会话。</li>
+  <li><strong>provider 压缩后作废 provider_state</strong>：<code>provider_compaction_applied</code> 时（loop.py:2043-2050）必须清掉 opaque continuation，下次从 portable summary checkpoint 重建，否则会请求一个已被服务端重写过的会话。</li>
+  <li><strong>错误也要留占位</strong>：<code>_append_model_error_placeholder</code> 防止悬空 tool_calls 卡死会话（见上文卡片）。</li>
+  <li><strong>suppress_response</strong>：turn 中工具已经自己给用户发过消息（<code>capture_message_deliveries</code> 探测），最终回复就不再重复发送。</li>
+  <li><strong>SYSTEM turn 的回信</strong>：靠 restore 阶段 <code>_remember_session_route</code> 记住的路由找到回信地址，响应走 <code>background_response</code>。</li>
+  <li><strong>usage 归因</strong>：<code>bind_llm_usage_source</code> 在 runner 生命周期内绑定 source，round_usages 逐轮记录后 merge 成总 usage，provider 不报时用 <code>_estimate_response_usage</code> 估算。</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="qa"><span class="step-badge">10</span>自测问题（检验是否真的读懂了）</h2>
+<ol>
+  <li>一条 Telegram 消息从进入到收到回复，<strong>依次经过哪些函数</strong>？（对照全景图逐层复述）</li>
+  <li>对照 §6 的例子：迭代 1 的 <code>read_file</code> 结果，模型在<strong>哪一次请求</strong>里才看到？那次请求的 messages 一共有几条？</li>
+  <li><code>provider_state</code> 和 <code>transcript</code> 是什么关系？为什么切换 provider 后前者必须作废？</li>
+  <li>为什么每个 LLM 请求前都要过 <code>prepare_request</code>？超预算时有压缩状态和没有压缩状态分别走什么路径？</li>
+  <li>对照 §8 的续章：压缩后发给模型的 messages 由哪三部分组成？哪部分一条不少、哪部分是现场生成的？下次再撞预算时旧摘要怎么办？</li>
+  <li>单个工具输出 500KB 会发生什么？多个工具结果累积超窗口又会发生什么？</li>
+  <li><code>finish_reason == "length"</code> 时的续写链是怎么拼回完整回复的？什么情况下链条会被清空？</li>
+  <li>为什么 max_iterations 用尽后要发一次「无工具」请求？这个行为由什么开关控制？</li>
+  <li>模型在一条 assistant 消息里同时发起 3 个 tool_calls 时，执行顺序和结果 append 是怎样的？孤儿 tool result 是怎么产生的、谁来清理？</li>
+</ol>
+
+<div class="footer">
+  基于 nanobot 仓库 <code>nanobot/agent/loop.py</code>（2389 行）与 <code>nanobot/agent/runner.py</code>（~1400 行）源码整理。所有行号引用以当前 main 分支为准。生成于 2026-09-17。
+</div>
+
+</main>
+</div>
+
+<script>
+// ---------- Scroll-spy：侧边栏高亮当前章节 ----------
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc-inline a'));
+  var targets = links
+    .map(function (l) { return document.querySelector(l.getAttribute('href')); })
+    .filter(Boolean);
+
+  function onScroll() {
+    var idx = 0;
+    var y = window.scrollY + 120;
+    for (var i = 0; i < targets.length; i++) {
+      if (targets[i].offsetTop <= y) idx = i;
+    }
+    links.forEach(function (l, i) { l.classList.toggle('on', i === idx); });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
