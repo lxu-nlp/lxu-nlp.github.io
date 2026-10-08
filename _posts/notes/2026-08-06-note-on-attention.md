@@ -135,6 +135,13 @@ SWA 的升级版：与其全模型都是窗口，不如**隔层切换**——一
   - V4 interleaves CSA/HCA across 61 layers (layers 0–1 HCA, then alternate), served by a **unified dual-pool MLA operator**. Net: ~27% of V3.2 FLOPs at 1M context, KV cache ~2% of equivalent bfloat16 GQA.
 - **Representative open models:** DeepSeek-V3.2 (DSA), DeepSeek-V4 (CSA+HCA); the architectural pattern also influenced GLM-5 (DSA-style) and was validated across model families.
 
+**为什么 DeepSeek 能把 KV cache 命中率做到 95%+（MLA 与 CSA/HCA 各切一刀）。** 命中率要拆成两个量看：Agent 负载给的**理论上限**本来就极高——DualPath 论文（arXiv:2602.21548）测真实编码 Agent 轨迹，平均 157 轮、上下文 32.7K token、每轮只追加 429 token，即 $1 - 429/32700 \approx 98.7\%$ 的历史 KV 可复用；但 DeepSeek 官方曾披露 V3/R1 的 24 小时平均命中率只有 **56.3%**（608B 输入 token 中 342B 命中磁盘缓存）。这 40 个点的缺口卡在「缓存装不下」：命中率大致等于「缓存能驻留的会话数 ÷ 并发工作集」，所以缩小 KV 就等价于放大缓存容量。两条路径切的正是两个不同的轴：
+
+- **MLA 压的是「每条 entry 有多宽」**：$d_c=512$ latent + $64$ 维解耦 RoPE = 576 维/token/层，V3 61 层 BF16 下 1M 上下文仍要约 70 GB。比 MHA 小 57×，但**序列长度一点没缩短**——1M token 仍是 1M 条 entry。
+- **CSA/HCA 压的是「序列轴上 entry 有多少条」**：CSA 每 4 个 token 并 1 条再走 top-k 稀疏选择，HCA 每 128 个并 1 条后直接 dense。1M 上下文降到约 **5–10 GB，即 V3.2 的 10%**（约 GQA-8 的 2%）。
+
+只有压到这个量级，后两步才第一次变得划算：冷 KV 下放到 NVMe 做跨会话持久化（绕开 HBM 容量上限），以及 DualPath 加一条「存储 → decode 引擎 → RDMA → prefill 引擎」的加载路径，把 decode 侧闲置的存储带宽变成全局 I/O 池。**一句话：MLA 让 KV 变小，CSA/HCA 让 KV 少到能被真正"留住"，命中率才从 56% 贴回 98% 的上限。** 注意压缩只是乘数，负载（长前缀、短追加、多轮复用）才是被乘数——一次性随机长文档问答下 KV 再小也命中不了。
+
 ---
 
 ## 三、线性 / 循环注意力路线：把 $O(n^2)$ 彻底改成 $O(n)$
