@@ -3,7 +3,7 @@ layout: post
 title: "Notes on Agent Loop"
 date: 2026-09-17
 categories: [Notes]
-tags: [llm,agent]
+tags: [agent,harness]
 math: true
 ---
 
