@@ -26,6 +26,8 @@ math: true
 
 ---
 
+Check out this lightweight harness implemented in Python: [\[lab-harness\]](https://github.com/lxucs/lab-harness)
+
 ## 0. 一分钟定位：harness 是什么
 
 **一句话：模型只会「说」，harness 负责「听懂 → 校验 → 执行 → 回写 → 打分」。**
