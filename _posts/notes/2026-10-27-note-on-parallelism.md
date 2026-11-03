@@ -132,6 +132,18 @@ FSDP 的分片语义、`forward_pre_hook` 生命周期、以及 Root（Embedding
 - **千卡以上、要把 MFU 抠到极致** → Megatron。通信重叠、fused kernel、FP8 支持都在这里。
 - **只想在 HF 生态里做 SFT / LoRA** → Trainer + FSDP（或 DDP），别碰 Megatron。
 
+### 具体到"要用上 grouped GEMM / EP"的几套现成栈
+
+| 方案 | 组成 | 拿得到什么 | 代价 |
+|---|---|---|---|
+| **HF 原生（最省事）** | transformers v5 + `experts_implementation="grouped_mm"` + `DistributedConfig(ep_size=...)` + `kernels`（hub kernel） | grouped GEMM、EP、以及 GatedDeltaNet 等新算子的 kernel | 需要 PyTorch ≥ 2.9 / bf16 / SM≥80；MFU 上限不如 Megatron |
+| **HF + Unsloth** | 上面那套 + Unsloth 的 Triton grouped-GEMM / LoRA kernel | HF 官方博客口径：MoE 训练约 12×、显存 −35%、上下文约 6×（对比 v4） | 只覆盖它适配过的模型 |
+| **Liger Kernel** | `apply_liger_kernel_to_*` 或 `TrainingArguments(use_liger_kernel=True)` | RMSNorm / RoPE / SwiGLU / 融合 CE，以及 Triton 实现的 fused MoE（把 gate-up+SwiGLU+down 融成一条流水） | 逐模型适配，覆盖面是短板 |
+| **Megatron-Core / NeMo** | `expert_model_parallel_size` / `expert_tensor_parallel_size` / `moe_grouped_gemm` + TransformerEngine | 全套 EP/ETP/EDP + Parallel Folding + FP8 + 通信重叠，MFU 天花板 | 要换成 Megatron 版模型定义与权重转换 |
+| **DeepSpeed-MoE** | ZeRO + EP + Ulysses SP | 老牌 MoE 支持，Offload/Infinity 救显存 | 近两年新架构跟进慢 |
+
+实践建议：**先在 HF 原生这套里把 `experts_implementation` 和 `ep_size` 打开、确认 `grouped_mm` 真的生效（默认静默 fallback 到 eager，务必显式传参验证）**，这通常已经能拿到大部分收益；只有当多机全参预训练、要把 MFU 抠到极致时才值得付 Megatron 的迁移成本。
+
 ---
 
 ## 7. 常见误解

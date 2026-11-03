@@ -106,6 +106,63 @@ math: true
 - **每层都是 MoE**（`mlp_only_layers=[]`），无 capacity、无 token dropping。
 - 参数分布极端：**专家权重 32.2B ≈ 总参 92%**；其余全部（注意力 + 嵌入 + 共享专家 + ViT）加起来才 ~3B。
 
+#### 一个 Qwen3.5 层的伪代码（tensor 流动视角）
+
+注意力整块当黑盒函数，重点看**残差怎么走、MoE 内部张量怎么变形**。
+
+```python
+# 形状约定：h: (B, T, d)，d = hidden_size = 2048；N = B*T（token 展平）
+# 常量：E = 256 专家数，k = 8 top-k，m = 512 专家 FFN 中间维
+
+# ============ 一个 decoder layer ============
+def decoder_layer(h, layer_type):                 # h: (B, T, d)
+    r = h
+    h = rmsnorm_zero_centered(h)                  # pre-norm（Qwen3.5 用 (1+w) 形式）
+    h = token_mixer(h, layer_type)                # ← 注意力当黑盒：
+                                                  #   "linear_attention" -> GatedDeltaNet(h)   （30 层）
+                                                  #   "full_attention"   -> GatedAttention(h)  （10 层）
+    h = r + h                                     # 残差 1
+    r = h
+    h = moe_block(rmsnorm_zero_centered(h))       # ← 每个 token mixer 后面都跟一个 MoE
+    return r + h                                  # 残差 2
+
+
+# ============ MoE 部分 ============
+def moe_block(h):                                 # h: (B, T, d)
+    B, T, d = h.shape
+    x = h.view(-1, d)                             # (N, d)
+
+    # 1) 共享专家：每个 token 都过，外面套一个逐 token 的 sigmoid 标量门
+    shared = shared_expert(x)                     # (N, d)，SwiGLU FFN，中间维 512
+    shared = sigmoid(shared_gate(x)) * shared     # (N, 1) -> 控制"这条 token 用多少共享知识"
+
+    # 2) 路由：softmax over 全部专家 -> top-k -> 在选中的 k 个内重新归一化
+    logits = x @ W_gate.T                         # (N, E)，W_gate: (E, d)，无 bias
+    probs  = softmax(logits.float(), dim=-1)      # (N, E)
+    w, idx = topk(probs, k)                       # (N, k) 权重, (N, k) 专家编号
+    w = w / w.sum(-1, keepdim=True)               # renormalize（Qwen 系恒开）
+
+    # 3) 专家计算（真实实现这里应该是一次 grouped GEMM，HF 是 Python 循环）
+    y = zeros_like(x)                             # (N, d)
+    for e in unique(idx):                         # 只遍历本步命中的专家
+        pos, slot = where(idx == e)               # 哪些 token 选了 e
+        xe = x[pos]                               # (n_e, d)，n_e = e 分到的 token 数（各专家不同！）
+        gate, up = (xe @ W_gate_up[e].T).chunk(2, -1)   # (n_e, 2m) -> 两个 (n_e, m)
+        h_e = silu(gate) * up                     # SwiGLU
+        y[pos] += (h_e @ W_down[e].T) * w[pos, slot, None]
+        #  W_gate_up: (E, 2m, d)、W_down: (E, d, m) —— 专家权重是 3D 参数，按 e 索引
+
+    return (y + shared).view(B, T, d)             # 路由专家输出 + 门控后的共享专家
+```
+
+几点对着代码看更清楚：
+
+- **没有 capacity、没有 token dropping**：所有被选中的 token 都真算，`y[pos] += ...` 就是按路由权重加权累加回去（`index_add_`）。
+- **MoE 的 GEMM 难点就藏在 `n_e` 里**：每个专家分到的 token 数不同、运行时才知道，所以 `for e in unique(idx)` 这一层在 HF 参考实现里是 Python 循环，256 专家时极慢；生产环境必须换成 grouped GEMM（见第八节）。
+- **共享专家的门是 sigmoid、逐 token 标量**，与路由的 softmax + top-k **完全独立**：它不进负载均衡损失，也不会被 renormalize 影响。
+- **训练时还差一步**：`output_router_logits` 默认 `False`（微调必须手动开），开启后模型 forward 内部会再补一项 `loss += router_aux_loss_coef * load_balancing_loss(logits, E, k, attention_mask)`（Qwen 系默认 0.001）。
+- **对照 Qwen3-30B-A3B**：第 1) 步整个不存在——它没有 `shared_expert` / `shared_expert_gate`，`moe_block` 直接返回 `y`；其余（softmax 路由、top-8、renorm）一致。
+
 ### Gating 实现对照（读代码时最直接的分野）
 
 | | DeepSeek-V3 | Qwen3 / Qwen3.5 |
@@ -233,7 +290,8 @@ $$
 - **aux loss 默认根本没开**。`output_router_logits` 在 config 里默认 `False`，而负载均衡损失只在它为 `True` 时才算并加进 loss（模型 forward 内部）。
 - **`average_tokens_across_devices` 在 4.x 默认是 `False`**（5.x 才改成 `True`）。MoE 各卡真实 token 数差异比 dense 更大，建议显式设 `True`，走 `num_items_in_batch` 做 token 级平均，否则梯度累积下 loss 是错的。
 - **专家层的实现随版本变，直接决定 LoRA 能不能打到专家**：4.57.x 是 `nn.ModuleList([Qwen3MoeMLP(...)])`（每层是标准 `nn.Linear`，可以 LoRA）；5.x 改成 3D `nn.Parameter` 的 `gate_up_proj: (E, 2m, h)`，**不是 `nn.Linear`，标准 LoRA 包不住** → 只能 LoRA 到注意力 / `shared_expert` / `gate`。
-- **HF 参考实现没有 grouped GEMM、没有 EP**。MoE block 是 Python `for expert_idx in expert_hit:` 循环遍历命中的专家再 `index_add_`。256 专家下训练吞吐会很差；生产要用 Liger（`apply_liger_kernel_to_qwen3_moe` 等）或 Megatron / DeepSpeed-MoE 的专家并行。
+- **专家计算有可插拔后端（v5 起，`PR #42697`）**：`from_pretrained(..., experts_implementation="grouped_mm")` 会走 `torch._grouped_mm` 而不是 Python 循环；另有 `"batched_mm"`（小输入更快）与 `"eager"`（参考实现，就是 `for expert_idx in expert_hit` + `index_add_`）。**不指定时默认是 `grouped_mm`，环境不支持才静默退回 `eager`** —— 所以要**显式指定**来确认真的生效（需要 PyTorch ≥ 2.9、bf16、SM≥80）。`grouped_mm` 配 `torch.compile` 时不兼容 CUDA graph，要用 `mode=None` 或 `max-autotune-no-cudagraphs`。
+- **EP 也已经有了**：`DistributedConfig(ep_size=...)`，老的 `enable_expert_parallel=True` 已废弃（v5.21 移除）、等价于 `ep_size=tp_size`。框架选型见 [Note on Training Parallelism](https://lxu-nlp.github.io/posts/note-on-parallelism) 第 6 节。
 - **导出推理前把 `output_router_logits` 改回 `False`**；另外开了之后 eval loss 里含 aux 项，与 dense 模型的 eval loss 不可直接比较。
 
 ---
