@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Works on Multi-Modal"
+title: "Works on Multimodal"
 date: 2022-03-20
 categories: [NLP]
 tags: [nlp, multimodal, LLM]
